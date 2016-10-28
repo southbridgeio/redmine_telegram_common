@@ -8,7 +8,6 @@ module TelegramCommon
           has_one :telegram_account, dependent: :destroy, class_name: 'Telegram::Account'
         end
       end
-
     end
   end
 end

@@ -7,7 +7,6 @@ ActionDispatch::Callbacks.to_prepare do
   end
 end
 
-
 Redmine::Plugin.register :redmine_telegram_common do
   name 'Redmine Telegram Common plugin'
   author 'Author name'
