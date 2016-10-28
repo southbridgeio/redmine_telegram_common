@@ -1,0 +1,6 @@
+ru:
+  redmine_telegram_common:
+    redmine_telegram_connections:
+      create:
+        success: Аккаунты успешно связаны
+        error: Связать аккаунты не удалось

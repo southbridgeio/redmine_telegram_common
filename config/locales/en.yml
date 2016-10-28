@@ -1,3 +1,7 @@
-# English strings go here for Rails i18n
 en:
-  # my_label: "My label"
+  redmine_telegram_common:
+    redmine_telegram_connections:
+      create:
+        success: Accounts successfully connected
+        error: Accounts connection error
+
