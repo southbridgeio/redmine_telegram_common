@@ -9,9 +9,9 @@ end
 
 Redmine::Plugin.register :redmine_telegram_common do
   name 'Redmine Telegram Common plugin'
-  author 'Author name'
-  description 'This is a plugin for Redmine'
+  description 'This is a plugin for other Redmine Telegram plugins'
   version '0.0.1'
-  url 'http://example.com/path/to/plugin'
-  author_url 'http://example.com/about'
+  url 'https://github.com/centosadmin/redmine_telegram_common'
+  author 'Centos-admin.ru'
+  author_url 'https://centos-admin.ru'
 end
