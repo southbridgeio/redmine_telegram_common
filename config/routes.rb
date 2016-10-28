@@ -1,2 +1,3 @@
-# Plugin's routes
-# See: http://guides.rubyonrails.org/routing.html
+scope 'telegram' do
+  get 'connect' => 'redmine_telegram_connections#create', as: 'telegram_connect'
+end
