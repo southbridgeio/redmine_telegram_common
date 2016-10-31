@@ -15,7 +15,7 @@ Plugin developed by [Centos-admin.ru](https://centos-admin.ru)
 
 ## Telegram::Account model
 
-Table name: `telegram_accounts`
+Table name: `telegram_common_accounts`
 
 Telegram specific fields:
 * `telegram_id` - integer with index

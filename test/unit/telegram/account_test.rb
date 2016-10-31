@@ -15,10 +15,14 @@ class Telegram::AccountTest < ActiveSupport::TestCase
   end
 
   def test_activate
-    skip 'need to write test'
+    @telegram_account.update! active: false
+    @telegram_account.activate!
+    assert @telegram_account.active
   end
 
   def test_deactivate
-    skip 'need to write test'
+    @telegram_account.update! active: true
+    @telegram_account.deactivate!
+    assert !@telegram_account.active
   end
 end

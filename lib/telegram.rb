@@ -1,5 +1,5 @@
 module Telegram
   def self.table_name_prefix
-    'telegram_'
+    'telegram_common_'
   end
 end
