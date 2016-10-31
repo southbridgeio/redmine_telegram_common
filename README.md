@@ -11,7 +11,7 @@ This plugin gets
 * Telegram::Account model 
 * `telegram_connect_url` helper
 
-Plugin developed by [Centos-admin.ru](https://centos-admin.ru)
+Plugin is developed by [Centos-admin.ru](https://centos-admin.ru)
 
 ## Telegram::Account model
 
@@ -41,4 +41,4 @@ Required params
 * `telegram_id` - `telegram_id` field form `Telegram::Account` record
 * `token_id` - `token` field form `Telegram::Account` record
 
-Plugin developed by [Centos-admin.ru](https://centos-admin.ru)
+Plugin is developed by [Centos-admin.ru](https://centos-admin.ru)
