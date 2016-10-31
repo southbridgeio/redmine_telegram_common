@@ -1,4 +1,4 @@
-class CreateTelegramAccounts < ActiveRecord::Migration
+class CreateCommonTelegramAccounts < ActiveRecord::Migration
   def up
     create_table :telegram_accounts do |t|
       t.integer :telegram_id, index: true
