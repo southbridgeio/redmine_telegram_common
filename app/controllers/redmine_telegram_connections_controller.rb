@@ -6,7 +6,7 @@ class RedmineTelegramConnectionsController < ApplicationController
   def create
     @user = User.find(params[:user_id])
 
-    @telegram_account = Telegram::Account.find_by(telegram_id: params[:telegram_id])
+    @telegram_account = TelegramCommon::Account.find_by(telegram_id: params[:telegram_id])
 
     connect_telegram_account_to_user
 
@@ -26,9 +26,9 @@ class RedmineTelegramConnectionsController < ApplicationController
 
   def notice
     if @telegram_account.user.present?
-      t('redmine_telegram_common.redmine_telegram_connections.create.success')
+      t('telegram_common.redmine_telegram_connections.create.success')
     else
-      t('redmine_telegram_common.redmine_telegram_connections.create.error')
+      t('telegram_common.redmine_telegram_connections.create.error')
     end
   end
 

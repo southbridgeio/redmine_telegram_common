@@ -7,13 +7,14 @@ This is a common plugin for:
 * [redmine_intouch](https://github.com/centosadmin/redmine_intouch)
 * [redmine_chat_telegram](https://github.com/centosadmin/redmine_chat_telegram)
 
-This plugin gets
-* Telegram::Account model 
+This plugin includes
+* `TelegramCommon::Account` model 
+* `TelegramCommon::Mailer`
 * `telegram_connect_url` helper
 
 Plugin is developed by [Centos-admin.ru](https://centos-admin.ru)
 
-## Telegram::Account model
+## TelegramCommon::Account model
 
 Table name: `telegram_common_accounts`
 
@@ -26,19 +27,25 @@ Telegram specific fields:
 Redmine specific fields:
 * `user_id` - integer with index and foreign key
 * `active` - boolean
-* `token` - string (sets on `Telegram::Account` create)
+* `token` - string (sets on `TelegramCommon::Account` create)
 
 Available methods:
 * `name` - return concatenation of first_name, last_name and username (if it exists)
 * `activate!`  - sets `active` to `true`
 * `deactivate!`  - sets `active` to `false`
 
+## TelegramCommon::Mailer
+
+This mailer has one method `telegram_connect(user, telegram_account)`, where
+* `user` - Redmine user
+* `telegram_account` - `TelegramCommon::Account` instance
+
 ## `telegram_connect_url` helper
 
 Required params
 * `user_id` - redmine user id
 * `user_email` - redmine user email
-* `telegram_id` - `telegram_id` field form `Telegram::Account` record
-* `token_id` - `token` field form `Telegram::Account` record
+* `telegram_id` - `telegram_id` field form `TelegramCommon::Account` record
+* `token_id` - `token` field form `TelegramCommon::Account` record
 
 Plugin is developed by [Centos-admin.ru](https://centos-admin.ru)

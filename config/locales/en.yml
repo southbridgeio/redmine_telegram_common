@@ -1,7 +1,10 @@
 en:
-  redmine_telegram_common:
+  telegram_common:
     redmine_telegram_connections:
       create:
         success: Accounts successfully connected
         error: Accounts connection error
-
+    mailer:
+      telegram_connect:
+        subject: "Linking Redmine & Telegram accounts"
+        body: "For connect to %{telegram_account} account follow the link:"

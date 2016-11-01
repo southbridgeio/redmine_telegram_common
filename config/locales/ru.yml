@@ -1,6 +1,10 @@
 ru:
-  redmine_telegram_common:
+  telegram_common:
     redmine_telegram_connections:
       create:
         success: Аккаунты успешно связаны
         error: Связать аккаунты не удалось
+    mailer:
+      telegram_connect:
+        subject: "Связывание аккаунтов Redmine и Telegram"
+        body: "Для привязки аккаунта %{telegram_account} пройдите по ссылке:"
