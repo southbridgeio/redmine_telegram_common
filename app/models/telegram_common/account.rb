@@ -1,4 +1,4 @@
-class Telegram::Account < ActiveRecord::Base
+class TelegramCommon::Account < ActiveRecord::Base
   unloadable
 
   belongs_to :user

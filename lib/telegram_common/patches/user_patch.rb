@@ -5,7 +5,7 @@ module TelegramCommon
         base.class_eval do
           unloadable
 
-          has_one :telegram_account, dependent: :destroy, class_name: 'Telegram::Account'
+          has_one :telegram_account, dependent: :destroy, class_name: 'TelegramCommon::Account'
         end
       end
     end
