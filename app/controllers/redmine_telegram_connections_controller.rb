@@ -33,7 +33,7 @@ class RedmineTelegramConnectionsController < ApplicationController
   end
 
   def set_telegram_auth_source
-    @user.auth_source = Redmine2FA::AuthSource::Telegram.first
+    @user.auth_source = ::Redmine2FA::AuthSource::Telegram.first
     @user.save
   end
 end
