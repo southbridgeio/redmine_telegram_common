@@ -15,10 +15,6 @@ This plugin includes
 
 Plugin is developed by [Centos-admin.ru](https://centos-admin.ru)
 
-# Requirements
-
-Make sure to save this plugin as `plugins/000_redmine_telegram_common` to ensure it is loaded before all other plugins.
-
 ## TelegramCommon::Account model
 
 Table name: `telegram_common_accounts`
