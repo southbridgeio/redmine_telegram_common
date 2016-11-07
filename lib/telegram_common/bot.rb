@@ -50,7 +50,7 @@ module TelegramCommon
       else
         message = I18n.t('telegram_common.bot.connect.wait_for_email', email: email)
 
-        Mailer.telegram_connect(redmine_user, account).deliver
+        TelegramCommon::Mailer.telegram_connect(redmine_user, account).deliver
       end
 
       send_message(command.chat.id, message)

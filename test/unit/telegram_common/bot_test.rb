@@ -1,7 +1,7 @@
 require File.expand_path('../../../test_helper', __FILE__)
 
 class TelegramCommon::BotTest < ActiveSupport::TestCase
-  fixtures :users, :email_addresses, :roles, :auth_sources
+  fixtures :users, :email_addresses, :roles
 
   setup do
     @bot_token = 'token'
