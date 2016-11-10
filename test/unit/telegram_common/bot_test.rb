@@ -74,41 +74,100 @@ class TelegramCommon::BotTest < ActiveSupport::TestCase
     setup do
       @user = User.find(2)
 
-      TelegramCommon::Bot.any_instance
-        .expects(:send_message)
-        .with(123, I18n.t('telegram_common.bot.connect.wait_for_email', email: @user.mail))
-
       @telegram_account = TelegramCommon::Account.create(telegram_id: 123)
-      @telegram_message = ActionController::Parameters.new(
-        from: { id:         123,
-                username:   'dhh',
-                first_name: 'David',
-                last_name:  'Haselman' },
-        chat: { id: 123 },
-        text: "/connect #{@user.mail}"
-      )
-
-      @bot_service = TelegramCommon::Bot.new(@bot_token, @telegram_message)
     end
 
-    should 'send connect instruction by email' do
-      TelegramCommon::Mailer.any_instance
-        .expects(:telegram_connect)
-        .with(@user, @telegram_account)
+    context 'new connection' do
+      setup do
+        @telegram_message = ActionController::Parameters.new(
+          from: { id:         123,
+                  username:   'dhh',
+                  first_name: 'David',
+                  last_name:  'Haselman' },
+          chat: { id: 123 },
+          text: "/connect #{@user.mail}"
+        )
 
-      @bot_service.connect
+        @bot_service = TelegramCommon::Bot.new(@bot_token, @telegram_message)
+
+        TelegramCommon::Bot.any_instance
+          .expects(:send_message)
+          .with(123, I18n.t('telegram_common.bot.connect.wait_for_email', email: @user.mail))
+      end
+
+      should 'send connect instruction by email' do
+        TelegramCommon::Mailer.any_instance
+          .expects(:telegram_connect)
+          .with(@user, @telegram_account)
+
+        @bot_service.connect
+      end
     end
 
-    # should 'send user not found' do
-    #   # User.
-    # end
-    #
-    # def test_block_telegram_account_after_three_wrong_trials
-    #   skip 'need to write test'
-    # end
-    #
-    # def test_already_connected
-    #   skip 'need to write test'
-    # end
+    context 'already connected' do
+      setup do
+        @user.telegram_account = @telegram_account
+        @user.save!
+
+        @telegram_message = ActionController::Parameters.new(
+          from: { id:         123,
+                  username:   'dhh',
+                  first_name: 'David',
+                  last_name:  'Haselman' },
+          chat: { id: 123 },
+          text: "/connect #{@user.mail}"
+        )
+
+        @bot_service = TelegramCommon::Bot.new(@bot_token, @telegram_message)
+      end
+
+      should 'send telegram notification about already connected' do
+        TelegramCommon::Bot.any_instance
+          .expects(:send_message)
+          .with(123, I18n.t('telegram_common.bot.connect.already_connected'))
+
+        @bot_service.connect
+      end
+    end
+
+    context 'user not found' do
+      setup do
+        @telegram_message = ActionController::Parameters.new(
+          from: { id:         123,
+                  username:   'dhh',
+                  first_name: 'David',
+                  last_name:  'Haselman' },
+          chat: { id: 123 },
+          text: '/connect wrong@email.com'
+        )
+
+        @bot_service = TelegramCommon::Bot.new(@bot_token, @telegram_message)
+      end
+
+      should 'increment connect trials count' do
+        TelegramCommon::Bot.any_instance
+          .expects(:send_message)
+          .with(123, I18n.t('telegram_common.bot.connect.wrong_email'))
+
+        assert_equal 0, @telegram_account.connect_trials_count
+        @bot_service.connect
+        assert_equal 1, @telegram_account.reload.connect_trials_count
+      end
+
+      should 'block telegram account after 3 wrong trials' do
+        TelegramCommon::Bot.any_instance
+          .expects(:send_message)
+          .with(123, I18n.t('telegram_common.bot.connect.blocked'))
+
+        assert !@telegram_account.blocked?
+
+        @telegram_account.connect_trials_count = 2
+        @telegram_account.save!
+
+        @bot_service.connect
+
+        assert @telegram_account.reload.blocked?
+      end
+    end
   end
 end

@@ -1,5 +1,5 @@
 class CreateTelegramCommonAccounts < ActiveRecord::Migration
-  def up
+  def change
     create_table :telegram_common_accounts do |t|
       t.integer :telegram_id, index: true
       t.string :username

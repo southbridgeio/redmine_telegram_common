@@ -15,6 +15,8 @@ module TelegramCommon
     def call
       TelegramCommon.set_locale
 
+      return send_blocked_message if account.blocked?
+
       command_text = command.text
 
       if command_text&.include?('start')
@@ -59,8 +61,27 @@ module TelegramCommon
     private
 
     def user_not_found
-      # TODO: implement account block for many trials
-      send_message(command.chat.id, 'User not found')
+      increment_connect_trials
+      if account.connect_trials_count < 3
+        send_message(command.chat.id, I18n.t('telegram_common.bot.connect.wrong_email'))
+      else
+        block_account
+        send_blocked_message
+      end
+    end
+
+    def send_blocked_message
+      send_message(command.chat.id, I18n.t('telegram_common.bot.connect.blocked'))
+    end
+
+    def increment_connect_trials
+      account.connect_trials_count += 1
+      account.save
+    end
+
+    def block_account
+      account.blocked = true
+      account.save
     end
 
     def user
