@@ -13,6 +13,7 @@ en:
         instruction_html: |
           Now we need to connect your Redmine & Telegram account.
           Use the command for it: <b>/connect login@redmine.com</b> (where <b>login@redmine.com</b> - is your Redmine account email)
+        hello: Hello!
       connect:
         already_connected: Your accounts already connected
         wait_for_email: We sent email to address "%{email}". Please follow instructions from it.

@@ -32,7 +32,7 @@ module TelegramCommon
       update_auth_source if Redmine::Plugin.installed?('redmine_2fa')
 
       message = if account.user.present?
-                  I18n.t('telegram_common.redmine_telegram_connections.create.success')
+                  I18n.t('telegram_common.bot.start.hello')
                 else
                   I18n.t('telegram_common.bot.start.instruction_html')
                 end
