@@ -9,7 +9,7 @@ module TelegramCommon
       private
 
       def private_command?(command)
-        command.chat.id > 0
+        command.chat.type == 'private'
       end
 
       def private_commands

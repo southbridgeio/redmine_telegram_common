@@ -179,7 +179,8 @@ class TelegramCommon::BotTest < ActiveSupport::TestCase
                   username:   'abc',
                   first_name: 'Antony',
                   last_name:  'Brown' },
-          chat: { id: 123 },
+          chat: { id: 123,
+                  type: 'private'},
           text: '/help'
         )
 
@@ -205,7 +206,8 @@ class TelegramCommon::BotTest < ActiveSupport::TestCase
                   username:   'abc',
                   first_name: 'Antony',
                   last_name:  'Brown' },
-          chat: { id: -123 },
+          chat: { id: -123,
+                  type: 'group'},
           text: '/help'
         )
 
