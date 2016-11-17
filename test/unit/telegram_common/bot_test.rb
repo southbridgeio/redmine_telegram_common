@@ -31,7 +31,7 @@ class TelegramCommon::BotTest < ActiveSupport::TestCase
 
       should 'create telegram account' do
         assert_difference('TelegramCommon::Account.count') do
-          @bot_service.start
+          @bot_service.call
         end
 
         telegram_account = TelegramCommon::Account.last
@@ -46,7 +46,7 @@ class TelegramCommon::BotTest < ActiveSupport::TestCase
         telegram_account = TelegramCommon::Account.create(telegram_id: 123, username: 'test', first_name: 'f', last_name: 'l')
 
         assert_no_difference('TelegramCommon::Account.count') do
-          @bot_service.start
+          @bot_service.call
         end
 
         telegram_account.reload
@@ -60,7 +60,7 @@ class TelegramCommon::BotTest < ActiveSupport::TestCase
         actual = TelegramCommon::Account.create(telegram_id: 123, active: false)
 
         assert_no_difference('TelegramCommon::Account.count') do
-          @bot_service.start
+          @bot_service.call
         end
 
         actual.reload
@@ -100,7 +100,7 @@ class TelegramCommon::BotTest < ActiveSupport::TestCase
           .expects(:telegram_connect)
           .with(@user, @telegram_account)
 
-        @bot_service.connect
+        @bot_service.call
       end
     end
 
@@ -126,7 +126,7 @@ class TelegramCommon::BotTest < ActiveSupport::TestCase
           .expects(:send_message)
           .with(123, I18n.t('telegram_common.bot.connect.already_connected'))
 
-        @bot_service.connect
+        @bot_service.call
       end
     end
 
@@ -164,9 +164,64 @@ class TelegramCommon::BotTest < ActiveSupport::TestCase
         @telegram_account.connect_trials_count = 2
         @telegram_account.save!
 
-        @bot_service.connect
+        @bot_service.call
 
         assert @telegram_account.reload.blocked?
+      end
+    end
+  end
+
+  context '/help' do
+    context 'private' do
+      setup do
+        @telegram_message = ActionController::Parameters.new(
+          from: { id:         123,
+                  username:   'abc',
+                  first_name: 'Antony',
+                  last_name:  'Brown' },
+          chat: { id: 123 },
+          text: '/help'
+        )
+
+        @bot_service = TelegramCommon::Bot.new(@bot_token, @telegram_message)
+      end
+
+      should 'send help for private chat' do
+        text = <<~TEXT
+          /start - #{I18n.t('telegram_common.bot.private.start')}
+          /connect - #{I18n.t('telegram_common.bot.private.connect')}
+          /help - #{I18n.t('telegram_common.bot.private.help')}
+        TEXT
+
+        TelegramCommon::Bot.any_instance.expects(:send_message).with(123, text.chomp)
+        @bot_service.call
+      end
+    end
+
+    context 'group' do
+      setup do
+        @telegram_message = ActionController::Parameters.new(
+          from: { id:         123,
+                  username:   'abc',
+                  first_name: 'Antony',
+                  last_name:  'Brown' },
+          chat: { id: -123 },
+          text: '/help'
+        )
+
+        @bot_service = TelegramCommon::Bot.new(@bot_token, @telegram_message)
+      end
+
+      should 'send help for private chat' do
+        text = <<~TEXT
+          #{I18n.t('telegram_common.bot.group')}
+          /start - #{I18n.t('telegram_common.bot.private.start')}
+          /connect - #{I18n.t('telegram_common.bot.private.connect')}
+          /help - #{I18n.t('telegram_common.bot.private.help')}
+        TEXT
+
+        TelegramCommon::Bot.any_instance.expects(:send_message).with(-123, text.chomp)
+        @bot_service.call
       end
     end
   end

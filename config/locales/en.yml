@@ -19,3 +19,8 @@ en:
         wait_for_email: We sent email to address "%{email}". Please follow instructions from it.
         wrong_email: Wrong email. User with this email not found.
         blocked: Your account was blocked
+      group: "No commands for a group chat. Private chat commands:"
+      private:
+        start: "Start work with bot"
+        connect: "Connect Redmine and Telegram account"
+        help: "Help about commands"
