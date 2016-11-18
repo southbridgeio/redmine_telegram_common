@@ -24,12 +24,18 @@ module TelegramCommon
 
     private
 
+    def private_command?(command)
+      command.chat.type == 'private'
+    end
+
     def available_commands
       (private_commands + group_commands).uniq
     end
 
     def execute_command
       command_text = command.text
+
+      return unless command_text.present?
 
       command_name = command_text.scan(%r{^/(\w+)}).flatten.first
 

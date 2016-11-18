@@ -8,10 +8,6 @@ module TelegramCommon
 
       private
 
-      def private_command?(command)
-        command.chat.type == 'private'
-      end
-
       def private_commands
         %w(start connect help)
       end
