@@ -23,7 +23,7 @@ module TelegramCommon
                                   last_name: user.last_name,
                                   active: true
 
-        write_log_about_new_user if @logger && account.new_record?
+        write_log_about_new_user if logger && account.new_record?
 
         account.save!
       end
@@ -34,7 +34,7 @@ module TelegramCommon
       end
 
       def write_log_about_new_user
-        @logger.info "New telegram_user #{user.first_name} #{user.last_name} @#{user.username} added!"
+        logger.info "New telegram_user #{user.first_name} #{user.last_name} @#{user.username} added!"
       end
     end
   end
