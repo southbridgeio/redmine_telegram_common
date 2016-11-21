@@ -22,7 +22,7 @@ module TelegramCommon
 
       def help_command_list(list, namespace: 'telegram_common', type: 'private')
         list.map do |command|
-          %(/#{command} - #{I18n.t("#{namespace}.bot.#{type}.#{command}")})
+          %(/#{command} - #{I18n.t("#{namespace}.bot.#{type}.help.#{command}")})
         end.join("\n")
       end
 
