@@ -21,6 +21,7 @@ en:
         blocked: Your account was blocked
       group: "No commands for a group chat. Private chat commands:"
       private:
-        start: "Start work with bot"
-        connect: "Connect Redmine and Telegram account"
-        help: "Help about commands"
+        help:
+          start: "Start work with bot"
+          connect: "Connect Redmine and Telegram account"
+          help: "Help about commands"

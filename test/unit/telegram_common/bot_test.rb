@@ -189,9 +189,9 @@ class TelegramCommon::BotTest < ActiveSupport::TestCase
 
       should 'send help for private chat' do
         text = <<~TEXT
-          /start - #{I18n.t('telegram_common.bot.private.start')}
-          /connect - #{I18n.t('telegram_common.bot.private.connect')}
-          /help - #{I18n.t('telegram_common.bot.private.help')}
+          /start - #{I18n.t('telegram_common.bot.private.help.start')}
+          /connect - #{I18n.t('telegram_common.bot.private.help.connect')}
+          /help - #{I18n.t('telegram_common.bot.private.help.help')}
         TEXT
 
         TelegramCommon::Bot.any_instance.expects(:send_message).with(123, text.chomp)
@@ -217,9 +217,9 @@ class TelegramCommon::BotTest < ActiveSupport::TestCase
       should 'send help for private chat' do
         text = <<~TEXT
           #{I18n.t('telegram_common.bot.group')}
-          /start - #{I18n.t('telegram_common.bot.private.start')}
-          /connect - #{I18n.t('telegram_common.bot.private.connect')}
-          /help - #{I18n.t('telegram_common.bot.private.help')}
+          /start - #{I18n.t('telegram_common.bot.private.help.start')}
+          /connect - #{I18n.t('telegram_common.bot.private.help.connect')}
+          /help - #{I18n.t('telegram_common.bot.private.help.help')}
         TEXT
 
         TelegramCommon::Bot.any_instance.expects(:send_message).with(-123, text.chomp)
