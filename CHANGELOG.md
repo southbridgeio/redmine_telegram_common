@@ -1,6 +1,10 @@
+# 0.0.9
+
+* Notify when private command called from group chat
+
 # 0.0.7
 
-Add `/help` command
+* Add `/help` command
 
 # 0.0.6
 

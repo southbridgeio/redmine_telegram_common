@@ -2,7 +2,7 @@ module TelegramCommon
   module BotCommand
     module Help
       def help
-        message = private_command?(command) ? private_help_message : group_help_message
+        message = private_command? ? private_help_message : group_help_message
         send_message(command.chat.id, message)
       end
 
@@ -13,7 +13,7 @@ module TelegramCommon
       end
 
       def group_commands
-        []
+        %w(help)
       end
 
       def private_help_message
@@ -27,7 +27,7 @@ module TelegramCommon
       end
 
       def group_help_message
-        [I18n.t('telegram_common.bot.group'), private_help_message].join("\n")
+        [I18n.t('telegram_common.bot.group.no_commands'), private_help_message].join("\n")
       end
     end
   end
