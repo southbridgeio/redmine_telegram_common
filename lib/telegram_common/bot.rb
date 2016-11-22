@@ -24,7 +24,17 @@ module TelegramCommon
 
     private
 
-    def private_command?(command)
+    def execute_command
+      return unless available_commands.include?(command_name)
+
+      if private_command?
+        execute_private_command
+      else
+        execute_group_command
+      end
+    end
+
+    def private_command?
       command.chat.type == 'private'
     end
 
@@ -32,14 +42,24 @@ module TelegramCommon
       (private_commands + group_commands).uniq
     end
 
-    def execute_command
-      command_text = command.text
+    def execute_private_command
+      send(command_name)
+    end
 
-      return unless command_text.present?
+    def execute_group_command
+      if group_commands.include?(command_name)
+        send(command_name)
+      else
+        send_message(command.chat.id, I18n.t('telegram_common.bot.group.private_command'))
+      end
+    end
 
-      command_name = command_text.scan(%r{^/(\w+)}).flatten.first
+    def command_text
+      @command_text ||= command.text.to_s
+    end
 
-      send(command_name) if available_commands.include?(command_name)
+    def command_name
+      @command_name ||= command_text.scan(%r{^/(\w+)}).flatten.first
     end
 
     def send_message(chat_id, message)

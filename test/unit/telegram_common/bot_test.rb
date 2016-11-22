@@ -15,7 +15,8 @@ class TelegramCommon::BotTest < ActiveSupport::TestCase
                 username:   'dhh',
                 first_name: 'David',
                 last_name:  'Haselman' },
-        chat: { id: 123 },
+        chat: { id: 123,
+                type: 'private' },
         text: '/start'
       )
 
@@ -68,6 +69,27 @@ class TelegramCommon::BotTest < ActiveSupport::TestCase
         assert actual.active
       end
     end
+
+    context 'group' do
+      setup do
+        @telegram_message = ActionController::Parameters.new(
+          from: { id:         123,
+                  username:   'abc',
+                  first_name: 'Antony',
+                  last_name:  'Brown' },
+          chat: { id: -123,
+                  type: 'group' },
+          text: '/start'
+        )
+
+        @bot_service = TelegramCommon::Bot.new(@bot_token, @telegram_message)
+      end
+
+      should 'send message about private command' do
+        TelegramCommon::Bot.any_instance.expects(:send_message).with(-123, I18n.t('telegram_common.bot.group.private_command'))
+        @bot_service.call
+      end
+    end
   end
 
   context '/connect e@mail.com' do
@@ -84,7 +106,8 @@ class TelegramCommon::BotTest < ActiveSupport::TestCase
                   username:   'dhh',
                   first_name: 'David',
                   last_name:  'Haselman' },
-          chat: { id: 123 },
+          chat: { id: 123,
+                  type: 'private' },
           text: "/connect #{@user.mail}"
         )
 
@@ -114,7 +137,8 @@ class TelegramCommon::BotTest < ActiveSupport::TestCase
                   username:   'dhh',
                   first_name: 'David',
                   last_name:  'Haselman' },
-          chat: { id: 123 },
+          chat: { id: 123,
+                  type: 'private' },
           text: "/connect #{@user.mail}"
         )
 
@@ -137,7 +161,8 @@ class TelegramCommon::BotTest < ActiveSupport::TestCase
                   username:   'dhh',
                   first_name: 'David',
                   last_name:  'Haselman' },
-          chat: { id: 123 },
+          chat: { id: 123,
+                  type: 'private' },
           text: '/connect wrong@email.com'
         )
 
@@ -180,7 +205,7 @@ class TelegramCommon::BotTest < ActiveSupport::TestCase
                   first_name: 'Antony',
                   last_name:  'Brown' },
           chat: { id: 123,
-                  type: 'private'},
+                  type: 'private' },
           text: '/help'
         )
 
@@ -207,7 +232,7 @@ class TelegramCommon::BotTest < ActiveSupport::TestCase
                   first_name: 'Antony',
                   last_name:  'Brown' },
           chat: { id: -123,
-                  type: 'group'},
+                  type: 'group' },
           text: '/help'
         )
 
@@ -216,7 +241,7 @@ class TelegramCommon::BotTest < ActiveSupport::TestCase
 
       should 'send help for private chat' do
         text = <<~TEXT
-          #{I18n.t('telegram_common.bot.group')}
+          #{I18n.t('telegram_common.bot.group.no_commands')}
           /start - #{I18n.t('telegram_common.bot.private.help.start')}
           /connect - #{I18n.t('telegram_common.bot.private.help.connect')}
           /help - #{I18n.t('telegram_common.bot.private.help.help')}
