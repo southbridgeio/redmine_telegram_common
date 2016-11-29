@@ -4,7 +4,7 @@ module TelegramCommon
       EMAIL_REGEXP = /([^@\s]+@(?:[-a-z0-9]+\.)+[a-z]{2,})/i
 
       def connect
-        message_text = command.text
+        message_text = command.text.downcase
         email = message_text.scan(EMAIL_REGEXP)&.flatten&.first
         redmine_user = ::EmailAddress.find_by(address: email)&.user
 
