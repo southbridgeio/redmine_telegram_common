@@ -11,7 +11,7 @@ module TelegramCommon
     def initialize(bot_token, command, logger = nil)
       @bot = Telegrammer::Bot.new(bot_token)
       @logger = logger
-      @command = command.is_a?(Telegrammer::DataTypes::Message) ? command : Telegrammer::DataTypes::Message.new(command)
+      @command = initialize_command(command)
     end
 
     def call
@@ -23,6 +23,10 @@ module TelegramCommon
     end
 
     private
+
+    def initialize_command(command)
+      command.is_a?(Telegrammer::DataTypes::Message) ? command : Telegrammer::DataTypes::Message.new(command)
+    end
 
     def execute_command
       return unless available_commands.include?(command_name)
@@ -43,7 +47,11 @@ module TelegramCommon
     end
 
     def execute_private_command
-      send(command_name)
+      if private_commands.include?(command_name)
+        send(command_name)
+      else
+        send_message(command.chat.id, I18n.t('telegram_common.bot.private.group_command'))
+      end
     end
 
     def execute_group_command
@@ -71,7 +79,7 @@ module TelegramCommon
     end
 
     def user
-      command.from
+      @user ||= command.from
     end
 
     def account
