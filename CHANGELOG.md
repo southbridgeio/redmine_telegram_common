@@ -1,3 +1,7 @@
+# 0.0.11
+
+* Add `MessageSender` service class
+
 # 0.0.9
 
 * Notify when private command called from group chat

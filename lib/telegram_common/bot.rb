@@ -6,10 +6,10 @@ module TelegramCommon
     include BotCommand::Connect
     include BotCommand::Help
 
-    attr_reader :bot, :logger, :command
+    attr_reader :bot_token, :logger, :command
 
     def initialize(bot_token, command, logger = nil)
-      @bot = Telegrammer::Bot.new(bot_token)
+      @bot_token = bot_token
       @logger = logger
       @command = initialize_command(command)
     end
@@ -71,7 +71,11 @@ module TelegramCommon
     end
 
     def send_message(chat_id, message)
-      bot.send_message(chat_id: chat_id, text: message, parse_mode: 'HTML')
+      MessageSender.call(
+        chat_id: chat_id,
+        message: message,
+        bot_token: bot_token
+      )
     end
 
     def send_blocked_message

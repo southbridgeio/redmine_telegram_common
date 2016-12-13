@@ -3,10 +3,7 @@ require File.expand_path('../../../test_helper', __FILE__)
 class TelegramCommon::BotTest < ActiveSupport::TestCase
   fixtures :users, :email_addresses, :roles
 
-  setup do
-    @bot_token = 'token'
-    Telegrammer::Bot.any_instance.stubs(:get_me)
-  end
+  let(:bot_token) { 'token' }
 
   context '/start' do
     setup do
@@ -20,14 +17,18 @@ class TelegramCommon::BotTest < ActiveSupport::TestCase
         text: '/start'
       )
 
-      @bot_service = TelegramCommon::Bot.new(@bot_token, @telegram_message)
+      @bot_service = TelegramCommon::Bot.new(bot_token, @telegram_message)
     end
 
     context 'without user' do
       setup do
-        TelegramCommon::Bot.any_instance
-            .expects(:send_message)
-            .with(123, I18n.t('telegram_common.bot.start.instruction_html'))
+        TelegramCommon::Bot::MessageSender
+            .expects(:call)
+            .with(
+              chat_id: 123,
+              message: I18n.t('telegram_common.bot.start.instruction_html'),
+              bot_token: bot_token
+            )
       end
 
       should 'create telegram account' do
@@ -82,11 +83,17 @@ class TelegramCommon::BotTest < ActiveSupport::TestCase
           text: '/start'
         )
 
-        @bot_service = TelegramCommon::Bot.new(@bot_token, @telegram_message)
+        @bot_service = TelegramCommon::Bot.new(bot_token, @telegram_message)
       end
 
       should 'send message about private command' do
-        TelegramCommon::Bot.any_instance.expects(:send_message).with(-123, I18n.t('telegram_common.bot.group.private_command'))
+        TelegramCommon::Bot::MessageSender
+          .expects(:call)
+          .with(
+            chat_id: -123,
+            message: I18n.t('telegram_common.bot.group.private_command'),
+            bot_token: bot_token
+          )
         @bot_service.call
       end
     end
@@ -111,11 +118,15 @@ class TelegramCommon::BotTest < ActiveSupport::TestCase
           text: "/connect #{@user.mail}"
         )
 
-        @bot_service = TelegramCommon::Bot.new(@bot_token, @telegram_message)
+        @bot_service = TelegramCommon::Bot.new(bot_token, @telegram_message)
 
-        TelegramCommon::Bot.any_instance
-          .expects(:send_message)
-          .with(123, I18n.t('telegram_common.bot.connect.wait_for_email', email: @user.mail))
+        TelegramCommon::Bot::MessageSender
+          .expects(:call)
+          .with(
+            chat_id: 123,
+            message: I18n.t('telegram_common.bot.connect.wait_for_email', email: @user.mail),
+            bot_token: bot_token
+          )
       end
 
       should 'send connect instruction by email' do
@@ -142,13 +153,17 @@ class TelegramCommon::BotTest < ActiveSupport::TestCase
           text: "/connect #{@user.mail}"
         )
 
-        @bot_service = TelegramCommon::Bot.new(@bot_token, @telegram_message)
+        @bot_service = TelegramCommon::Bot.new(bot_token, @telegram_message)
       end
 
       should 'send telegram notification about already connected' do
-        TelegramCommon::Bot.any_instance
-          .expects(:send_message)
-          .with(123, I18n.t('telegram_common.bot.connect.already_connected'))
+        TelegramCommon::Bot::MessageSender
+          .expects(:call)
+          .with(
+            chat_id: 123,
+            message: I18n.t('telegram_common.bot.connect.already_connected'),
+            bot_token: bot_token
+          )
 
         @bot_service.call
       end
@@ -166,13 +181,18 @@ class TelegramCommon::BotTest < ActiveSupport::TestCase
           text: '/connect wrong@email.com'
         )
 
-        @bot_service = TelegramCommon::Bot.new(@bot_token, @telegram_message)
+        @bot_service = TelegramCommon::Bot.new(bot_token, @telegram_message)
       end
 
       should 'increment connect trials count' do
-        TelegramCommon::Bot.any_instance
-          .expects(:send_message)
-          .with(123, I18n.t('telegram_common.bot.connect.wrong_email'))
+        message = I18n.t('telegram_common.bot.connect.wrong_email')
+        TelegramCommon::Bot::MessageSender
+          .expects(:call)
+          .with(
+            chat_id: 123,
+            message: message,
+            bot_token: bot_token
+          )
 
         assert_equal 0, @telegram_account.connect_trials_count
         @bot_service.connect
@@ -180,9 +200,14 @@ class TelegramCommon::BotTest < ActiveSupport::TestCase
       end
 
       should 'block telegram account after 3 wrong trials' do
-        TelegramCommon::Bot.any_instance
-          .expects(:send_message)
-          .with(123, I18n.t('telegram_common.bot.connect.blocked'))
+        message = I18n.t('telegram_common.bot.connect.blocked')
+        TelegramCommon::Bot::MessageSender
+          .expects(:call)
+          .with(
+            chat_id: 123,
+            message: message,
+            bot_token: bot_token
+          )
 
         assert !@telegram_account.blocked?
 
@@ -209,7 +234,7 @@ class TelegramCommon::BotTest < ActiveSupport::TestCase
           text: '/help'
         )
 
-        @bot_service = TelegramCommon::Bot.new(@bot_token, @telegram_message)
+        @bot_service = TelegramCommon::Bot.new(bot_token, @telegram_message)
       end
 
       should 'send help for private chat' do
@@ -219,7 +244,15 @@ class TelegramCommon::BotTest < ActiveSupport::TestCase
           /help - #{I18n.t('telegram_common.bot.private.help.help')}
         TEXT
 
-        TelegramCommon::Bot.any_instance.expects(:send_message).with(123, text.chomp)
+        message = text.chomp
+        TelegramCommon::Bot::MessageSender
+          .expects(:call)
+          .with(
+            chat_id: 123,
+            message: message,
+            bot_token: bot_token
+          )
+
         @bot_service.call
       end
     end
@@ -236,7 +269,7 @@ class TelegramCommon::BotTest < ActiveSupport::TestCase
           text: '/help'
         )
 
-        @bot_service = TelegramCommon::Bot.new(@bot_token, @telegram_message)
+        @bot_service = TelegramCommon::Bot.new(bot_token, @telegram_message)
       end
 
       should 'send help for private chat' do
@@ -247,7 +280,15 @@ class TelegramCommon::BotTest < ActiveSupport::TestCase
           /help - #{I18n.t('telegram_common.bot.private.help.help')}
         TEXT
 
-        TelegramCommon::Bot.any_instance.expects(:send_message).with(-123, text.chomp)
+        message = text.chomp
+        TelegramCommon::Bot::MessageSender
+          .expects(:call)
+          .with(
+            chat_id: -123,
+            message: message,
+            bot_token: bot_token
+          )
+
         @bot_service.call
       end
     end
