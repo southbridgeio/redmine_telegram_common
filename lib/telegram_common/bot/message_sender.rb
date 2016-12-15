@@ -18,7 +18,8 @@ module TelegramCommon
         message_params = {
           chat_id: chat_id,
           text: message,
-          parse_mode: 'HTML'
+          parse_mode: 'HTML',
+          disable_web_page_preview: true,
         }.merge(params)
 
         bot.send_message(message_params)
