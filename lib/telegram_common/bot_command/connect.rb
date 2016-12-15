@@ -18,7 +18,7 @@ module TelegramCommon
           TelegramCommon::Mailer.telegram_connect(redmine_user, account).deliver
         end
 
-        send_message(command.chat.id, message)
+        send_message(message)
       end
 
       private
@@ -26,7 +26,7 @@ module TelegramCommon
       def user_not_found
         increment_connect_trials
         if account.connect_trials_count < 3
-          send_message(command.chat.id, I18n.t('telegram_common.bot.connect.wrong_email'))
+          send_message(I18n.t('telegram_common.bot.connect.wrong_email'))
         else
           block_account
           send_blocked_message

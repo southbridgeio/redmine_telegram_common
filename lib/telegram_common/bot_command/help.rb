@@ -3,7 +3,7 @@ module TelegramCommon
     module Help
       def help
         message = private_command? ? private_help_message : group_help_message
-        send_message(command.chat.id, message)
+        send_message(message)
       end
 
       private

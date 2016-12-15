@@ -12,7 +12,7 @@ module TelegramCommon
                     I18n.t('telegram_common.bot.start.instruction_html')
                   end
 
-        send_message(command.chat.id, message)
+        send_message(message)
       end
 
       private

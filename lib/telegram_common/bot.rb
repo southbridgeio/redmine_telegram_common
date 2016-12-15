@@ -50,7 +50,7 @@ module TelegramCommon
       if private_commands.include?(command_name)
         send(command_name)
       else
-        send_message(command.chat.id, I18n.t('telegram_common.bot.private.group_command'))
+        send_message(I18n.t('telegram_common.bot.private.group_command'))
       end
     end
 
@@ -58,7 +58,7 @@ module TelegramCommon
       if group_commands.include?(command_name)
         send(command_name)
       else
-        send_message(command.chat.id, I18n.t('telegram_common.bot.group.private_command'))
+        send_message(I18n.t('telegram_common.bot.group.private_command'))
       end
     end
 
@@ -70,16 +70,22 @@ module TelegramCommon
       @command_name ||= command_text.scan(%r{^/(\w+)}).flatten.first
     end
 
-    def send_message(chat_id, message)
-      MessageSender.call(
+    def send_message(message, params: {})
+      message_params = {
         chat_id: chat_id,
         message: message,
-        bot_token: bot_token
-      )
+        bot_token: bot_token,
+      }.merge(params)
+
+      MessageSender.call(message_params)
     end
 
     def send_blocked_message
-      send_message(command.chat.id, I18n.t('telegram_common.bot.connect.blocked'))
+      send_message(I18n.t('telegram_common.bot.connect.blocked'))
+    end
+
+    def chat_id
+      command.chat.id
     end
 
     def user

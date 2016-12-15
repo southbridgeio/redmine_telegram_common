@@ -5,16 +5,23 @@ module TelegramCommon
         new(params).call
       end
 
-      attr_reader :chat_id, :message, :bot_token
+      attr_reader :chat_id, :message, :bot_token, :params
 
-      def initialize(message:, chat_id:, bot_token:)
-        @message = message
-        @chat_id = chat_id
-        @bot_token = bot_token
+      def initialize(params)
+        @message = params.fetch(:message)
+        @chat_id = params.fetch(:chat_id)
+        @bot_token = params.fetch(:bot_token)
+        @params = params.except(:message, :chat_id, :bot_token)
       end
 
       def call
-        bot.send_message(chat_id: chat_id, text: message, parse_mode: 'HTML')
+        message_params = {
+          chat_id: chat_id,
+          text: message,
+          parse_mode: 'HTML'
+        }.merge(params)
+
+        bot.send_message(message_params)
       end
 
       private
