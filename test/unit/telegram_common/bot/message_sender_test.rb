@@ -24,7 +24,12 @@ class TelegramCommon::Bot::MessageSenderTest < ActiveSupport::TestCase
   it 'sends message via telegrammer' do
     Telegrammer::Bot.any_instance
       .expects(:send_message)
-      .with(chat_id: chat_id, text: text, parse_mode: 'HTML')
+      .with(
+        chat_id: chat_id,
+        text: text,
+        parse_mode: 'HTML',
+        disable_web_page_preview: true,
+      )
 
     subject.call
   end
