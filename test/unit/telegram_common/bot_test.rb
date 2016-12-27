@@ -136,6 +136,19 @@ class TelegramCommon::BotTest < ActiveSupport::TestCase
 
         @bot_service.call
       end
+
+      should 'unblock telegram account after one hour' do
+        TelegramCommon::Mailer.any_instance
+          .expects(:telegram_connect)
+          .with(@user, @telegram_account)
+
+        @telegram_account.blocked_at = DateTime.now - 2.hour
+        @telegram_account.save!
+
+        @bot_service.call
+
+        assert !@telegram_account.reload.blocked?
+      end
     end
 
     context 'already connected' do
@@ -217,6 +230,7 @@ class TelegramCommon::BotTest < ActiveSupport::TestCase
         @bot_service.call
 
         assert @telegram_account.reload.blocked?
+        assert_equal 0, @telegram_account.connect_trials_count
       end
     end
   end

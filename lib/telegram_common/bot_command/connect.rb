@@ -39,7 +39,8 @@ module TelegramCommon
       end
 
       def block_account
-        account.blocked = true
+        account.blocked_at = DateTime.now
+        account.connect_trials_count = 0
         account.save
       end
     end
