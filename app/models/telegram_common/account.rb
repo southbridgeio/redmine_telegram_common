@@ -23,8 +23,7 @@ class TelegramCommon::Account < ActiveRecord::Base
   end
 
   def blocked?
-    return true if blocked_at.present? and blocked_at > DateTime.now - 1.hour
-    false
+    blocked_at.present? && blocked_at > DateTime.now - 1.hour
   end
 
   private
