@@ -22,6 +22,10 @@ class TelegramCommon::Account < ActiveRecord::Base
     update(active: false) if active?
   end
 
+  def blocked?
+    blocked_at.present? && blocked_at > DateTime.now - 1.hour
+  end
+
   private
 
   def set_token

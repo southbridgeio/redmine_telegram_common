@@ -25,4 +25,14 @@ class TelegramCommon::AccountTest < ActiveSupport::TestCase
     @telegram_account.deactivate!
     assert !@telegram_account.active
   end
+
+  def test_blocked
+    @telegram_account.blocked_at = DateTime.now
+    @telegram_account.save
+    assert @telegram_account.blocked?
+
+    @telegram_account.blocked_at = DateTime.now - 2.hour
+    @telegram_account.save
+    assert !@telegram_account.blocked?
+  end
 end
