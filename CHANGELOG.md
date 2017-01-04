@@ -1,5 +1,6 @@
 # 0.0.13
 
+* Delete change auth_source after command connect.
 * Add logic for unblock telegram account after 1 hour.
 * Please run `bundle exec rake redmine:plugins:migrate NAME=redmine_telegram_common` after upgrade.
 
