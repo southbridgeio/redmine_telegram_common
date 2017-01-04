@@ -20,8 +20,6 @@ class RedmineTelegramConnectionsController < ApplicationController
 
     @telegram_account.user = @user
     @telegram_account.save
-
-    set_telegram_auth_source if Redmine::Plugin.installed?('redmine_2fa')
   end
 
   def notice
@@ -30,10 +28,5 @@ class RedmineTelegramConnectionsController < ApplicationController
     else
       t('telegram_common.redmine_telegram_connections.create.error')
     end
-  end
-
-  def set_telegram_auth_source
-    @user.auth_source = ::Redmine2FA::AuthSource::Telegram.first
-    @user.save
   end
 end
