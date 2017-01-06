@@ -1,6 +1,6 @@
 <% if user.telegram_account.present? %>
 <% account = user.telegram_account %>
-<h3><%= t "telegram_common.label_telegram" %></h3>
+<h3>Telegram</h3>
   <ul>
     <li> ID: <%= account.telegram_id %> Username: <%= account.username %> Name: <%= account.first_name %> <%= account.last_name %>
   </ul>

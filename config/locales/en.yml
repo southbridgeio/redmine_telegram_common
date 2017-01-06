@@ -1,6 +1,5 @@
 en:
   telegram_common:
-    label_telegram: Telegram
     redmine_telegram_connections:
       create:
         success: Accounts successfully connected
