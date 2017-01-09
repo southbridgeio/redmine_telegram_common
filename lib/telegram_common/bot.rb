@@ -22,6 +22,11 @@ module TelegramCommon
       execute_command
     end
 
+    def plugin_name
+      res = Setting.where( 'value LIKE ?', "%#{bot_token}%").first
+      res.name if res.present?
+    end
+
     private
 
     def initialize_command(command)

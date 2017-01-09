@@ -12,10 +12,11 @@ class TelegramCommon::Mailer < ActionMailer::Base
     ::Mailer.default_url_options
   end
 
-  def telegram_connect(user, telegram_account)
+  def telegram_connect(user, telegram_account, plugin_name)
     TelegramCommon.set_locale
     @user = user
     @telegram_account = telegram_account
+    @plugin_name = plugin_name
 
     mail to: @user.mail,
          subject: I18n.t('telegram_common.mailer.telegram_connect.subject'),
