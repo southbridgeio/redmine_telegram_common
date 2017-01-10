@@ -23,8 +23,8 @@ module TelegramCommon
     end
 
     def plugin_name
-      res = Setting.where( 'value LIKE ?', "%#{bot_token}%").first
-      res.name if res.present?
+      bot_token_setting = Setting.where('value LIKE ?', "%#{bot_token}%").first
+      bot_token_setting.name if bot_token_setting.present?
     end
 
     private
