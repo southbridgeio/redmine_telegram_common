@@ -1,3 +1,7 @@
+# 0.0.14
+
+* Change logic for command `/connect`.
+
 # 0.0.13
 
 * Add telegram_account info to view of user.

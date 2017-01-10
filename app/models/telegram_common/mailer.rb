@@ -12,7 +12,7 @@ class TelegramCommon::Mailer < ActionMailer::Base
     ::Mailer.default_url_options
   end
 
-  def telegram_connect(user, telegram_account, plugin_name)
+  def telegram_connect(user, telegram_account, plugin_name = nil)
     TelegramCommon.set_locale
     @user = user
     @telegram_account = telegram_account
