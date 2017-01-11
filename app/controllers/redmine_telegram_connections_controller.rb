@@ -18,6 +18,9 @@ class RedmineTelegramConnectionsController < ApplicationController
   def connect_telegram_account_to_user
     return unless @user.mail == params[:user_email] && params[:token] == @telegram_account.token
 
+    old_telegram_account = TelegramCommon::Account.find_by(user_id: @user.id)
+    old_telegram_account.destroy if old_telegram_account.present?
+
     @telegram_account.user = @user
     @telegram_account.save
   end
