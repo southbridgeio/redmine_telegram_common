@@ -132,7 +132,7 @@ class TelegramCommon::BotTest < ActiveSupport::TestCase
       should 'send connect instruction by email' do
         TelegramCommon::Mailer.any_instance
           .expects(:telegram_connect)
-          .with(@user, @telegram_account)
+          .with(@user, @telegram_account, nil)
 
         @bot_service.call
       end
@@ -140,7 +140,7 @@ class TelegramCommon::BotTest < ActiveSupport::TestCase
       should 'unblock telegram account after one hour' do
         TelegramCommon::Mailer.any_instance
           .expects(:telegram_connect)
-          .with(@user, @telegram_account)
+          .with(@user, @telegram_account, nil)
 
         @telegram_account.blocked_at = DateTime.now - 2.hour
         @telegram_account.save!
