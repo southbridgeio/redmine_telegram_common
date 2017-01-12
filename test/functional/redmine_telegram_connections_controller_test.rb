@@ -21,8 +21,9 @@ class RedmineTelegramConnectionsControllerTest < ActionController::TestCase
     end
 
     should 'set telegram account to user' do
-      @telegram_account.reload
-      assert_equal @user, @telegram_account.user
+      @old_telegram_account.reload
+      assert_equal @user, @old_telegram_account.user
+      assert_equal 123, @old_telegram_account.telegram_id
     end
   end
 end
