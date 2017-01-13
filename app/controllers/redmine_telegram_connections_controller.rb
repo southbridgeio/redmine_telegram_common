@@ -18,8 +18,14 @@ class RedmineTelegramConnectionsController < ApplicationController
   def connect_telegram_account_to_user
     return unless @user.mail == params[:user_email] && params[:token] == @telegram_account.token
 
-    @telegram_account.user = @user
-    @telegram_account.save
+    if TelegramCommon::Account.exists?(user_id: @user.id)
+      old_telegram_account = TelegramCommon::Account.find_by(user_id: @user.id)
+      old_telegram_account.telegram_id = @telegram_account.telegram_id
+      @telegram_account.destroy if old_telegram_account.save
+    else
+      @telegram_account.user = @user
+      @telegram_account.save
+    end
 
     set_telegram_auth_source if Redmine::Plugin.installed?('redmine_2fa') && params[:plugin] == 'plugin_redmine_2fa'
   end

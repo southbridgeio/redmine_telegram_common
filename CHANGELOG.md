@@ -1,5 +1,6 @@
 # 0.0.14
 
+* Add validate uniq for telegram accounts.
 * Change logic for command `/connect`.
 
 # 0.0.13
