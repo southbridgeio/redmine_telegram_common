@@ -86,7 +86,7 @@ module TelegramCommon
     end
 
     def send_blocked_message
-      send_message(I18n.t('telegram_common.bot.connect.blocked'))
+      send_message(I18n.t('telegram_common.bot.connect.blocked', unblock: ((account.blocked_at+1.hour-Time.zone.now)/60).to_i))
     end
 
     def chat_id

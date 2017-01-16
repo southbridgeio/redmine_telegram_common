@@ -17,8 +17,8 @@ en:
       connect:
         already_connected: Your accounts already connected
         wait_for_email: We sent email to address "%{email}". Please follow instructions from it.
-        wrong_email: Wrong email. User with this email not found.
-        blocked: Your account was blocked
+        wrong_email: Wrong email. User with this email not found. Left %{attempts} attempts before the account will locked for an hour.
+        blocked: Your account was blocked. Try after %{unblock} minutes.
       group:
         no_commands: "No commands for a group chat. Private chat commands:"
         private_command: 'This command is for private chat.'

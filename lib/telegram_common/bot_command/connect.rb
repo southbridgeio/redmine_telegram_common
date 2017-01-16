@@ -26,7 +26,7 @@ module TelegramCommon
       def user_not_found
         increment_connect_trials
         if account.connect_trials_count < 3
-          send_message(I18n.t('telegram_common.bot.connect.wrong_email'))
+          send_message(I18n.t('telegram_common.bot.connect.wrong_email', attempts: (3-account.connect_trials_count)))
         else
           block_account
           send_blocked_message

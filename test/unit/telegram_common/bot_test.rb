@@ -198,7 +198,7 @@ class TelegramCommon::BotTest < ActiveSupport::TestCase
       end
 
       should 'increment connect trials count' do
-        message = I18n.t('telegram_common.bot.connect.wrong_email')
+        message = I18n.t('telegram_common.bot.connect.wrong_email', attempts: 2)
         TelegramCommon::Bot::MessageSender
           .expects(:call)
           .with(
@@ -213,7 +213,7 @@ class TelegramCommon::BotTest < ActiveSupport::TestCase
       end
 
       should 'block telegram account after 3 wrong trials' do
-        message = I18n.t('telegram_common.bot.connect.blocked')
+        message = I18n.t('telegram_common.bot.connect.blocked', unblock: 59)
         TelegramCommon::Bot::MessageSender
           .expects(:call)
           .with(
@@ -221,7 +221,6 @@ class TelegramCommon::BotTest < ActiveSupport::TestCase
             message: message,
             bot_token: bot_token
           )
-
         assert !@telegram_account.blocked?
 
         @telegram_account.connect_trials_count = 2

@@ -5,4 +5,5 @@ gem 'pidfile', git: 'https://github.com/arturtr/pidfile.git'
 
 group :test do
   gem 'shoulda'
+  gem 'minitest-reporters'
 end
