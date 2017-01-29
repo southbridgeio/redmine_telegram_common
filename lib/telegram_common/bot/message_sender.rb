@@ -22,13 +22,13 @@ module TelegramCommon
           disable_web_page_preview: true,
         }.merge(params)
 
-        bot.send_message(message_params)
+        bot.api.send_message(message_params)
       end
 
       private
 
       def bot
-        @bot ||= Telegrammer::Bot.new(bot_token)
+        @bot ||= Telegram::Bot::Client.new(bot_token)
       end
     end
   end

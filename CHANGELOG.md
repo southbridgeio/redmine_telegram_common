@@ -1,3 +1,7 @@
+# 0.0.15
+
+* Replace ruby wrapper for Telegram's Bot API telegrammer to telegram-bot-ruby.
+
 # 0.0.14
 
 * Add validate uniq for telegram accounts.
