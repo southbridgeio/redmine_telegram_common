@@ -8,7 +8,7 @@ This is a common plugin for:
 * [redmine_chat_telegram](https://github.com/centosadmin/redmine_chat_telegram)
 
 This plugin includes
-* `TelegramCommon::Account` model 
+* `TelegramCommon::Account` model
 * `TelegramCommon::Mailer`
 * `TelegramCommon::Bot`
 * `telegram_connect_url` helper
@@ -62,7 +62,7 @@ TelegramCommon::Bot.new(bot_token, message, logger).call
 ```
 
 * bot_token - bot token from yor plugin
-* message - message from telegram webhook `params[:message]` or `Telegrammer::DataTypes::Message` instance
+* message - message from telegram webhook `params[:message]` or `Telegram::Bot::Types::Message` instance
 * logger - optional field, `Logger` instance
 
 Real usage example: [BotWebhookController](https://github.com/centosadmin/redmine_2fa/blob/master/app/controllers/otp_bot_webhook_controller.rb)
