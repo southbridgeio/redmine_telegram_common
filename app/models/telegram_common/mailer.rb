@@ -12,14 +12,25 @@ class TelegramCommon::Mailer < ActionMailer::Base
     ::Mailer.default_url_options
   end
 
-  def telegram_connect(user, telegram_account, plugin_name = nil)
+  def telegram_connect(user, telegram_account, plugin_name)
     TelegramCommon.set_locale
     @user = user
     @telegram_account = telegram_account
     @plugin_name = plugin_name
 
+    logger.debug 'TelegramCommon::Mailer.telegram_connect'
+    logger.debug "user: #{user.inspect}"
+    logger.debug "telegram_account: #{telegram_account.inspect}"
+    logger.debug "plugin_name: #{plugin_name}"
+
     mail to: @user.mail,
          subject: I18n.t('telegram_common.mailer.telegram_connect.subject'),
          template_path: 'telegram_common/mailer'
+  end
+
+  private
+
+  def logger
+    @logger ||= Logger.new(Rails.root.join('log/telegram_common', 'mailer.log'))
   end
 end
