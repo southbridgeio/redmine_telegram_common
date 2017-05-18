@@ -1,3 +1,6 @@
+log_dir = Rails.root.join('log/telegram_common')
+FileUtils.mkdir_p(log_dir) unless Dir.exist?(log_dir)
+
 require 'telegram_common'
 
 ActionDispatch::Callbacks.to_prepare do
