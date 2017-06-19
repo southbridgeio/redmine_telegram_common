@@ -12,6 +12,275 @@
 
 angular.module('myApp.controllers', ['myApp.i18n'])
 
+    .controller('AppApiController', function ($q, AppProfileManager, TelegramMeWebService, AppMessagesIDsManager, qSync, $scope, $location, $routeParams, $modal, $rootScope, $modalStack, MtpApiManager, AppUsersManager, AppChatsManager, AppMessagesManager, AppPeersManager, ContactsSelectService, ChangelogNotifyService, ErrorService, AppRuntimeManager, HttpsMigrateService, LayoutSwitchService, LocationParamsService, AppStickersManager) {
+      $scope.promiseStatus = false;
+
+      var args = {};
+
+      if (typeof $routeParams.args !== 'undefined') {
+        args = JSON.parse($routeParams.args)
+      }
+
+      $scope.users = [];
+
+      $scope.auth = function () {
+        var params = {
+          phone_number: args.phone_number,
+          phone_code_hash: args.phone_code_hash,
+          phone_code: args.phone_code
+        };
+
+        MtpApiManager.invokeApi('auth.signIn', params, {}).then(function (result) {
+          MtpApiManager.setUserAuth(2, {
+            id: result.user.id
+          });
+          $scope.successApi(true);
+        }, function (error) {
+          $scope.failedApi(JSON.stringify(error));
+        })
+      };
+
+      // sendCode
+      $scope.sendCode = function () {
+        MtpApiManager.invokeApi('auth.sendCode', {
+          flags: 0,
+          phone_number: args.phone_number,
+          api_id: Config.App.id,
+          api_hash: Config.App.hash,
+          lang_code: 'en'
+        }, {}).then(function (sentCode) {
+          $scope.successApi(JSON.stringify(sentCode));
+        }, function (error) {
+          $scope.failedApi(JSON.stringify(error));
+        })
+      };
+
+      $scope.handle = function () {
+        var command = $routeParams.command;
+        var handlerName = $scope['api' + command];
+
+        if (typeof handlerName === 'function') {
+          handlerName(args)
+        } else {
+          console.error('There is no ' + handlerName + ' api function.')
+        }
+      };
+
+      $scope.apiTest = function () {
+        $scope.successApi('api test')
+      };
+
+      $scope.apiIsLogged = function () {
+        MtpApiManager.invokeApi('users.getFullUser', {
+          id: {_: 'inputUserSelf'}
+        }).then(function () {
+          $scope.successApi(true)
+        }, function (error) {
+          if (error.code === 401) {
+            $scope.successApi(false)
+          } else {
+            $scope.failedApi(JSON.stringify(error))
+          }
+        })
+      };
+
+      $scope.apiLogin = function () {
+        if (args.phone_number) {
+          if (args.phone_code && args.phone_code_hash) {
+            $scope.auth()
+          } else {
+            $scope.sendCode()
+          }
+        }
+      };
+
+      $scope.apiLogout = function () {
+        MtpApiManager.invokeApi('auth.logOut').then(function () {
+          $scope.successApi(true)
+        }, function (error) {
+          $scope.failedApi(JSON.stringify(error))
+        })
+      };
+
+      $scope.apiRenameChat = function (args) {
+        var chatId = args[0];
+        var newName = args[1];
+
+        MtpApiManager.invokeApi('messages.editChatTitle', { chat_id: chatId, title: newName }).then(function () {
+          $scope.successApi(true)
+        }, function (error) {
+          $scope.failedApi(JSON.stringify(error))
+        })
+      };
+
+      $scope.apiDeleteUser = function (args) {
+        var channelName = args[0];
+        var users = args.slice(1);
+        var promises = [];
+
+        angular.forEach(users, function (user) {
+          promises.push($scope.getUserInput(user))
+        });
+
+        $q.all(promises).then(function() {
+          angular.forEach($scope.users, function (user) {
+            var userInput = AppUsersManager.getUserInput(user.id)
+
+            $scope.getChat(channelName).then(function (chat) {
+              MtpApiManager.invokeApi('messages.deleteChatUser', { chat_id: chat.id, user_id: userInput });
+            });
+          });
+        })
+      };
+
+      $scope.apiAddUser = function (args) {
+        var channelName = args[0];
+        var users = args.slice(1);
+        var promises = [];
+
+        angular.forEach(users, function (user) {
+          promises.push($scope.getUserInput(user))
+        });
+
+        $q.all(promises).then(function() {
+          angular.forEach($scope.users, function (user) {
+            var userInput = AppUsersManager.getUserInput(user.id);
+
+            $scope.getChat(channelName).then(function (chat) {
+              MtpApiManager.invokeApi('messages.addChatUser', { chat_id: chat.id, user_id: userInput, fwd_limit: 100 });
+              $scope.successApi(true);
+            });
+          });
+        })
+      };
+
+      $scope.apiCreateChat = function (args) {
+        var channelName = args[0];
+        var users = args.slice(1);
+        var promises = [];
+
+        angular.forEach(users, function (user) {
+          promises.push($scope.getUserInput(user))
+        });
+
+        $q.all(promises).then(function() {
+          var inputUsers = [];
+
+          angular.forEach($scope.users, function (user) {
+            inputUsers.push(AppUsersManager.getUserInput(user.id));
+          });
+
+          MtpApiManager.invokeApi('messages.createChat', {
+            title: channelName,
+            users: inputUsers
+          }).then(function (result) {
+            $scope.successApi(JSON.stringify(result));
+          });
+        });
+      };
+
+      $scope.apiInfoChat = function (args) {
+        var chatId = args[0];
+
+        AppProfileManager.getChatFull(chatId).then(function (result) {
+          $scope.successApi(JSON.stringify(result));
+        })
+      };
+
+      $scope.apiGetChatLink = function (args) {
+        var chatId = args[0];
+
+        AppProfileManager.getChatInviteLink(chatId, false).then(function (link) {
+          $scope.successApi(link)
+        })
+      };
+
+      $scope.getChat = function (chatName) {
+        var apiParams = {
+          flags: 0,
+          offset_date: 0,
+          offset_id: AppMessagesIDsManager.getMessageLocalID(0),
+          offset_peer: AppPeersManager.getInputPeerByID(0),
+          limit: 20
+        };
+        var deferred = $q.defer();
+
+        MtpApiManager.invokeApi('messages.getDialogs', apiParams, { timeout: 300 }).then(function(result) {
+          angular.forEach(result.chats, function (chat) {
+            if (chat.title === chatName) {
+              deferred.resolve(chat);
+            }
+          });
+        });
+
+        return deferred.promise;
+      };
+
+      $scope.apiClearChat = function(args) {
+        var chatId = args[0];
+
+        AppProfileManager.getChatFull(chatId).then(function (result) {
+          var users = result.participants.participants;
+
+          angular.forEach(users, function (user) {
+            MtpApiManager.invokeApi('messages.deleteChatUser', {
+              chat_id: AppChatsManager.getChatInput(chatId),
+              user_id: AppUsersManager.getUserInput(user.user_id)
+            })
+          }).then(function(result) {
+            $scope.successApi(result)
+          });
+        })
+      };
+
+      $scope.apiGetUser = function (args) {
+        var user = args[0];
+
+        $scope.getUserInput(user).then(function (result) {
+          $scope.successApi(JSON.stringify(result))
+        });
+      };
+
+      $scope.apiGetSelf = function () {
+        MtpApiManager.invokeApi('users.getFullUser', {
+          id: {_: 'inputUserSelf'}
+        }).then(function (result) {
+          $scope.successApi(JSON.stringify(result))
+        }, function (error) {
+          $scope.failedApi(JSON.stringify(error))
+        })
+      };
+
+      $scope.getUserInput = function (query) {
+        var deferred = $q.defer();
+        MtpApiManager.invokeApi('contacts.search', {q: query, limit: 1}).then(function (result) {
+          var user = result.users[0];
+          AppUsersManager.saveApiUser(user);
+          $scope.users.push(user);
+          deferred.resolve(user)
+        });
+
+        return deferred.promise;
+      };
+
+      $scope.successApi = function (msg) {
+        console.log('success: ' + msg);
+        $scope.promiseStatus = true;
+        $scope.resolveApi()
+      };
+
+      $scope.failedApi = function (msg) {
+        console.log('failed: ' + msg);
+        $scope.resolveApi()
+      };
+
+      $scope.resolveApi = function () {
+        $scope.promiseStatus = true
+      };
+
+      $scope.handle();
+    })
+
   .controller('AppWelcomeController', function ($scope, $location, MtpApiManager, ChangelogNotifyService, LayoutSwitchService) {
     MtpApiManager.getUserID().then(function (id) {
       if (id) {
