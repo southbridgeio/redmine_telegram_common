@@ -1,4 +1,4 @@
-# 0.0.16 [In progress]
+# 0.1.0 [In progress]
 
 * Add modified Webogram
 * Change license from MIT to GPL 3
