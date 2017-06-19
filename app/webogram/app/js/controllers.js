@@ -101,13 +101,15 @@ angular.module('myApp.controllers', ['myApp.i18n'])
         })
       };
 
-      $scope.apiEditChat = function (args) {
-        var currentName = args[0];
+      $scope.apiRenameChat = function (args) {
+        var chatId = args[0];
         var newName = args[1];
 
-        $scope.getChat(currentName).then(function (chat) {
-          MtpApiManager.invokeApi('messages.editChatTitle', { chat_id: chat.id, title: newName })
-        });
+        MtpApiManager.invokeApi('messages.editChatTitle', { chat_id: chatId, title: newName }).then(function () {
+          $scope.successApi(true)
+        }, function (error) {
+          $scope.failedApi(JSON.stringify(error))
+        })
       };
 
       $scope.apiDeleteUser = function (args) {
