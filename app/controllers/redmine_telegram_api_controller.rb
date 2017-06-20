@@ -47,6 +47,7 @@ class RedmineTelegramApiController < ApplicationController
   def deauthorize
     result = telegram.execute( 'Logout')
     if result == 'true'
+      reset_telegram_auth_step
       redirect_to plugin_settings_path('redmine_telegram_common'), notice: t('telegram_common.client.deauthorize.success')
     else
       redirect_to plugin_settings_path('redmine_telegram_common'), alert: t('telegram_common.client.deauthorize.failed')
