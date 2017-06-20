@@ -32,7 +32,7 @@ class RedmineTelegramApiController < ApplicationController
     logger.fatal 'Failed to process API request'
     logger.fatal e.to_s
     logger.fatal result
-    return redirect_to plugin_settings_path('redmine_telegram_common'), notice: t('telegram_common.client.authorize.failed')
+    return redirect_to plugin_settings_path('redmine_telegram_common'), alert: t('telegram_common.client.authorize.failed')
   end
 
   def auth_status
@@ -58,8 +58,8 @@ class RedmineTelegramApiController < ApplicationController
 
   def reset_telegram_auth_step
     Setting.plugin_redmine_telegram_common['telegram_auth_step'] = 0
-    Setting.plugin_redmine_telegram_common['telegram_phone_code'] = nil
-    Setting.plugin_redmine_telegram_common['telegram_phone_code_hash'] = nil
+    Setting.plugin_redmine_telegram_common['telegram_phone_code'] = ''
+    Setting.plugin_redmine_telegram_common['telegram_phone_code_hash'] = ''
   end
 
   def telegram
