@@ -21,10 +21,10 @@ ru:
     client:
       authorize:
         success: Клиент авторизован
-        failed: Клиент не авторизован
+        failed: Возникла ошибка при авторизации
       deauthorize:
         success: Клиент деавторизован
-        failed: Клиент не деавторизован
+        failed: Возникла ошибка при деавторизации
     bot:
       start:
         instruction_html: |
