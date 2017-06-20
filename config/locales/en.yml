@@ -8,6 +8,13 @@ en:
       telegram_connect:
         subject: "Linking Redmine & Telegram accounts"
         body: "For connect to %{telegram_account} account follow the link:"
+    client:
+      authorize:
+        success: Client is authorized
+        failed: Client doesn't authorized
+      deauthorize:
+        success: Client is deauthorized
+        failed: Client doesn't deauthorized
     bot:
       start:
         instruction_html: |

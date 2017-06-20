@@ -27,28 +27,30 @@ class RedmineTelegramApiController < ApplicationController
       fail("Undefined telegram auth step: #{telegram_auth_step}")
     end
 
-    redirect_to plugin_settings_path('redmine_telegram_common'), notice: t('redmine_chat_telegram.authorize.success')
+    redirect_to plugin_settings_path('redmine_telegram_common'), notice: t('telegram_common.client.authorize.success')
   rescue => e
     logger.fatal 'Failed to process API request'
     logger.fatal e.to_s
     logger.fatal result
-    return redirect_to plugin_settings_path('redmine_telegram_common'), notice: t('redmine_chat_telegram.authorize.failed')
+    return redirect_to plugin_settings_path('redmine_telegram_common'), notice: t('telegram_common.client.authorize.failed')
   end
 
   def auth_status
     result = telegram.execute('IsLogged')
     if result == 'true'
-      redirect_to plugin_settings_path('redmine_telegram_common'), notice: t('redmine_chat_telegram.authorized')
+      redirect_to plugin_settings_path('redmine_telegram_common'), notice: t('telegram_common.client.authorize.success')
     else
-      redirect_to plugin_settings_path('redmine_telegram_common'), alert: t('redmine_chat_telegram.not_authorized')
+      redirect_to plugin_settings_path('redmine_telegram_common'), alert: t('telegram_common.client.authorize.failed')
     end
   end
 
   def deauthorize
-    telegram.execute( 'Logout')
-    redirect_to plugin_settings_path('redmine_telegram_common'), notice: t('redmine_chat_telegram.authorize.success')
-  rescue
-    redirect_to plugin_settings_path('redmine_telegram_common'), alert: t('redmine_chat_telegram.authorize.failed')
+    result = telegram.execute( 'Logout')
+    if result == 'true'
+      redirect_to plugin_settings_path('redmine_telegram_common'), notice: t('telegram_common.client.deauthorize.success')
+    else
+      redirect_to plugin_settings_path('redmine_telegram_common'), alert: t('telegram_common.client.deauthorize.failed')
+    end
   end
 
   private

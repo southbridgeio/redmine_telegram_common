@@ -19,8 +19,8 @@ Redmine::Plugin.register :redmine_telegram_common do
   description 'This is a plugin for other Redmine Telegram plugins'
   version '0.0.15'
   url 'https://github.com/centosadmin/redmine_telegram_common'
-  author 'Centos-admin.ru'
-  author_url 'https://centos-admin.ru'
+  author 'Southbridge'
+  author_url 'https://github.com/centosadmin'
 
   settings(default: {
       'telegram_phone_number' => '',

@@ -1,45 +1,43 @@
 <p>
   <label>
-    <%= t 'redmine_telegram_common.settings.phantomjs_path' %>
+    <%= t 'telegram_common.settings.phantomjs_path' %>
   </label>
   <%= text_field_tag 'settings[phantomjs_path]', @settings['phantomjs_path'], size: 50 %>
 </p>
 
 <p>
   <label>
-    <%= t 'redmine_telegram_common.settings.telegram_phone_number' %>
+    <%= t 'telegram_common.settings.telegram_phone_number' %>
   </label>
   <%= text_field_tag 'settings[telegram_phone_number]', @settings['telegram_phone_number'], size: 50 %>
-  <em class="info">В формате 78005553535</em>
+  <em class="info"><%= t 'telegram_common.settings.telegram_phone_number_рште' %></em>
 </p>
 
 <p>
   <label>
-    <%= t 'redmine_telegram_common.settings.telegram_phone_code' %>
+    <%= t 'telegram_common.settings.telegram_phone_code' %>
   </label>
   <% telegram_auth_step = @settings['telegram_auth_step'].to_i %>
   <%= text_field_tag 'settings[telegram_phone_code]', @settings['telegram_phone_code'], size: 50 %>
   <% if telegram_auth_step == 1 %>
-    <em class="info">Введите код, который вам пришел из Телеграмма, сохраните настройки и нажмите "Авторизировать"</em>
+    <em class="info"><%= t 'telegram_common.settings.telegram_phone_code_hint' %></em>
   <% end %>
 </p>
 
 <%= link_to telegram_api_authorize_path, method: 'post' do %>
   <button type="button">
     <% if telegram_auth_step == 0 %>
-      Получить код авторизации
+      <%= t 'telegram_common.settings.authorize_button_code' %>
     <% else %>
-      Авторизовать
+      <%= t 'telegram_common.settings.authorize_button' %>
     <% end %>
   </button>
 <% end %>
 
-<%= link_to telegram_api_deauthorize_path, method: 'delete' do %>
-  <button type="button">Деавторизовать</button>
+<%= link_to telegram_api_deauthorize_path, method: 'delete' do %><button type="button"><%= t 'telegram_common.settings.deauthorize_button' %></button>
 <% end %>
 
-<%= link_to telegram_api_auth_status_path, method: 'post' do %>
-  <button type="button">Проверить</button>
+<%= link_to telegram_api_auth_status_path, method: 'post' do %><button type="button"><%= t 'telegram_common.settings.auth_status_button' %></button>
 <% end %>
 
 <%= hidden_field_tag 'settings[telegram_phone_code_hash]', @settings['telegram_phone_code_hash'] %>

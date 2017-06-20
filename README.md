@@ -13,7 +13,32 @@ This plugin includes
 * `TelegramCommon::Bot`
 * `telegram_connect_url` helper
 
-Plugin is developed by [Centos-admin.ru](https://centos-admin.ru)
+# Installation
+
+* Ruby 2.2+
+* Redmine 3.3+
+* Phantomjs
+* Standard install plugin:
+
+```
+cd {REDMINE_ROOT}
+git clone https://github.com/centosadmin/redmine_telegram_common.git plugins/redmine_telegram_common
+bundle install
+bundle exec rake redmine:plugins:migrate RAILS_ENV=production
+```
+
+## Telegram client settings
+
+To make telegram client working you should follow steps:
+
+* Go to the plugin settings page
+* Fill phantomjs path
+* Fill phone number
+* Save settings
+* Press "Receive code" button
+* Fill received code from telegram
+* Save settings
+* Press "Authorize" button
 
 ## TelegramCommon::Account model
 
@@ -75,4 +100,7 @@ Required params
 * `telegram_id` - `telegram_id` field form `TelegramCommon::Account` record
 * `token_id` - `token` field form `TelegramCommon::Account` record
 
-Plugin is developed by [Centos-admin.ru](https://centos-admin.ru)
+# Author of the Plugin
+
+The plugin is designed by [Southbridge](https://southbridge.io)
+

@@ -8,6 +8,23 @@ ru:
       telegram_connect:
         subject: "Связывание аккаунтов Redmine и Telegram"
         body: "Для привязки аккаунта %{telegram_account} пройдите по ссылке:"
+    settings:
+      phantomjs_path: Путь к phantomjs
+      telegram_phone_number: Номер телефона
+      telegram_phone_number_hint: В формате: 78005553535
+      telegram_phone_code: Код телеграмма
+      telegram_phone_code_hint: Введите код, который вам пришел из Telegram, сохраните настройки и нажмите "Авторизировать"
+      authorize_button_code: Получить код авторизации
+      authorize_button: Авторизовать
+      deauthorize_button: Деавторизовать
+      auth_status_button: Проверить
+    client:
+      authorize:
+        success: Клиент авторизован
+        failed: Клиент не авторизован
+      deauthorize:
+        success: Клиент деавторизован
+        failed: Клиент не деавторизован
     bot:
       start:
         instruction_html: |
