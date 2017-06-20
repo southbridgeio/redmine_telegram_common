@@ -32,7 +32,7 @@ module TelegramCommon
     end
 
     def phantomjs
-      Setting.plugin_redmine_telegram_common['phantomjs_path']
+      `which phantomjs`.strip
     end
 
     def api_url

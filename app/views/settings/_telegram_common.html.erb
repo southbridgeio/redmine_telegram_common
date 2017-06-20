@@ -1,43 +1,35 @@
 <p>
   <label>
-    <%= t 'telegram_common.settings.phantomjs_path' %>
-  </label>
-  <%= text_field_tag 'settings[phantomjs_path]', @settings['phantomjs_path'], size: 50 %>
-</p>
-
-<p>
-  <label>
     <%= t 'telegram_common.settings.telegram_phone_number' %>
   </label>
   <%= text_field_tag 'settings[telegram_phone_number]', @settings['telegram_phone_number'], size: 50 %>
   <em class="info"><%= t 'telegram_common.settings.telegram_phone_number_hint' %></em>
 </p>
 
-<p>
-  <label>
-    <%= t 'telegram_common.settings.telegram_phone_code' %>
-  </label>
-  <% telegram_auth_step = @settings['telegram_auth_step'].to_i %>
-  <%= text_field_tag 'settings[telegram_phone_code]', @settings['telegram_phone_code'], size: 50 %>
+<% telegram_auth_step = @settings['telegram_auth_step'].to_i %>
+
+<% if @settings['telegram_phone_number'].present? %>
   <% if telegram_auth_step == 1 %>
+  <p>
+    <label>
+      <%= t 'telegram_common.settings.telegram_phone_code' %>
+    </label>
+    <%= text_field_tag 'settings[telegram_phone_code]', @settings['telegram_phone_code'], size: 50 %>
     <em class="info"><%= t 'telegram_common.settings.telegram_phone_code_hint' %></em>
+  </p>
   <% end %>
-</p>
 
-<%= link_to telegram_api_authorize_path, method: 'post' do %>
-  <button type="button">
-    <% if telegram_auth_step == 0 %>
-      <%= t 'telegram_common.settings.authorize_button_code' %>
-    <% else %>
-      <%= t 'telegram_common.settings.authorize_button' %>
-    <% end %>
-  </button>
-<% end %>
+  <%= link_to telegram_api_authorize_path, method: 'post' do %>
+    <button type="button">
+      <% if telegram_auth_step == 0 && @settings['telegram_phone_code'].blank? %>
+        <%= t 'telegram_common.settings.authorize_button_code' %>
+      <% else %>
+        <%= t 'telegram_common.settings.authorize_button' %>
+      <% end %>
+    </button>
+  <% end %>
 
-<%= link_to telegram_api_deauthorize_path, method: 'delete' do %><button type="button"><%= t 'telegram_common.settings.deauthorize_button' %></button>
-<% end %>
-
-<%= link_to telegram_api_auth_status_path, method: 'post' do %><button type="button"><%= t 'telegram_common.settings.auth_status_button' %></button>
+  <%= link_to telegram_api_deauthorize_path, method: 'delete' do %><button type="button"><%= t 'telegram_common.settings.deauthorize_button' %></button><% end %>
 <% end %>
 
 <%= hidden_field_tag 'settings[telegram_phone_code_hash]', @settings['telegram_phone_code_hash'] %>

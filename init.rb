@@ -26,7 +26,6 @@ Redmine::Plugin.register :redmine_telegram_common do
       'telegram_phone_number' => '',
       'telegram_phone_code_hash' => '',
       'telegram_phone_code' => '',
-      'phantomjs_path' => '',
       'telegram_auth_step' => '0'
     },
     partial: 'settings/telegram_common')
