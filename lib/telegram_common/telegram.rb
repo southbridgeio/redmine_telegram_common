@@ -1,6 +1,6 @@
 module TelegramCommon
   class Telegram
-    def execute(command, config_path:, logger: nil, args: {})
+    def execute(command, config_path: nil, logger: nil, args: {})
       @command     = command
       @args        = args
       @logger      = logger || TELEGRAM_CLI_LOG
