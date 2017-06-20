@@ -24,7 +24,7 @@
   <% end %>
 </p>
 
-<%= link_to chat_telegram_api_authorize_path, method: 'post' do %>
+<%= link_to telegram_api_authorize_path, method: 'post' do %>
   <button type="button">
     <% if telegram_auth_step == 0 %>
       Получить код авторизации
@@ -34,11 +34,11 @@
   </button>
 <% end %>
 
-<%= link_to chat_telegram_api_deauthorize_path, method: 'delete' do %>
+<%= link_to telegram_api_deauthorize_path, method: 'delete' do %>
   <button type="button">Деавторизовать</button>
 <% end %>
 
-<%= link_to chat_telegram_api_auth_status_path, method: 'post' do %>
+<%= link_to telegram_api_auth_status_path, method: 'post' do %>
   <button type="button">Проверить</button>
 <% end %>
 
