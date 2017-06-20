@@ -8,13 +8,23 @@ en:
       telegram_connect:
         subject: "Linking Redmine & Telegram accounts"
         body: "For connect to %{telegram_account} account follow the link:"
+    settings:
+      phantomjs_path: "Phantomjs Path"
+      telegram_phone_number: "Phone Number"
+      telegram_phone_number_hint: "Format: 78005553535"
+      telegram_phone_code: "Telegram code"
+      telegram_phone_code_hint: "Enter the telegram code, save settings and press Authorize"
+      authorize_button_code: "Receive code"
+      authorize_button: "Authorize"
+      deauthorize_button: "Deauthorize"
+      auth_status_button: "Check auth status"
     client:
       authorize:
-        success: Client is authorized
-        failed: Client doesn't authorized
+        success: "Client is authorized"
+        failed: "Client doesn't authorized"
       deauthorize:
-        success: Client is deauthorized
-        failed: Client doesn't deauthorized
+        success: "Client is deauthorized"
+        failed: "Client doesn't deauthorized"
     bot:
       start:
         instruction_html: |
