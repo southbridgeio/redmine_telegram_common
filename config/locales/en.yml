@@ -16,7 +16,7 @@ en:
       telegram_phone_code_hint: "Enter the telegram code, save settings and press Authorize"
       authorize_button_code: "Receive code"
       authorize_button: "Authorize"
-      deauthorize_button: "Deauthorize"
+      deauthorize_button: "Reset"
       auth_status_button: "Check auth status"
     client:
       authorize:

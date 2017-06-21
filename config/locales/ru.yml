@@ -16,8 +16,11 @@ ru:
       telegram_phone_code_hint: "Введите код, который вам пришел из Telegram, сохраните настройки и нажмите Авторизировать"
       authorize_button_code: "Получить код авторизации"
       authorize_button: "Авторизовать"
-      deauthorize_button: "Деавторизовать"
+      deauthorize_button: "Сбросить"
       auth_status_button: "Проверить"
+      auth_steps:
+        0: Получение кода авторизации
+        authorized: Клиент авторизован
     client:
       authorize:
         success: Клиент авторизован
