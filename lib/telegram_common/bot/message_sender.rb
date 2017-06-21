@@ -28,7 +28,7 @@ module TelegramCommon
       private
 
       def bot
-        @bot ||= Telegram::Bot::Client.new(bot_token)
+        @bot ||= ::Telegram::Bot::Client.new(bot_token)
       end
     end
   end
