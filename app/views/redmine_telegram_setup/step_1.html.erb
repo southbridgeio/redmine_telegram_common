@@ -1,0 +1,16 @@
+<h2><%= t 'telegram_common.settings.authorize_client' %></h2>
+<hr>
+<p><strong>1. <%= t 'telegram_common.settings.auth_step_1' %></strong> — 2. <%= t 'telegram_common.settings.auth_step_2' %></p>
+<hr>
+
+<%= form_tag telegram_setup_2_path, method: :post do %>
+  <p>
+    <label>
+      <%= t 'telegram_common.settings.telegram_phone_number' %>
+    </label>
+    <%= text_field_tag 'phone_number' %>
+    <em class="info"><%= t 'telegram_common.settings.telegram_phone_number_hint' %></em>
+  </p>
+
+  <input type="submit" value="Получить смс-код"> | <%= link_to plugin_settings_path('redmine_telegram_common') do %><%= t 'telegram_common.settings.plugin_link' %><% end %>
+<% end %>

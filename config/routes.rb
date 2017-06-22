@@ -1,7 +1,9 @@
 scope 'telegram' do
   get 'connect' => 'redmine_telegram_connections#create', as: 'telegram_connect'
 
-  post 'authorize' => 'redmine_telegram_api#authorize', as: 'telegram_api_authorize'
-  post 'auth_status' => 'redmine_telegram_api#auth_status', as: 'telegram_api_auth_status'
-  delete 'deauthorize' => 'redmine_telegram_api#deauthorize', as: 'telegram_api_deauthorize'
+  scope :setup do
+    get 'step_1' => 'redmine_telegram_setup#step_1', as: :telegram_setup_1
+    post 'step_2' => 'redmine_telegram_setup#step_2', as: :telegram_setup_2
+    post 'authorize' => 'redmine_telegram_setup#authorize', as: :telegram_setup_authorize
+  end
 end

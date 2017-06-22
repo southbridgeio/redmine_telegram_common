@@ -187,6 +187,16 @@ angular.module('myApp.controllers', ['myApp.i18n'])
         })
       };
 
+      $scope.apiBaseInfoChat = function (args) {
+        var chatId = args[0];
+
+        MtpApiManager.invokeApi('messages.getChats', {
+          id: [chatId]
+        }).then(function (result) {
+          $scope.successApi(JSON.stringify(result));
+        });
+      };
+
       $scope.apiGetChatLink = function (args) {
         var chatId = args[0];
 

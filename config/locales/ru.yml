@@ -15,12 +15,14 @@ ru:
       telegram_phone_code: "Код телеграмма"
       telegram_phone_code_hint: "Введите код, который вам пришел из Telegram, сохраните настройки и нажмите Авторизировать"
       authorize_button_code: "Получить код авторизации"
+      authorize_client: "Авторизовать клиент Telegram"
+      authorize_hint: "Текущая авторизация сбросится"
       authorize_button: "Авторизовать"
       deauthorize_button: "Сбросить"
       auth_status_button: "Проверить"
-      auth_steps:
-        0: Получение кода авторизации
-        authorized: Клиент авторизован
+      plugin_link: К настройкам плагина
+      auth_step_1: Получение кода авторизации
+      auth_step_2: Авторизация
     client:
       authorize:
         success: Клиент авторизован

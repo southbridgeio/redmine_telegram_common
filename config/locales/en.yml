@@ -16,8 +16,13 @@ en:
       telegram_phone_code_hint: "Enter the telegram code, save settings and press Authorize"
       authorize_button_code: "Receive code"
       authorize_button: "Authorize"
+      authorize_client: "Authorize Telegram client"
+      authorize_hint: "Current authorization will be drop"
       deauthorize_button: "Reset"
       auth_status_button: "Check auth status"
+      plugin_link: "Back to the plugin settings"
+      auth_step_1: "Receiving Telegram code"
+      auth_step_2: "Authorization"
     client:
       authorize:
         success: "Client is authorized"

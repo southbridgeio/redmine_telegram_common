@@ -40,7 +40,12 @@ module TelegramCommon
         command: command,
         args: args.to_json
       }
-      base_api = "#{Setting.protocol}://#{Setting.host_name}/plugin_assets/redmine_telegram_common/webogram/index.html"
+      base_api = if Rails.env.development?
+                   # gulp watch on app/webogram
+                   'http://localhost:8000/app/index.html'
+                 else
+                   "#{Setting.protocol}://#{Setting.host_name}/plugin_assets/redmine_telegram_common/webogram/index.html"
+                 end
       "#{base_api}#/api?#{params.to_query}"
     end
 
