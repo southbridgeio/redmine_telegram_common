@@ -113,10 +113,7 @@ angular.module('myApp.controllers', ['myApp.i18n'])
         var chatId = args[0];
         var isEnabled = args[1];
 
-        $scope.toggleChatAdmin({
-          chat_id: chatId,
-          enabled: isEnabled
-        }).then(function () {
+        $scope.toggleChatAdmin(chatId, isEnabled).then(function () {
           $scope.successApi(true)
         }, function (error) {
           $scope.failedApi(JSON.stringify(error))
@@ -221,10 +218,7 @@ angular.module('myApp.controllers', ['myApp.i18n'])
           }).then(function (result) {
             var chatResult = result;
 
-            $scope.toggleChatAdmin({
-              chat_id: result.chats[0].id,
-              enabled: true
-            }).then(function () {
+            $scope.toggleChatAdmin(result.chats[0].id, true).then(function () {
               $scope.successApi(JSON.stringify(chatResult));
             }, function (error) {
               $scope.failedApi(JSON.stringify(error))
