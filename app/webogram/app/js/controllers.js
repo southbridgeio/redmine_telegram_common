@@ -84,6 +84,13 @@ angular.module('myApp.controllers', ['myApp.i18n'])
         })
       };
 
+      $scope.toggleChatAdmin = function (chatId, isEnabled) {
+        return MtpApiManager.invokeApi('messages.toggleChatAdmins', {
+          chat_id: chatId,
+          enabled: isEnabled
+        })
+      };
+
       $scope.apiLogin = function () {
         if (args.phone_number) {
           if (args.phone_code && args.phone_code_hash) {
@@ -96,6 +103,20 @@ angular.module('myApp.controllers', ['myApp.i18n'])
 
       $scope.apiLogout = function () {
         MtpApiManager.invokeApi('auth.logOut').then(function () {
+          $scope.successApi(true)
+        }, function (error) {
+          $scope.failedApi(JSON.stringify(error))
+        })
+      };
+
+      $scope.apiToggleChatAdmin = function (args) {
+        var chatId = args[0];
+        var isEnabled = args[1];
+
+        $scope.toggleChatAdmin({
+          chat_id: chatId,
+          enabled: isEnabled
+        }).then(function () {
           $scope.successApi(true)
         }, function (error) {
           $scope.failedApi(JSON.stringify(error))
@@ -198,7 +219,18 @@ angular.module('myApp.controllers', ['myApp.i18n'])
             title: channelName,
             users: inputUsers
           }).then(function (result) {
-            $scope.successApi(JSON.stringify(result));
+            var chatResult = result;
+
+            $scope.toggleChatAdmin({
+              chat_id: result.chats[0].id,
+              enabled: true
+            }).then(function () {
+              $scope.successApi(JSON.stringify(chatResult));
+            }, function (error) {
+              $scope.failedApi(JSON.stringify(error))
+            })
+          }, function (error) {
+            $scope.failedApi(JSON.stringify(error))
           });
         });
       };
