@@ -17,7 +17,7 @@ en:
       authorize_button_code: "Receive code"
       authorize_button: "Authorize"
       authorize_client: "Authorize Telegram client"
-      authorize_hint: "Current authorization will be drop"
+      authorize_hint: "To authorize Telegram, press the button below. Current authorization will be drop."
       deauthorize_button: "Reset"
       auth_status_button: "Check auth status"
       plugin_link: "Back to the plugin settings"
