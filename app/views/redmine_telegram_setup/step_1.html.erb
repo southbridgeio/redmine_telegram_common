@@ -12,5 +12,5 @@
     <em class="info"><%= t 'telegram_common.settings.telegram_phone_number_hint' %></em>
   </p>
 
-  <input type="submit" value="Получить смс-код"> | <%= link_to plugin_settings_path('redmine_telegram_common') do %><%= t 'telegram_common.settings.plugin_link' %><% end %>
+  <input type="submit" value="<%= t 'telegram_common.settings.authorize_button_code' %>"> | <%= link_to plugin_settings_path('redmine_telegram_common') do %><%= t 'telegram_common.settings.plugin_link' %><% end %>
 <% end %>

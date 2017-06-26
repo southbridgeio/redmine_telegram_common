@@ -14,5 +14,5 @@
   <input type="hidden" name="phone_number" value="<%= params[:phone_number] %>">
   <input type="hidden" name="phone_code_hash" value="<%= params[:phone_code_hash] %>">
 
-  <input type="submit" value="<%= t 'telegram_common.settings.authorize_button' %>"> | <%= link_to plugin_settings_path('redmine_telegram_common') do %><%= t 'telegram_common.settings.plugin_link' %><% end %>
+  <input type="submit" value="<%= t 'telegram_common.settings.authorize_button' %>">
 <% end %>

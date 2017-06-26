@@ -1,2 +1,6 @@
+<% if @settings['phone_number'].present? %>
+  <div><strong><%= t 'telegram_common.settings.telegram_phone_number' %>:</strong> <%= @settings['phone_number'] %></div>
+  <br>
+<% end %>
 <%= link_to telegram_setup_1_path do %><button type="button"><%= t 'telegram_common.settings.authorize_client' %></button><% end %>
 <em class="info"><%= t 'telegram_common.settings.authorize_hint' %></em>
