@@ -102,6 +102,30 @@ angular.module('myApp.controllers', ['myApp.i18n'])
         })
       };
 
+      $scope.apiEditChatAdmin = function (args) {
+        var chatId = args[0];
+        var userId = args[1];
+        var isAdmin = args[2];
+
+        AppProfileManager.getChatFull(chatId).then(function (result) {
+          var users = result.participants.participants;
+
+          angular.forEach(users, function (user) {
+            if (user.user_id === userId) {
+              MtpApiManager.invokeApi('messages.editChatAdmin', {
+                chat_id: AppChatsManager.getChatInput(chatId),
+                user_id: AppUsersManager.getUserInput(user.user_id),
+                is_admin: isAdmin
+              }).then(function () {
+                $scope.successApi(true)
+              }, function (error) {
+                $scope.failedApi(JSON.stringify(error))
+              })
+            }
+          })
+        });
+      };
+
       $scope.apiRenameChat = function (args) {
         var chatId = args[0];
         var newName = args[1];

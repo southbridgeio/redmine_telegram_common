@@ -33,7 +33,7 @@ gulp.task('usemin-index', function () {
       js: ['concat', $.ngAnnotate(), $.uglify({outSourceMap: false})],
       css: ['concat', $.minifyCss({compatibility: true, keepBreaks: true})]
     }))
-    .pipe(gulp.dest('dist'))
+    .pipe(gulp.dest('../../assets/webogram'))
 })
 
 gulp.task('usemin-badbrowser', function () {
@@ -42,14 +42,14 @@ gulp.task('usemin-badbrowser', function () {
       html: [$.minifyHtml({empty: true})],
       css: ['concat', $.minifyCss({compatibility: true, keepBreaks: true})]
     }))
-    .pipe(gulp.dest('dist'))
+    .pipe(gulp.dest('../../assets/webogram'))
 })
 
 // ulimit -n 10240 on OS X
 gulp.task('imagemin', function () {
   return gulp.src(['app/img/**/*', '!app/img/screenshot*', '!app/img/*.wav'])
     .pipe($.imagemin())
-    .pipe(gulp.dest('dist/img'))
+    .pipe(gulp.dest('../../assets/webogram/img'))
 })
 
 gulp.task('less', function () {
@@ -70,35 +70,35 @@ gulp.task('standard', function () {
 
 gulp.task('copy-images', function () {
   return gulp.src(['app/img/**/*', '!app/img/screenshot*', '!app/img/*.wav'])
-    .pipe(gulp.dest('dist/img'))
+    .pipe(gulp.dest('../../assets/webogram/img'))
 })
 
 gulp.task('copy', function () {
   return es.concat(
     gulp.src(['app/favicon.ico', 'app/favicon_unread.ico', 'app/manifest.webapp', 'app/manifest.webapp.json', 'app/manifest.json', 'app/**/*worker.js'])
-      .pipe(gulp.dest('dist')),
+      .pipe(gulp.dest('../../assets/webogram')),
     gulp.src(['app/img/**/*.wav'])
-      .pipe(gulp.dest('dist/img')),
+      .pipe(gulp.dest('../../assets/webogram/img')),
     // gulp.src(['app/fonts/*'])
-    //   .pipe(gulp.dest('dist/fonts')),
+    //   .pipe(gulp.dest('../../assets/webogram/fonts')),
     gulp.src(['app/js/lib/polyfill.js', 'app/js/lib/bin_utils.js'])
-      .pipe(gulp.dest('dist/js/lib')),
+      .pipe(gulp.dest('../../assets/webogram/js/lib')),
     gulp.src('app/vendor/closure/long.js')
-      .pipe(gulp.dest('dist/vendor/closure')),
+      .pipe(gulp.dest('../../assets/webogram/vendor/closure')),
     gulp.src(['app/css/desktop.css', 'app/css/mobile.css'])
-      .pipe(gulp.dest('dist/css')),
+      .pipe(gulp.dest('../../assets/webogram/css')),
     gulp.src('app/vendor/jsbn/jsbn_combined.js')
-      .pipe(gulp.dest('dist/vendor/jsbn')),
+      .pipe(gulp.dest('../../assets/webogram/vendor/jsbn')),
     gulp.src('app/vendor/leemon_bigint/bigint.js')
-      .pipe(gulp.dest('dist/vendor/leemon_bigint')),
+      .pipe(gulp.dest('../../assets/webogram/vendor/leemon_bigint')),
     gulp.src('app/vendor/rusha/rusha.js')
-      .pipe(gulp.dest('dist/vendor/rusha')),
+      .pipe(gulp.dest('../../assets/webogram/vendor/rusha')),
     gulp.src('app/vendor/cryptoJS/crypto.js')
-      .pipe(gulp.dest('dist/vendor/cryptoJS')),
+      .pipe(gulp.dest('../../assets/webogram/vendor/cryptoJS')),
     gulp.src(['app/nacl/mtproto_crypto.pexe', 'app/nacl/mtproto_crypto.nmf'])
-      .pipe(gulp.dest('dist/nacl/')),
+      .pipe(gulp.dest('../../assets/webogram/nacl/')),
     gulp.src('app/js/background.js')
-      .pipe(gulp.dest('dist/js'))
+      .pipe(gulp.dest('../../assets/webogram/js'))
   )
 })
 
@@ -112,14 +112,14 @@ gulp.task('copy-locales', function () {
   })
   return es.concat(
     gulp.src(langpackSrc)
-      .pipe(gulp.dest('dist/js/locales/')),
+      .pipe(gulp.dest('../../assets/webogram/js/locales/')),
     gulp.src(ngSrc)
-      .pipe(gulp.dest('dist/vendor/angular/i18n/'))
+      .pipe(gulp.dest('../../assets/webogram/vendor/angular/i18n/'))
   )
 })
 
 gulp.task('compress-dist', ['build'], function () {
-  return gulp.src('**/*', {cwd: path.join(process.cwd(), '/dist')})
+  return gulp.src('**/*', {cwd: path.join(process.cwd(), '/../../assets/webogram')})
     .pipe($.zip('webogram_v' + packageJson.version + '.zip'))
     .pipe(gulp.dest('releases'))
 })
@@ -173,13 +173,13 @@ gulp.task('disable-production', function () {
 })
 
 var fileGlobs = [
-  './dist/**/*',
-  '!dist/manifest.*',
-  '!dist/*.html',
-  '!dist/fonts/*',
-  '!dist/img/icons/icon*.png',
-  '!dist/js/background.js',
-  '!dist/css/badbrowser.css'
+  './../../assets/webogram/**/*',
+  '!../../assets/webogram/manifest.*',
+  '!../../assets/webogram/*.html',
+  '!../../assets/webogram/fonts/*',
+  '!../../assets/webogram/img/icons/icon*.png',
+  '!../../assets/webogram/js/background.js',
+  '!../../assets/webogram/css/badbrowser.css'
 ]
 
 function writeServiceWorkerFile (rootDir, handleFetch, callback) {
@@ -196,7 +196,7 @@ function writeServiceWorkerFile (rootDir, handleFetch, callback) {
 }
 
 gulp.task('generate-service-worker', ['build'], function (callback) {
-  writeServiceWorkerFile('dist', true, callback)
+  writeServiceWorkerFile('../../assets/webogram', true, callback)
 })
 
 gulp.task('add-appcache-manifest', ['build'], function () {
@@ -208,7 +208,7 @@ gulp.task('add-appcache-manifest', ['build'], function () {
       exclude: ['webogram.appcache', 'app.manifest']
     })
   )
-    .pipe(gulp.dest('./dist'))
+    .pipe(gulp.dest('./../../assets/webogram'))
 })
 
 gulp.task('package-dev', function () {
@@ -269,7 +269,7 @@ gulp.task('server', function (done) {
 })
 
 gulp.task('clean', function () {
-  return del(['dist/*', 'app/js/templates.js', 'app/css/*', '!dist/.git'])
+  return del(['../../assets/webogram/*', 'app/js/templates.js', 'app/css/*', '!../../assets/webogram/.git'])
 })
 
 gulp.task('bump', ['bump-version-manifests', 'bump-version-config'], function () {
@@ -322,7 +322,7 @@ gulp.task('package', ['cleanup-dist'])
 gulp.task('publish', ['add-appcache-manifest', 'generate-service-worker'])
 
 gulp.task('deploy', function () {
-  return gulp.src('./dist/**/*')
+  return gulp.src('./../../assets/webogram/**/*')
     .pipe($.ghPages())
 })
 
