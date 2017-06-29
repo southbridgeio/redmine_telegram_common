@@ -34,9 +34,9 @@ class RedmineTelegramSetupController < ApplicationController
 
     if result == 'true'
       Setting.plugin_redmine_telegram_common['phone_number'] = params['phone_number']
-      redirect_to plugin_settings_path('redmine_telegram_common'), notice: t('telegram_common.client.authorize.success')
+      return redirect_to plugin_settings_path('redmine_telegram_common'), notice: t('telegram_common.client.authorize.success')
     else
-      redirect_to plugin_settings_path('redmine_telegram_common'), alert: t('telegram_common.client.authorize.failed')
+      return redirect_to plugin_settings_path('redmine_telegram_common'), alert: t('telegram_common.client.authorize.failed')
     end
 
   rescue => e
@@ -52,7 +52,7 @@ class RedmineTelegramSetupController < ApplicationController
     result = telegram.execute( 'Logout')
     if result != 'true'
       Setting.plugin_redmine_telegram_common['phone_number'] = nil
-      redirect_to plugin_settings_path('redmine_telegram_common'), alert: t('telegram_common.client.deauthorize.failed')
+      return redirect_to plugin_settings_path('redmine_telegram_common'), alert: t('telegram_common.client.deauthorize.failed')
     end
   end
 
