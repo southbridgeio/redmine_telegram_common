@@ -28,7 +28,12 @@ bundle install
 bundle exec rake redmine:plugins:migrate RAILS_ENV=production
 ```
 
-## Development
+### Upgrade to 0.1.0
+ 
+Since version 0.1.0 this plugin use modified [Webogram](https://github.com/zhukov/webogram) instead Telegram CLI dependency. 
+Please, take a look on new requirements and configuration.
+
+## Plugin development
 
 * Install Node.js
 * Run `npm install -g gulp`
