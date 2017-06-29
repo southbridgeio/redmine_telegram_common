@@ -8,6 +8,7 @@ This is a common plugin for:
 * [redmine_chat_telegram](https://github.com/centosadmin/redmine_chat_telegram)
 
 This plugin includes
+* PhantomJS script to make requests to modified Webogram (app/webogram), which makes requests to Telegram API
 * `TelegramCommon::Account` model
 * `TelegramCommon::Mailer`
 * `TelegramCommon::Bot`
@@ -17,7 +18,7 @@ This plugin includes
 
 * Ruby 2.2+
 * Redmine 3.3+
-* Phantomjs
+* [PhantomJS](http://phantomjs.org)
 * Standard install plugin:
 
 ```
@@ -27,18 +28,31 @@ bundle install
 bundle exec rake redmine:plugins:migrate RAILS_ENV=production
 ```
 
+## Development
+
+* Install Node.js
+* Run `npm install -g gulp`
+* Go to app/webogram
+* Run `npm install`
+* Run `gulp watch` and check page http://localhost:8000/app/index.html is opening
+
+If you modify webogram, then you should:
+
+* Go to app/webogram
+* Remove assets/webogram if folder exists 
+* Run `gulp publish`
+* Add new files to repo
+* Commit & push
+
 ## Telegram client settings
 
 To make telegram client working you should follow steps:
 
 * Go to the plugin settings page
-* Fill phantomjs path
-* Fill phone number
-* Save settings
-* Press "Receive code" button
-* Fill received code from telegram
-* Save settings
-* Press "Authorize" button
+* Press "Authorize Telegram client" button and follow instructions
+
+Note: in production environment the plugin require serve static files via nginx or other similar solution (not same rails server), 
+in development environment the plugin require running webogram from app/webogram directory (gulp watch).  
 
 ## TelegramCommon::Account model
 
