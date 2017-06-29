@@ -92,6 +92,8 @@ After that the bot prompts to enter the command `/connect account@redmine.com`.
 
 After the command, the user will receive an email with a link.
 
+If plugin work in development environment, then content of the message will be duplicated at log/telegram_common/mailer
+
 Following the link will connect the user's accounts and he will be able to receive one-time passwords from the bot.
 
 ### Example of bot usage
