@@ -1,1 +1,12 @@
 Gemfile.lock
+
+/app/webogram/node_modules
+/app/webogram/npm-debug.log
+/app/webogram/dist
+/app/webogram/dist_package
+/app/webogram/releases
+/app/webogram/webogram*.zip
+/app/webogram/app/js/templates.js
+/app/webogram/app/css
+/app/webogram/cldr
+/app/webogram/coverage/

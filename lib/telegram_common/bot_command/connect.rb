@@ -8,6 +8,11 @@ module TelegramCommon
         email = message_text.scan(EMAIL_REGEXP)&.flatten&.first
         redmine_user = ::EmailAddress.find_by(address: email)&.user
 
+        logger.debug 'TelegramCommon::Bot#connect'
+        logger.debug "message_text: #{message_text}"
+        logger.debug "email: #{email}"
+        logger.debug "redmine_user: #{redmine_user.inspect}"
+
         return user_not_found if redmine_user.nil?
 
         if account.user_id == redmine_user.id

@@ -1,3 +1,8 @@
+# 0.1.0 [In progress]
+
+* Add modified Webogram instead TelegramCLI
+* Change license from MIT to GPL 3
+
 # 0.0.15
 
 * Replace ruby wrapper for Telegram's Bot API telegrammer to telegram-bot-ruby.
