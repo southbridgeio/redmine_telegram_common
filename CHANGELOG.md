@@ -1,4 +1,8 @@
-# 0.1.0 [In progress]
+# 0.1.1
+
+* Fix tests
+
+# 0.1.0
 
 * Add modified Webogram instead TelegramCLI
 * Change license from MIT to GPL 3
