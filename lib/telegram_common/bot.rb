@@ -8,7 +8,7 @@ module TelegramCommon
 
     attr_reader :bot_token, :logger, :command
 
-    def initialize(bot_token, command, logger = nil)
+    def initialize(bot_token, command, logger = default_logger)
       @bot_token = bot_token
       @logger = logger
       @command = initialize_command(command)
@@ -82,6 +82,11 @@ module TelegramCommon
         bot_token: bot_token,
       }.merge(params)
 
+      logger.debug 'TelegramCommon::Bot#send_message'
+      logger.debug "chat_id: #{chat_id}"
+      logger.debug "message: #{message}"
+      logger.debug "params: #{params}"
+
       MessageSender.call(message_params)
     end
 
@@ -103,6 +108,10 @@ module TelegramCommon
 
     def fetch_account
       Account.where(telegram_id: user.id).first_or_initialize
+    end
+
+    def default_logger
+      @logger ||= Logger.new(Rails.root.join('log/telegram_common', 'bot.log'))
     end
   end
 end
