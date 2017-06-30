@@ -23,9 +23,9 @@ class TelegramCommon::Mailer < ActionMailer::Base
     logger.debug "telegram_account: #{telegram_account.inspect}"
     logger.debug "plugin_name: #{plugin_name}"
 
-    mail = mail to: @user.mail,
+    mail = mail(to: @user.mail,
          subject: I18n.t('telegram_common.mailer.telegram_connect.subject'),
-         template_path: 'telegram_common/mailer'
+         template_path: 'telegram_common/mailer')
 
     logger.debug mail.body.encoded if Rails.env.development? && mail
   end
