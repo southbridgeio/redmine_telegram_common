@@ -1,3 +1,5 @@
+# 0.1.2 [In progress]
+
 # 0.1.1
 
 * Fix tests
