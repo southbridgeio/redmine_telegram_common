@@ -23,10 +23,7 @@ Redmine::Plugin.register :redmine_telegram_common do
   author_url 'https://github.com/centosadmin'
 
   settings(default: {
-      'telegram_phone_number' => '',
-      'telegram_phone_code_hash' => '',
-      'telegram_phone_code' => '',
-      'telegram_auth_step' => '0'
+      'phone_number' => ''
     },
     partial: 'settings/telegram_common')
 end
