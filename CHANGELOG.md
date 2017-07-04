@@ -1,3 +1,8 @@
+# 0.1.2
+
+* Update README
+* Fix webogram setup
+
 # 0.1.1
 
 * Fix tests

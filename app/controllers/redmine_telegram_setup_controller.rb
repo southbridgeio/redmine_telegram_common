@@ -5,8 +5,6 @@ class RedmineTelegramSetupController < ApplicationController
   end
 
   def step_2
-    deauthorize
-
     result = telegram.execute('Login',
       args: {
           phone_number: params['phone_number']
@@ -47,14 +45,6 @@ class RedmineTelegramSetupController < ApplicationController
   end
 
   private
-
-  def deauthorize
-    result = telegram.execute( 'Logout')
-    if result != 'true'
-      Setting.plugin_redmine_telegram_common['phone_number'] = nil
-      return redirect_to plugin_settings_path('redmine_telegram_common'), alert: t('telegram_common.client.deauthorize.failed')
-    end
-  end
 
   def telegram
     @telegram ||= TelegramCommon::Telegram.new
