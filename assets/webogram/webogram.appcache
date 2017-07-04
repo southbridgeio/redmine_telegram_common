@@ -1,5 +1,5 @@
 CACHE MANIFEST
-# Time: Mon Jun 26 2017 18:01:39 GMT+0700 (+07)
+# Time: Tue Jul 04 2017 19:58:47 GMT+0700 (+07)
 
 
 CACHE:
@@ -9,6 +9,7 @@ service_worker.js
 css/app.css
 css/desktop.css
 css/mobile.css
+js/app.js
 img/Manytabs.png
 img/Manytabs_2x.png
 img/Telegram.png
@@ -26,31 +27,20 @@ img/iphone_home120.png
 img/iphone_startup.png
 img/logo_share.png
 img/sound_a.mp3
-js/app.js
 nacl/mtproto_crypto.nmf
 nacl/mtproto_crypto.pexe
-img/changelog/card_wecandoit.png
-img/placeholders/DialogListAvatarSystem@2x.png
-img/placeholders/GroupAvatar1@2x.png
-img/placeholders/GroupAvatar2@2x.png
-img/placeholders/GroupAvatar3@2x.png
-img/placeholders/GroupAvatar4@2x.png
-img/placeholders/PhotoThumbConversation.gif
-img/placeholders/PhotoThumbModal.gif
-img/placeholders/UserAvatar1@2x.png
-img/placeholders/UserAvatar2@2x.png
-img/placeholders/UserAvatar3@2x.png
-img/placeholders/UserAvatar4@2x.png
-img/placeholders/UserAvatar5@2x.png
-img/placeholders/UserAvatar6@2x.png
-img/placeholders/UserAvatar7@2x.png
-img/placeholders/UserAvatar8@2x.png
-img/placeholders/VideoThumbConversation.gif
-img/placeholders/VideoThumbModal.gif
 js/lib/bin_utils.js
 js/lib/crypto_worker.js
 js/lib/polyfill.js
 js/lib/push_worker.js
+js/locales/de-de.json
+js/locales/en-us.json
+js/locales/es-es.json
+js/locales/it-it.json
+js/locales/nl-nl.json
+js/locales/pt-br.json
+js/locales/ru-ru.json
+img/changelog/card_wecandoit.png
 img/icons/AboutLogos.png
 img/icons/AboutLogos_2x.png
 img/icons/General.png
@@ -68,13 +58,23 @@ img/icons/PhotoIcons_2x.png
 img/icons/ProfileIcons.png
 img/icons/ProfileIcons_2x.png
 img/icons/icon.svg
-js/locales/de-de.json
-js/locales/en-us.json
-js/locales/es-es.json
-js/locales/it-it.json
-js/locales/nl-nl.json
-js/locales/pt-br.json
-js/locales/ru-ru.json
+img/placeholders/DialogListAvatarSystem@2x.png
+img/placeholders/GroupAvatar1@2x.png
+img/placeholders/GroupAvatar2@2x.png
+img/placeholders/GroupAvatar3@2x.png
+img/placeholders/GroupAvatar4@2x.png
+img/placeholders/PhotoThumbConversation.gif
+img/placeholders/PhotoThumbModal.gif
+img/placeholders/UserAvatar1@2x.png
+img/placeholders/UserAvatar2@2x.png
+img/placeholders/UserAvatar3@2x.png
+img/placeholders/UserAvatar4@2x.png
+img/placeholders/UserAvatar5@2x.png
+img/placeholders/UserAvatar6@2x.png
+img/placeholders/UserAvatar7@2x.png
+img/placeholders/UserAvatar8@2x.png
+img/placeholders/VideoThumbConversation.gif
+img/placeholders/VideoThumbModal.gif
 vendor/closure/long.js
 vendor/cryptoJS/crypto.js
 vendor/jsbn/jsbn_combined.js

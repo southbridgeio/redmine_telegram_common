@@ -298,6 +298,8 @@ angular.module('myApp.controllers', ['myApp.i18n'])
 
         $scope.getUserInput(user).then(function (result) {
           $scope.successApi(JSON.stringify(result))
+        }, function (error) {
+          $scope.failedApi(JSON.stringify(error))
         });
       };
 
@@ -325,7 +327,6 @@ angular.module('myApp.controllers', ['myApp.i18n'])
 
       $scope.successApi = function (msg) {
         console.log('success: ' + msg);
-        $scope.promiseStatus = true;
         $scope.resolveApi()
       };
 
