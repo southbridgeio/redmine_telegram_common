@@ -19,6 +19,7 @@ en:
       plugin_link: "Back to the plugin settings"
       auth_step_1: "Receiving Telegram code"
       auth_step_2: "Authorization"
+      reset: "Reset cache and authorization"
     client:
       authorize:
         success: "Client is authorized"

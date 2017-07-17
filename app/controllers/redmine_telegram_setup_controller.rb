@@ -44,6 +44,12 @@ class RedmineTelegramSetupController < ApplicationController
     return redirect_to plugin_settings_path('redmine_telegram_common'), alert: t('telegram_common.client.authorize.failed')
   end
 
+  def reset
+    Setting.plugin_redmine_telegram_common['phone_number'] = nil
+    telegram.reset
+    redirect_to plugin_settings_path('redmine_telegram_common')
+  end
+
   private
 
   def telegram

@@ -4,3 +4,5 @@
 <% end %>
 <em class="info"><%= t 'telegram_common.settings.authorize_hint' %></em>
 <%= link_to telegram_setup_1_path do %><button type="button"><%= t 'telegram_common.settings.authorize_client' %></button><% end %>
+
+<%= link_to telegram_setup_reset_path, method: 'delete' do %><button type="button"><%= t 'telegram_common.settings.reset' %></button><% end %>

@@ -15,6 +15,10 @@ module TelegramCommon
       response[1]
     end
 
+    def reset
+      FileUtils.rm_rf(Dir.glob("#{local_storage}/*"))
+    end
+
     private
 
     attr_reader :command, :args, :config_path, :logger, :api_result
@@ -26,9 +30,13 @@ module TelegramCommon
     end
 
     def cli_command
-      cmd = "#{phantomjs} #{config_path} \"#{api_url}\""
+      cmd = "#{phantomjs} --local-storage-path=\"#{local_storage}\" #{config_path} \"#{api_url}\""
       debug(cmd)
       cmd
+    end
+
+    def local_storage
+      Rails.root.join('tmp', 'telegram_common')
     end
 
     def phantomjs
