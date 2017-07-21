@@ -1,6 +1,7 @@
 # 0.1.3-dev
 
 * Fix mail from
+* Add reset method
 
 # 0.1.2
 
