@@ -18,7 +18,14 @@ class RedmineTelegramSetupController < ApplicationController
     logger.fatal 'Failed to process API request'
     logger.fatal e.to_s
     logger.fatal result
-    return redirect_to plugin_settings_path('redmine_telegram_common'), alert: t('telegram_common.client.authorize.failed')
+
+    msg = t('telegram_common.client.authorize.failed')
+
+    if e.class.to_s == 'TelegramCommon::Exceptions::Telegram'
+      msg = "#{msg}: #{e.to_s}"
+    end
+
+    return redirect_to plugin_settings_path('redmine_telegram_common'), alert: msg
   end
 
   def authorize
@@ -30,18 +37,23 @@ class RedmineTelegramSetupController < ApplicationController
       }
     )
 
-    if result == 'true'
-      Setting.plugin_redmine_telegram_common['phone_number'] = params['phone_number']
-      return redirect_to plugin_settings_path('redmine_telegram_common'), notice: t('telegram_common.client.authorize.success')
-    else
-      return redirect_to plugin_settings_path('redmine_telegram_common'), alert: t('telegram_common.client.authorize.failed')
-    end
+    fail if result != 'true'
+
+    Setting.plugin_redmine_telegram_common['phone_number'] = params['phone_number']
+    return redirect_to plugin_settings_path('redmine_telegram_common'), notice: t('telegram_common.client.authorize.success')
 
   rescue => e
     logger.fatal 'Failed to process API request'
     logger.fatal e.to_s
     logger.fatal result
-    return redirect_to plugin_settings_path('redmine_telegram_common'), alert: t('telegram_common.client.authorize.failed')
+
+    msg = t('telegram_common.client.authorize.failed')
+
+    if e.class.to_s == 'TelegramCommon::Exceptions::Telegram'
+      msg = "#{msg}: #{e.to_s}"
+    end
+
+    return redirect_to plugin_settings_path('redmine_telegram_common'), alert: msg
   end
 
   def reset

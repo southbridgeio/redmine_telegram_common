@@ -10,7 +10,10 @@ module TelegramCommon
       debug(args)
 
       make_request
-      fail response[1] if response[0] == 'failed'
+
+      if response[0] == 'failed'
+        raise TelegramCommon::Exceptions::Telegram, JSON.parse(response[1])['description']
+      end
 
       response[1]
     end
