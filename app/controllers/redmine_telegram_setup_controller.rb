@@ -39,7 +39,8 @@ class RedmineTelegramSetupController < ApplicationController
 
     fail if result != 'true'
 
-    Setting.plugin_redmine_telegram_common['phone_number'] = params['phone_number']
+    save_phone_settings(phone_number: params['phone_number'])
+
     return redirect_to plugin_settings_path('redmine_telegram_common'), notice: t('telegram_common.client.authorize.success')
 
   rescue => e
@@ -57,12 +58,16 @@ class RedmineTelegramSetupController < ApplicationController
   end
 
   def reset
-    Setting.plugin_redmine_telegram_common['phone_number'] = nil
+    save_phone_settings(phone_number: nil)
     telegram.reset
     redirect_to plugin_settings_path('redmine_telegram_common')
   end
 
   private
+
+  def save_phone_settings(phone_number:)
+    Setting.plugin_redmine_telegram_common['phone_number'] = phone_number
+  end
 
   def telegram
     @telegram ||= TelegramCommon::Telegram.new
