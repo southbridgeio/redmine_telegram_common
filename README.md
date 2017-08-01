@@ -18,7 +18,7 @@ This plugin includes
 
 * Ruby 2.2+
 * Redmine 3.3+
-* [PhantomJS](http://phantomjs.org)
+* [PhantomJS](http://phantomjs.org) 2.1+
 * Standard install plugin:
 
 ```
@@ -121,6 +121,16 @@ Required params
 * `user_email` - redmine user email
 * `telegram_id` - `telegram_id` field form `TelegramCommon::Account` record
 * `token_id` - `token` field form `TelegramCommon::Account` record
+
+## FAQ
+
+#### I receiving error 'ReferenceError: Can't find variable: $'
+
+You should update your phantomjs to version 2.1+
+
+#### I receiving error 'Error 400 PHONE_CODE_EXPIRED false 2' immediately after login
+
+In this case wait 5-10 minutes and try login again 
 
 # Author of the Plugin
 
