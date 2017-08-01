@@ -6,6 +6,7 @@ PHANTOMJS_CONFIG = File.expand_path('../config/phantom-proxy.js', __FILE__)
 TELEGRAM_CLI_LOG = Logger.new(Rails.root.join(log_dir, 'telegram-cli.log'))
 
 require 'telegram_common'
+require 'telegram/bot'
 
 ActionDispatch::Callbacks.to_prepare do
   paths = '/lib/telegram_common/{patches/*_patch,hooks/*_hook}.rb'
