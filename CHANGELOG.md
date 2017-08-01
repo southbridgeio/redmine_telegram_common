@@ -1,5 +1,6 @@
 # 0.1.3-dev
 
+* Add Rails 5.1 support
 * Fix mail from
 * Add reset method
 
