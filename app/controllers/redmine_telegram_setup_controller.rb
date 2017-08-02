@@ -66,7 +66,7 @@ class RedmineTelegramSetupController < ApplicationController
   private
 
   def save_phone_settings(phone_number:)
-    Setting.plugin_redmine_telegram_common['phone_number'] = phone_number
+    Setting.send('plugin_redmine_telegram_common=', Setting.plugin_redmine_telegram_common.merge({'phone_number' => phone_number.to_s}).to_h)
   end
 
   def telegram
