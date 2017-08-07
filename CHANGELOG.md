@@ -1,5 +1,6 @@
 # 0.1.3-dev
 
+* Ignore ssl errors
 * Fix phone display
 * Add Rails 5.1 support
 * Fix mail from

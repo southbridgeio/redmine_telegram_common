@@ -33,7 +33,7 @@ module TelegramCommon
     end
 
     def cli_command
-      cmd = "#{phantomjs} --local-storage-path=\"#{local_storage}\" #{config_path} \"#{api_url}\""
+      cmd = "#{phantomjs} --local-storage-path=\"#{local_storage}\" --ignore-ssl-errors=yes #{config_path} \"#{api_url}\""
       debug(cmd)
       cmd
     end
