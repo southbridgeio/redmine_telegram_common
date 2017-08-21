@@ -30,7 +30,7 @@ module TelegramCommon
     private
 
     def initialize_command(command)
-      command.is_a?(Telegram::Bot::Types::Message) ? command : Telegram::Bot::Types::Message.new(command)
+      command.is_a?(::Telegram::Bot::Types::Message) ? command : ::Telegram::Bot::Types::Message.new(command)
     end
 
     def execute_command
