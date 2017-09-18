@@ -130,7 +130,7 @@ You should update your phantomjs to version 2.1+
 
 #### I receiving error 'Error 400 PHONE_CODE_EXPIRED false 2' immediately after login
 
-In this case wait 5-10 minutes and try login again 
+In this case wait 5-10 minutes and try login again
 
 # Author of the Plugin
 
