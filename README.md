@@ -132,6 +132,21 @@ You should update your phantomjs to version 2.1+
 
 In this case wait 5-10 minutes and try login again
 
+#### Exposing webogram pages is insecure?
+
+No. Webogram is running on client machine. Our plugin work with webogram via headless browser — phantomjs. But if you want
+you may close webogram by nginx rule.
+
+```
+server {
+  ...
+  location /plugin_assets/redmine_chat_telegram/webogram {    
+    allow   127.0.0.1;  
+    deny    all;
+  }
+}
+``` 
+
 # Author of the Plugin
 
 The plugin is designed by [Southbridge](https://southbridge.io)
