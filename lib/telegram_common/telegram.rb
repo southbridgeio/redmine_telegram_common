@@ -8,6 +8,7 @@ module TelegramCommon
       @logger      = logger || TELEGRAM_CLI_LOG
       @config_path = config_path || PHANTOMJS_CONFIG
 
+      debug("whoami: #{`whoami`}")
       debug(command)
       debug(args)
 
