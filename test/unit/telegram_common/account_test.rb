@@ -35,4 +35,14 @@ class TelegramCommon::AccountTest < ActiveSupport::TestCase
     @telegram_account.save
     assert !@telegram_account.blocked?
   end
+
+  def test_old_trials
+    @telegram_account.last_try_at = DateTime.now - 2.hour
+    @telegram_account.save
+    assert @telegram_account.old_trial?
+
+    @telegram_account.last_try_at = DateTime.now
+    @telegram_account.save
+    assert !@telegram_account.old_trial?
+  end
 end

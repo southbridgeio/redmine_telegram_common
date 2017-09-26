@@ -1,5 +1,6 @@
 # 0.1.3-dev
 
+* Add last_try_at field to reset 2fa trials
 * Ignore ssl errors
 * Fix phone display
 * Add Rails 5.1 support

@@ -23,6 +23,11 @@ class TelegramCommon::Account < ActiveRecord::Base
     update(active: false) if active?
   end
 
+  def old_trial?
+    return false if last_try_at.blank?
+    last_try_at < DateTime.now - 1.hour
+  end
+
   def blocked?
     blocked_at.present? && blocked_at > DateTime.now - 1.hour
   end

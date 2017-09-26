@@ -8,6 +8,11 @@ module TelegramCommon
         email = message_text.scan(EMAIL_REGEXP)&.flatten&.first
         redmine_user = ::EmailAddress.find_by(address: email)&.user
 
+        if email.blank?
+          send_message(I18n.t('telegram_common.bot.start.instruction_html'))
+          return
+        end
+
         logger.debug 'TelegramCommon::Bot#connect'
         logger.debug "message_text: #{message_text}"
         logger.debug "email: #{email}"
@@ -39,14 +44,20 @@ module TelegramCommon
       end
 
       def increment_connect_trials
+        reset_trials if account.old_trial?
         account.connect_trials_count += 1
+        account.last_try_at = DateTime.now
         account.save
       end
 
       def block_account
         account.blocked_at = DateTime.now
-        account.connect_trials_count = 0
+        reset_trials
         account.save
+      end
+
+      def reset_trials
+        account.connect_trials_count = 0
       end
     end
   end
