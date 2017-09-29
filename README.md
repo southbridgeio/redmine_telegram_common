@@ -33,6 +33,40 @@ bundle exec rake redmine:plugins:migrate RAILS_ENV=production
 Since version 0.1.0 this plugin use modified [Webogram](https://github.com/zhukov/webogram) instead Telegram CLI dependency. 
 Please, take a look on new requirements and configuration.
 
+## Webogram setup
+
+Webogram files should be served by Nginx, not on Rails server directly. 
+
+### Nginx
+
+Typical setup config
+
+```
+server {
+  ...
+  
+  # Setup redmine public page
+  root /var/www/redmine/public;
+  
+  # closing webogram from external queries
+  location /plugin_assets/redmine_chat_telegram/webogram {    
+    allow   127.0.0.1;  
+    deny    all;
+  }
+}
+``` 
+
+## Telegram client settings
+
+To make telegram client working you should follow steps:
+
+* Be sure you set correct host in Redmine settings
+* Go to the plugin settings page
+* Press "Authorize Telegram client" button and follow instructions
+
+Note: in production environment the plugin require serve static files via nginx or other similar solution (not same rails server), 
+in development environment the plugin require running webogram from app/webogram directory (gulp watch).  
+
 ## Plugin development
 
 * Install Node.js
@@ -48,17 +82,6 @@ If you modify webogram, then you should:
 * Run `gulp publish`
 * Add new files to repo
 * Commit & push
-
-## Telegram client settings
-
-To make telegram client working you should follow steps:
-
-* Be sure you set correct host in Redmine settings
-* Go to the plugin settings page
-* Press "Authorize Telegram client" button and follow instructions
-
-Note: in production environment the plugin require serve static files via nginx or other similar solution (not same rails server), 
-in development environment the plugin require running webogram from app/webogram directory (gulp watch).  
 
 ## TelegramCommon::Account model
 
@@ -131,21 +154,6 @@ You should update your phantomjs to version 2.1+
 #### I receiving error 'Error 400 PHONE_CODE_EXPIRED false 2' immediately after login
 
 In this case wait 5-10 minutes and try login again
-
-#### Exposing webogram pages is insecure?
-
-No. Webogram is running on client machine. Our plugin work with webogram via headless browser — phantomjs. But if you want
-you may close webogram by nginx rule.
-
-```
-server {
-  ...
-  location /plugin_assets/redmine_chat_telegram/webogram {    
-    allow   127.0.0.1;  
-    deny    all;
-  }
-}
-``` 
 
 # Author of the Plugin
 
