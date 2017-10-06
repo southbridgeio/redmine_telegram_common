@@ -1,12 +1,13 @@
 # 0.1.3-dev
 
+* Fixed bug with bot /connect command
 * Add other AuthSources (like LDAP) support for 2fa
 * Add last_try_at field to reset 2fa trials
-* Ignore ssl errors
+* Ignore ssl errors for webogram
 * Fix phone display
 * Add Rails 5.1 support
 * Fix mail from
-* Add reset method
+* Add reset webogram cache method
 
 # 0.1.2
 
