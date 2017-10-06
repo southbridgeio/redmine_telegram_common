@@ -30,7 +30,7 @@ module TelegramCommon
     private
 
     def initialize_command(command)
-      command.is_a?(Telegram::Bot::Types::Message) ? command : Telegram::Bot::Types::Message.new(command)
+      command.is_a?(::Telegram::Bot::Types::Message) ? command : ::Telegram::Bot::Types::Message.new(command)
     end
 
     def execute_command
@@ -107,7 +107,7 @@ module TelegramCommon
     end
 
     def fetch_account
-      Account.where(telegram_id: user.id).first_or_initialize
+      Account.where(telegram_id: user.id).first_or_create
     end
 
     def default_logger

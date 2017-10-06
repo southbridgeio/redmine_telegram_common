@@ -1,5 +1,14 @@
 en:
   telegram_common:
+    requirements:
+      title: Requirements
+      valid: Valid
+      description: Description
+      no: No
+      yes: Yes
+      webogram: "Make sure webogram URL (current: %{webogram_url}) accessable from your redmine server"
+      rails_env: "Make sure your RAILS_ENV is production (current: %{rails_env})"
+      phantomjs_version: "Upgrade your PhantomJS version to %{required} (current: %{current})"
     redmine_telegram_connections:
       create:
         success: Accounts successfully connected
@@ -19,6 +28,7 @@ en:
       plugin_link: "Back to the plugin settings"
       auth_step_1: "Receiving Telegram code"
       auth_step_2: "Authorization"
+      reset: "Reset cache and authorization"
     client:
       authorize:
         success: "Client is authorized"

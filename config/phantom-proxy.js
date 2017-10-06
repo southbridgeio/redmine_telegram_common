@@ -50,14 +50,18 @@ var url = args[1];
 
 console.log(url);
 
-page.open(url, function() {
-  waitFor(
-    function () {
-      return page.evaluate(function () {
-        return $('#api-status').hasClass('ready');
-      });
-    },
-    function () {
-      exit()
-    }, 10000);
+page.open(url, function(status) {
+  if (status == 'success') {
+    waitFor(
+      function () {
+          return page.evaluate(function () {
+              return $('#api-status').hasClass('ready');
+          });
+      },
+      function () {
+          exit()
+      }, 10000);
+  } else {
+      console.log("Can't open webogram page");
+  }
 });

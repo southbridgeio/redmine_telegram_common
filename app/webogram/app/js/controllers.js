@@ -16,6 +16,7 @@ angular.module('myApp.controllers', ['myApp.i18n'])
       $scope.promiseStatus = false;
 
       var args = {};
+      var loginOptions = {dcID: 2, createNetworker: true}
 
       if (typeof $routeParams.args !== 'undefined') {
         args = JSON.parse($routeParams.args)
@@ -30,7 +31,7 @@ angular.module('myApp.controllers', ['myApp.i18n'])
           phone_code: args.phone_code
         };
 
-        MtpApiManager.invokeApi('auth.signIn', params, {}).then(function (result) {
+        MtpApiManager.invokeApi('auth.signIn', params, loginOptions).then(function (result) {
           MtpApiManager.setUserAuth(2, {
             id: result.user.id
           });
@@ -48,7 +49,7 @@ angular.module('myApp.controllers', ['myApp.i18n'])
           api_id: Config.App.id,
           api_hash: Config.App.hash,
           lang_code: 'en'
-        }, {}).then(function (sentCode) {
+        }, loginOptions).then(function (sentCode) {
           $scope.successApi(JSON.stringify(sentCode));
         }, function (error) {
           $scope.failedApi(JSON.stringify(error));
@@ -278,16 +279,32 @@ angular.module('myApp.controllers', ['myApp.i18n'])
 
       $scope.apiClearChat = function(args) {
         var chatId = args[0];
+        var adminId = args[1];
+        var promises = [];
+        var adminUser;
 
         AppProfileManager.getChatFull(chatId).then(function (result) {
           var users = result.participants.participants;
 
           angular.forEach(users, function (user) {
-            MtpApiManager.invokeApi('messages.deleteChatUser', {
-              chat_id: AppChatsManager.getChatInput(chatId),
-              user_id: AppUsersManager.getUserInput(user.user_id)
-            })
-          }).then(function(result) {
+            if (typeof adminId !== 'undefined' && user.user_id.toString() == adminId) {
+              adminUser = user;
+            } else {
+              promises.push(MtpApiManager.invokeApi('messages.deleteChatUser', {
+                chat_id: AppChatsManager.getChatInput(chatId),
+                user_id: AppUsersManager.getUserInput(user.user_id)
+              }))
+            }
+          });
+
+          $q.all(promises).then(function() {
+            if (typeof adminUser !== 'undefined') {
+              MtpApiManager.invokeApi('messages.deleteChatUser', {
+                chat_id: AppChatsManager.getChatInput(chatId),
+                user_id: AppUsersManager.getUserInput(adminUser.user_id)
+              });
+            }
+
             $scope.successApi(result)
           });
         })

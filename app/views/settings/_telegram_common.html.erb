@@ -4,3 +4,54 @@
 <% end %>
 <em class="info"><%= t 'telegram_common.settings.authorize_hint' %></em>
 <%= link_to telegram_setup_1_path do %><button type="button"><%= t 'telegram_common.settings.authorize_client' %></button><% end %>
+
+<%= link_to telegram_setup_reset_path, method: 'delete' do %><button type="button"><%= t 'telegram_common.settings.reset' %></button><% end %>
+
+<% telegram = TelegramCommon::Telegram.new %>
+
+<br><br>
+
+<h3><%= t 'telegram_common.requirements.title' %></h3>
+
+<table class="list">
+  <thead>
+  <tr>
+    <th></th>
+    <th><%= t 'telegram_common.requirements.valid' %></th>
+    <th><%= t 'telegram_common.requirements.description' %></th>
+  </tr>
+  </thead>
+  <tr>
+    <td>PhantomJS</td>
+    <td>
+      <% if telegram.phantomjs_version_valid? %>
+      <%= t 'telegram_common.requirements.yes' %>
+      <% else %>
+      <%= t 'telegram_common.requirements.no' %>
+      <% end %>
+    </td>
+    <td><%= t 'telegram_common.requirements.phantomjs_version', { required: TelegramCommon::Telegram::VERSION_REQUIRED, current: telegram.phantomjs_version } %></td>
+  </tr>
+  <tr>
+    <td>Webogram</td>
+    <td>
+      <% if telegram.webogram_valid? %>
+      <%= t 'telegram_common.requirements.yes' %>
+      <% else %>
+      <%= t 'telegram_common.requirements.no' %>
+      <% end %>
+    </td>
+    <td><%= t 'telegram_common.requirements.webogram', { webogram_url: telegram.base_api } %></td>
+  </tr>
+  <tr>
+    <td>Rails Env</td>
+    <td>
+      <% if telegram.rails_env_valid? %>
+      <%= t 'telegram_common.requirements.yes' %>
+      <% else %>
+      <%= t 'telegram_common.requirements.no' %>
+      <% end %>
+    </td>
+    <td><%= t 'telegram_common.requirements.rails_env', { rails_env: Rails.env } %></td>
+  </tr>
+</table>

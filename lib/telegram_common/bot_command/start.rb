@@ -4,7 +4,7 @@ module TelegramCommon
       def start
         update_account
 
-        update_auth_source if Redmine::Plugin.installed?('redmine_2fa')
+        update_2fa if Redmine::Plugin.installed?('redmine_2fa')
 
         message = if account.user.present?
                     I18n.t('telegram_common.bot.start.hello')
@@ -28,9 +28,9 @@ module TelegramCommon
         account.save!
       end
 
-      def update_auth_source
-        return unless account.user.present? && account.user.auth_source.nil?
-        account.user.update auth_source_id: ::Redmine2FA::AuthSource::Telegram.first&.id
+      def update_2fa
+        return unless account.user.present? && account.user.two_fa.nil?
+        account.user.update two_fa_id: ::Redmine2FA::AuthSource::Telegram.first&.id
       end
 
       def write_log_about_new_user

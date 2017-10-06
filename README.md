@@ -18,7 +18,7 @@ This plugin includes
 
 * Ruby 2.2+
 * Redmine 3.3+
-* [PhantomJS](http://phantomjs.org)
+* [PhantomJS](http://phantomjs.org) 2.1+
 * Standard install plugin:
 
 ```
@@ -32,6 +32,40 @@ bundle exec rake redmine:plugins:migrate RAILS_ENV=production
  
 Since version 0.1.0 this plugin use modified [Webogram](https://github.com/zhukov/webogram) instead Telegram CLI dependency. 
 Please, take a look on new requirements and configuration.
+
+## Webogram setup
+
+Webogram files should be served by Nginx, not on Rails server directly. 
+
+### Nginx
+
+Typical setup config
+
+```
+server {
+  ...
+  
+  # Setup redmine public page
+  root /var/www/redmine/public;
+  
+  # closing webogram from external queries
+  location /plugin_assets/redmine_chat_telegram/webogram {    
+    allow   127.0.0.1;  
+    deny    all;
+  }
+}
+``` 
+
+## Telegram client settings
+
+To make telegram client working you should follow steps:
+
+* Be sure you set correct host in Redmine settings
+* Go to the plugin settings page
+* Press "Authorize Telegram client" button and follow instructions
+
+Note: in production environment the plugin require serve static files via nginx or other similar solution (not same rails server), 
+in development environment the plugin require running webogram from app/webogram directory (gulp watch).  
 
 ## Plugin development
 
@@ -48,17 +82,6 @@ If you modify webogram, then you should:
 * Run `gulp publish`
 * Add new files to repo
 * Commit & push
-
-## Telegram client settings
-
-To make telegram client working you should follow steps:
-
-* Be sure you set correct host in Redmine settings
-* Go to the plugin settings page
-* Press "Authorize Telegram client" button and follow instructions
-
-Note: in production environment the plugin require serve static files via nginx or other similar solution (not same rails server), 
-in development environment the plugin require running webogram from app/webogram directory (gulp watch).  
 
 ## TelegramCommon::Account model
 
@@ -121,6 +144,16 @@ Required params
 * `user_email` - redmine user email
 * `telegram_id` - `telegram_id` field form `TelegramCommon::Account` record
 * `token_id` - `token` field form `TelegramCommon::Account` record
+
+## FAQ
+
+#### I receiving error 'ReferenceError: Can't find variable: $'
+
+You should update your phantomjs to version 2.1+
+
+#### I receiving error 'Error 400 PHONE_CODE_EXPIRED false 2' immediately after login
+
+In this case wait 5-10 minutes and try login again
 
 # Author of the Plugin
 

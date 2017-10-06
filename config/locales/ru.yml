@@ -1,5 +1,14 @@
 ru:
   telegram_common:
+    requirements:
+      title: Требования
+      valid: ОК
+      description: Описание
+      no: Нет
+      yes: Да
+      webogram: "Убедитесь, что URL webogram (сейчас: %{webogram_url}) доступен с вашего сервера redmine"
+      rails_env: "Убедитесь, что ваш RAILS_ENV — production (сейчас: %{rails_env})"
+      phantomjs_version: "Обновите вашу версию PhantomJS до %{required} (сейчас: %{current})"
     redmine_telegram_connections:
       create:
         success: Аккаунты успешно связаны
@@ -19,6 +28,7 @@ ru:
       plugin_link: "К настройкам плагина"
       auth_step_1: "Получение кода авторизации"
       auth_step_2: "Авторизация"
+      reset: "Сбросить кеш и авторизацию"
     client:
       authorize:
         success: Клиент авторизован
