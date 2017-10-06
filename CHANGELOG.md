@@ -1,4 +1,4 @@
-# 0.1.3-dev
+# 0.1.3
 
 * Fixed bug with bot /connect command
 * Add other AuthSources (like LDAP) support for 2fa
