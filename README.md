@@ -1,4 +1,5 @@
 [![Build Status](https://travis-ci.org/centosadmin/redmine_telegram_common.svg?branch=master)](https://travis-ci.org/centosadmin/redmine_telegram_common)
+[![Rate at redmine.org](http://img.shields.io/badge/rate%20at-redmine.org-blue.svg?style=flat)](http://www.redmine.org/plugins/redmine_telegram_common)
 
 # redmine_telegram_common
 
@@ -29,13 +30,13 @@ bundle exec rake redmine:plugins:migrate RAILS_ENV=production
 ```
 
 ### Upgrade to 0.1.0
- 
-Since version 0.1.0 this plugin use modified [Webogram](https://github.com/zhukov/webogram) instead Telegram CLI dependency. 
+
+Since version 0.1.0 this plugin use modified [Webogram](https://github.com/zhukov/webogram) instead Telegram CLI dependency.
 Please, take a look on new requirements and configuration.
 
 ## Webogram setup
 
-Webogram files should be served by Nginx, not on Rails server directly. 
+Webogram files should be served by Nginx, not on Rails server directly.
 
 ### Nginx
 
@@ -44,17 +45,17 @@ Typical setup config
 ```
 server {
   ...
-  
+
   # Setup redmine public page
   root /var/www/redmine/public;
-  
+
   # closing webogram from external queries
   location /plugin_assets/redmine_chat_telegram/webogram {    
     allow   127.0.0.1;  
     deny    all;
   }
 }
-``` 
+```
 
 ## Telegram client settings
 
@@ -64,7 +65,7 @@ To make telegram client working you should follow steps:
 * Go to the plugin settings page
 * Press "Authorize Telegram client" button and follow instructions
 
-Note: in production environment the plugin require serve static files via nginx or other similar solution (not same rails server), 
+Note: in production environment the plugin require serve static files via nginx or other similar solution (not same rails server),
 in development environment the plugin require running webogram from app/webogram directory (gulp watch).  
 
 ## Plugin development
@@ -78,7 +79,7 @@ in development environment the plugin require running webogram from app/webogram
 If you modify webogram, then you should:
 
 * Go to app/webogram
-* Remove assets/webogram if folder exists 
+* Remove assets/webogram if folder exists
 * Run `gulp publish`
 * Add new files to repo
 * Commit & push
@@ -158,4 +159,3 @@ In this case wait 5-10 minutes and try login again
 # Author of the Plugin
 
 The plugin is designed by [Southbridge](https://southbridge.io)
-
