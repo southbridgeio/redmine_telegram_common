@@ -50,7 +50,7 @@ server {
   root /var/www/redmine/public;
 
   # closing webogram from external queries
-  location /plugin_assets/redmine_chat_telegram/webogram {    
+  location /plugin_assets/redmine_telegram_common/webogram {    
     allow   127.0.0.1;  
     deny    all;
   }
