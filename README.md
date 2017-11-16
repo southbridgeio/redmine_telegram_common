@@ -149,7 +149,8 @@ Required params
 
 #### I receiving error 'ReferenceError: Can't find variable: $'
 
-You should update your phantomjs to version 2.1+
+It can be in two cases: your phantomjs version is lower than 2.1+ or webogram is not accessible for
+phantomjs. Be sure that all parameters on redmine telegram chat settings page is valid.   
 
 #### I receiving error 'Error 400 PHONE_CODE_EXPIRED false 2' immediately after login
 
