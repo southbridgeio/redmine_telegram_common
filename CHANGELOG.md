@@ -1,3 +1,7 @@
+# 0.1.4-dev
+
+* Fix problem with telegram DC like AUTH_KEY_EMPTY
+
 # 0.1.3
 
 * Fixed bug with bot /connect command
