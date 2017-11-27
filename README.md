@@ -154,7 +154,7 @@ phantomjs. Be sure that all parameters on redmine telegram chat settings page is
 
 #### I receiving error 'Error 400 PHONE_CODE_EXPIRED false 2' immediately after login
 
-In this case wait 5-10 minutes and try login again
+Problem is in wrong telegram DC. Try to clear plugin cache and run again. 
 
 # Author of the Plugin
 

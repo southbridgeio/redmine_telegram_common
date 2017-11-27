@@ -16,7 +16,7 @@ angular.module('myApp.controllers', ['myApp.i18n'])
       $scope.promiseStatus = false;
 
       var args = {};
-      var loginOptions = {dcID: 2, createNetworker: true}
+      var loginParams = {dcID: 2, createNetworker: true};
 
       if (typeof $routeParams.args !== 'undefined') {
         args = JSON.parse($routeParams.args)
@@ -31,14 +31,14 @@ angular.module('myApp.controllers', ['myApp.i18n'])
           phone_code: args.phone_code
         };
 
-        MtpApiManager.invokeApi('auth.signIn', params, loginOptions).then(function (result) {
-          MtpApiManager.setUserAuth(2, {
+        MtpApiManager.invokeApi('auth.signIn', params).then(function (result) {
+          MtpApiManager.setUserAuth(false, {
             id: result.user.id
           });
           $scope.successApi(true);
         }, function (error) {
           $scope.failedApi(JSON.stringify(error));
-        })
+        });
       };
 
       // sendCode
@@ -49,10 +49,10 @@ angular.module('myApp.controllers', ['myApp.i18n'])
           api_id: Config.App.id,
           api_hash: Config.App.hash,
           lang_code: 'en'
-        }, loginOptions).then(function (sentCode) {
+        }, loginParams).then(function (sentCode) {
           $scope.successApi(JSON.stringify(sentCode));
         }, function (error) {
-          $scope.failedApi(JSON.stringify(error));
+          $scope.failedApi(JSON.stringify(error))
         })
       };
 
