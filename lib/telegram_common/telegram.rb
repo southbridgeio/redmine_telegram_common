@@ -25,6 +25,10 @@ module TelegramCommon
       FileUtils.rm_rf(Dir.glob("#{local_storage}/*"))
     end
 
+    def redmine_host_valid?
+      Setting.host_name.split(':').first != 'localhost'
+    end
+
     def rails_env_valid?
       Rails.env.production?
     end
