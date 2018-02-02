@@ -18,7 +18,9 @@ module TelegramCommon
         raise TelegramCommon::Exceptions::Telegram, JSON.parse(response[1])['description']
       end
 
-      response[1]
+      response[1].tap do |r|
+        raise 'Error occurred while performing request. Please see logs.' if r.nil?
+      end
     end
 
     def reset
