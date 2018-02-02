@@ -9,7 +9,7 @@ en:
       webogram: "Make sure webogram URL (current: %{webogram_url}) accessable from your redmine server"
       rails_env: "Make sure your RAILS_ENV is production (current: %{rails_env})"
       phantomjs_version: "Upgrade your PhantomJS version to %{required} (current: %{current})"
-      redmine_host: "Make sure that you have correct host name in Redmine settings (сейчас: %{host})"
+      redmine_host: "Make sure that you have correct host name in Redmine settings (current: %{host})"
     redmine_telegram_connections:
       create:
         success: Accounts successfully connected
