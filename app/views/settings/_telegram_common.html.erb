@@ -22,6 +22,17 @@
   </tr>
   </thead>
   <tr>
+    <td>Redmine Host</td>
+    <td>
+      <% if telegram.redmine_host_valid? %>
+      <%= t 'telegram_common.requirements.yes' %>
+      <% else %>
+      <%= t 'telegram_common.requirements.no' %>
+      <% end %>
+    </td>
+    <td><%= t 'telegram_common.requirements.redmine_host', { host: Setting.host_name } %></td>
+  </tr>
+  <tr>
     <td>PhantomJS</td>
     <td>
       <% if telegram.phantomjs_version_valid? %>
