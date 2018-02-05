@@ -107,7 +107,7 @@ module TelegramCommon
     end
 
     def fetch_account
-      Account.where(telegram_id: user.id).first_or_create
+      TelegramCommon::Account.where(telegram_id: user.id).first_or_create
     end
 
     def default_logger
