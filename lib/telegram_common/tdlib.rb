@@ -1,2 +1,2 @@
-module Tdlib
+module TelegramCommon::Tdlib
 end
