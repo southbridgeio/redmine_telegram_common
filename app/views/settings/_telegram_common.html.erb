@@ -7,8 +7,6 @@
 
 <%= link_to telegram_setup_reset_path, method: 'delete' do %><button type="button"><%= t 'telegram_common.settings.reset' %></button><% end %>
 
-<% telegram = TelegramCommon::Telegram.new %>
-
 <br><br>
 
 <h3><%= t 'telegram_common.requirements.title' %></h3>
@@ -24,7 +22,7 @@
   <tr>
     <td>Redmine Host</td>
     <td>
-      <% if telegram.redmine_host_valid? %>
+      <% if TelegramCommon.redmine_host_valid? %>
       <%= t 'telegram_common.requirements.yes' %>
       <% else %>
       <%= t 'telegram_common.requirements.no' %>
@@ -33,31 +31,9 @@
     <td><%= t 'telegram_common.requirements.redmine_host', { host: Setting.host_name } %></td>
   </tr>
   <tr>
-    <td>PhantomJS</td>
-    <td>
-      <% if telegram.phantomjs_version_valid? %>
-      <%= t 'telegram_common.requirements.yes' %>
-      <% else %>
-      <%= t 'telegram_common.requirements.no' %>
-      <% end %>
-    </td>
-    <td><%= t 'telegram_common.requirements.phantomjs_version', { required: TelegramCommon::Telegram::VERSION_REQUIRED, current: telegram.phantomjs_version } %></td>
-  </tr>
-  <tr>
-    <td>Webogram</td>
-    <td>
-      <% if telegram.webogram_valid? %>
-      <%= t 'telegram_common.requirements.yes' %>
-      <% else %>
-      <%= t 'telegram_common.requirements.no' %>
-      <% end %>
-    </td>
-    <td><%= t 'telegram_common.requirements.webogram', { webogram_url: telegram.base_api } %></td>
-  </tr>
-  <tr>
     <td>Rails Env</td>
     <td>
-      <% if telegram.rails_env_valid? %>
+      <% if TelegramCommon.rails_env_valid? %>
       <%= t 'telegram_common.requirements.yes' %>
       <% else %>
       <%= t 'telegram_common.requirements.no' %>
@@ -66,3 +42,15 @@
     <td><%= t 'telegram_common.requirements.rails_env', { rails_env: Rails.env } %></td>
   </tr>
 </table>
+
+<p>
+  <label for="settings_telegram_bot_token">Api ID</label>
+  <%= text_field_tag 'settings[api_id]', @settings['api_id'], size: 50 %>
+</p>
+
+<p>
+  <label for="settings_telegram_bot_token">Api Hash</label>
+  <%= text_field_tag 'settings[api_hash]', @settings['api_hash'], size: 50 %>
+</p>
+
+<%= hidden_field_tag 'settings[phone_number]', @settings['phone_number'] %>
