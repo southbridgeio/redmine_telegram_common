@@ -1,3 +1,8 @@
+
+# 0.2.0
+
+* Switch to TDlib
+
 # 0.1.4-dev
 
 * Fix problem with telegram DC like AUTH_KEY_EMPTY
