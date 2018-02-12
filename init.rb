@@ -17,6 +17,8 @@ reloader.to_prepare do
   end
 end
 
+Rails.application.config.eager_load_paths += Dir.glob("#{Rails.application.config.root}/plugins/redmine_telegram_common/{lib,app/workers}")
+
 Redmine::Plugin.register :redmine_telegram_common do
   name 'Redmine Telegram Common plugin'
   description 'This is a plugin for other Redmine Telegram plugins'
