@@ -1,5 +1,5 @@
 module TelegramCommon::Tdlib
-  class RenameChat
+  class RenameChat < Command
     def call(chat_id, new_title)
       @client.on_ready do |client|
         client.broadcast_and_receive('@type' => 'setChatTitle',
