@@ -77,5 +77,13 @@ module TelegramCommon::Tdlib
         TelegramCommon::Tdlib::ToggleChatAdmin.new(client)
       end
     end
+
+    module AddBot
+      include Client
+
+      def add_bot
+        TelegramCommon::Tdlib::AddBot.new(client)
+      end
+    end
   end
 end
