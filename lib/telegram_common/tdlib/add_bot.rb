@@ -1,4 +1,4 @@
-module Tdlib
+module TelegramCommon::Tdlib
   class AddBot < Command
     def call(bot_id)
       @client.on_ready do |client|
