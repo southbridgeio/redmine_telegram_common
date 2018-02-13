@@ -6,14 +6,13 @@ module TelegramCommon::Tdlib
           client.broadcast_and_receive('@type' => 'getUser', 'user_id' => id)
         end
 
-        chat = client.broadcast_and_receive('@type' => 'createNewSupergroupChat',
-                                    'title' => title)
+        chat = client.broadcast_and_receive('@type' => 'createNewBasicGroupChat',
+                                            'title' => title,
+                                            'user_ids' => user_ids)
 
-        user_ids.each do |id|
-          client.broadcast_and_receive('@type' => 'addChatMember',
-                                       'chat_id' => chat['id'],
-                                       'user_id' => id)
-        end
+        client.broadcast_and_receive('@type' => 'toggleBasicGroupAdministrators',
+                                     'basic_group_id' => chat.dig('type', 'basic_group_id'),
+                                     'everyone_is_administrator' => false)
         chat
       end
     end
