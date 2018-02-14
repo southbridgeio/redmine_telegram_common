@@ -1,4 +1,5 @@
 [![Build Status](https://travis-ci.org/centosadmin/redmine_telegram_common.svg?branch=master)](https://travis-ci.org/centosadmin/redmine_telegram_common)
+[![Rate at redmine.org](http://img.shields.io/badge/rate%20at-redmine.org-blue.svg?style=flat)](http://www.redmine.org/plugins/redmine_telegram_common)
 
 # redmine_telegram_common
 
@@ -53,7 +54,6 @@ To make telegram client working you should follow steps:
 * Be sure you set correct host in Redmine settings
 * Go to the plugin settings page
 * Press "Authorize Telegram client" button and follow instructions
-
 ## TelegramCommon::Account model
 
 Table name: `telegram_common_accounts`
@@ -119,4 +119,3 @@ Required params
 # Author of the Plugin
 
 The plugin is designed by [Southbridge](https://southbridge.io)
-
