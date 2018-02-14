@@ -1,4 +1,5 @@
 [![Build Status](https://travis-ci.org/centosadmin/redmine_telegram_common.svg?branch=master)](https://travis-ci.org/centosadmin/redmine_telegram_common)
+[![Rate at redmine.org](http://img.shields.io/badge/rate%20at-redmine.org-blue.svg?style=flat)](http://www.redmine.org/plugins/redmine_telegram_common)
 
 # redmine_telegram_common
 
@@ -119,4 +120,3 @@ Required params
 # Author of the Plugin
 
 The plugin is designed by [Southbridge](https://southbridge.io)
-
