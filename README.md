@@ -54,6 +54,7 @@ To make telegram client working you should follow steps:
 * Be sure you set correct host in Redmine settings
 * Go to the plugin settings page
 * Press "Authorize Telegram client" button and follow instructions
+
 ## TelegramCommon::Account model
 
 Table name: `telegram_common_accounts`
