@@ -9,17 +9,35 @@ This is a common plugin for:
 * [redmine_chat_telegram](https://github.com/centosadmin/redmine_chat_telegram)
 
 This plugin includes
-* PhantomJS script to make requests to modified Webogram (app/webogram), which makes requests to Telegram API
+
 * `TelegramCommon::Account` model
 * `TelegramCommon::Mailer`
 * `TelegramCommon::Bot`
+* `TelegramCommon::Tdlib`
 * `telegram_connect_url` helper
 
 # Installation
 
 * Ruby 2.2+
 * Redmine 3.3+
-* [PhantomJS](http://phantomjs.org) 2.1+
+* *Compiled [TDLib](https://github.com/tdlib/td)*:
+
+  You should place it in `redmine_root/vendor` or add it to [ldconfig](https://www.systutorials.com/docs/linux/man/8-ldconfig/).
+
+  For CentOS you can use our repositories:
+
+  http://rpms.southbridge.ru/rhel7/stable/x86_64/
+
+  http://rpms.southbridge.ru/rhel6/stable/x86_64/
+
+  And also SRPMS:
+
+  http://rpms.southbridge.ru/rhel7/stable/SRPMS/
+
+  http://rpms.southbridge.ru/rhel6/stable/SRPMS/
+
+* Obtain your api_id and api_hash from [this page](https://my.telegram.org/apps). Then you should set it on the plugin settings page.
+
 * Standard install plugin:
 
 ```
@@ -29,34 +47,6 @@ bundle install
 bundle exec rake redmine:plugins:migrate RAILS_ENV=production
 ```
 
-### Upgrade to 0.1.0
-
-Since version 0.1.0 this plugin use modified [Webogram](https://github.com/zhukov/webogram) instead Telegram CLI dependency.
-Please, take a look on new requirements and configuration.
-
-## Webogram setup
-
-Webogram files should be served by Nginx, not on Rails server directly.
-
-### Nginx
-
-Typical setup config
-
-```
-server {
-  ...
-
-  # Setup redmine public page
-  root /var/www/redmine/public;
-
-  # closing webogram from external queries
-  location /plugin_assets/redmine_telegram_common/webogram {    
-    allow   127.0.0.1;  
-    deny    all;
-  }
-}
-```
-
 ## Telegram client settings
 
 To make telegram client working you should follow steps:
@@ -64,25 +54,6 @@ To make telegram client working you should follow steps:
 * Be sure you set correct host in Redmine settings
 * Go to the plugin settings page
 * Press "Authorize Telegram client" button and follow instructions
-
-Note: in production environment the plugin require serve static files via nginx or other similar solution (not same rails server),
-in development environment the plugin require running webogram from app/webogram directory (gulp watch).  
-
-## Plugin development
-
-* Install Node.js
-* Run `npm install -g gulp`
-* Go to app/webogram
-* Run `npm install`
-* Run `gulp watch` and check page http://localhost:8000/app/index.html is opening
-
-If you modify webogram, then you should:
-
-* Go to app/webogram
-* Remove assets/webogram if folder exists
-* Run `gulp publish`
-* Add new files to repo
-* Commit & push
 
 ## TelegramCommon::Account model
 
@@ -145,16 +116,6 @@ Required params
 * `user_email` - redmine user email
 * `telegram_id` - `telegram_id` field form `TelegramCommon::Account` record
 * `token_id` - `token` field form `TelegramCommon::Account` record
-
-## FAQ
-
-#### I receiving error 'ReferenceError: Can't find variable: $'
-
-You should update your phantomjs to version 2.1+
-
-#### I receiving error 'Error 400 PHONE_CODE_EXPIRED false 2' immediately after login
-
-In this case wait 5-10 minutes and try login again
 
 # Author of the Plugin
 

@@ -7,8 +7,6 @@
 
 <%= link_to telegram_setup_reset_path, method: 'delete' do %><button type="button"><%= t 'telegram_common.settings.reset' %></button><% end %>
 
-<% telegram = TelegramCommon::Telegram.new %>
-
 <br><br>
 
 <h3><%= t 'telegram_common.requirements.title' %></h3>
@@ -22,36 +20,30 @@
   </tr>
   </thead>
   <tr>
-    <td>PhantomJS</td>
+    <td>TDlib</td>
     <td>
-      <% if telegram.phantomjs_version_valid? %>
+      <% if TD::Api::Dl.find_lib %>
       <%= t 'telegram_common.requirements.yes' %>
       <% else %>
       <%= t 'telegram_common.requirements.no' %>
       <% end %>
     </td>
-    <td><%= t 'telegram_common.requirements.phantomjs_version', { required: TelegramCommon::Telegram::VERSION_REQUIRED, current: telegram.phantomjs_version } %></td>
-  </tr>
-  <tr>
-    <td>Webogram</td>
-    <td>
-      <% if telegram.webogram_valid? %>
-      <%= t 'telegram_common.requirements.yes' %>
-      <% else %>
-      <%= t 'telegram_common.requirements.no' %>
-      <% end %>
-    </td>
-    <td><%= t 'telegram_common.requirements.webogram', { webogram_url: telegram.base_api } %></td>
-  </tr>
-  <tr>
-    <td>Rails Env</td>
-    <td>
-      <% if telegram.rails_env_valid? %>
-      <%= t 'telegram_common.requirements.yes' %>
-      <% else %>
-      <%= t 'telegram_common.requirements.no' %>
-      <% end %>
-    </td>
-    <td><%= t 'telegram_common.requirements.rails_env', { rails_env: Rails.env } %></td>
+    <td><%= TD::Api::Dl.find_lib %></td>
   </tr>
 </table>
+
+<p>
+  <label for="settings_telegram_bot_token">Api ID</label>
+  <%= text_field_tag 'settings[api_id]', @settings['api_id'], size: 50 %>
+</p>
+
+<p>
+  <label for="settings_telegram_bot_token">Api Hash</label>
+  <%= text_field_tag 'settings[api_hash]', @settings['api_hash'], size: 50 %>
+</p>
+
+<p>
+  <a target="_blank" href ="https://my.telegram.org/apps">API ID and API Hash can be obtained here</a>
+</p>
+
+<%= hidden_field_tag 'settings[phone_number]', @settings['phone_number'] %>
