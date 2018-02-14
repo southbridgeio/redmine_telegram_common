@@ -20,26 +20,15 @@
   </tr>
   </thead>
   <tr>
-    <td>Redmine Host</td>
+    <td>TDlib</td>
     <td>
-      <% if TelegramCommon.redmine_host_valid? %>
+      <% if TD::Api::Dl.find_lib %>
       <%= t 'telegram_common.requirements.yes' %>
       <% else %>
       <%= t 'telegram_common.requirements.no' %>
       <% end %>
     </td>
-    <td><%= t 'telegram_common.requirements.redmine_host', { host: Setting.host_name } %></td>
-  </tr>
-  <tr>
-    <td>Rails Env</td>
-    <td>
-      <% if TelegramCommon.rails_env_valid? %>
-      <%= t 'telegram_common.requirements.yes' %>
-      <% else %>
-      <%= t 'telegram_common.requirements.no' %>
-      <% end %>
-    </td>
-    <td><%= t 'telegram_common.requirements.rails_env', { rails_env: Rails.env } %></td>
+    <td><%= TD::Api::Dl.find_lib %></td>
   </tr>
 </table>
 
