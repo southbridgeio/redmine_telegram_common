@@ -3,7 +3,7 @@ module TelegramCommon::Tdlib
     module Client
       def client
         settings = Setting.plugin_redmine_telegram_common
-        TD::Api.set_log_verbosity_level(1)
+        TD::Api.set_log_file_path(Rails.root.join('log', 'telegram_common', 'tdlib.log').to_s)
         config = {
           api_id: settings['api_id'],
           api_hash: settings['api_hash'],
