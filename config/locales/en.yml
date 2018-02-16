@@ -30,7 +30,7 @@ en:
       auth_step_1: "Receiving Telegram code"
       auth_step_2: "Authorization"
       reset: "Reset cache and authorization"
-      bot_collision: "You need separate bot for each plugin."
+      bot_collision: "Bot token collision detected in the following plugins:"
     client:
       authorize:
         success: "Client is authorized"
