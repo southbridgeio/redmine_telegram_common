@@ -11,7 +11,11 @@ module TelegramCommon::Tdlib
     module Callable
       def call(*)
         begin
+          tries ||= 3
           super
+        rescue Timeout::Error
+          sleep 2
+          retry unless (tries -= 1).zero?
         ensure
           @client.close
         end
