@@ -67,4 +67,23 @@ namespace :telegram_common do
       LOG.error "GLOBAL #{e.class}: #{e.message}\n#{e.backtrace.join("\n")}"
     end
   end
+
+  task migrate_to_single_bot: :environment do
+    settings_chat = Setting.find_by_name(:plugin_redmine_chat_telegram)
+    settings_intouch = Setting.find_by_name(:plugin_redmine_intouch)
+    settings_2fa = Setting.find_by_name(:plugin_redmine_2fa)
+
+    setting_name = [settings_chat, settings_intouch, settings_2fa].first(&:present?).try(:name)
+    return if setting_name.blank?
+
+    p "Using bot from #{setting_name}"
+
+    old_settings = Setting.public_send(setting_name)
+    bot_token = old_settings[setting_name == 'plugin_redmine_intouch' ? 'telegram_bot_token' : 'bot_token']
+    
+    settings = Setting.find_by(name: 'plugin_redmine_telegram_common')
+
+    settings.value = settings.value.merge('bot_token' => bot_token)
+    settings.save
+  end
 end
