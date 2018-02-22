@@ -58,9 +58,9 @@
     <h3>WebHooks</h3>
 
     <% if Setting['protocol'] == 'https' %>
-      <%= link_to telegram_common_bot_init_path, method: 'post' do %><button type="button"><%= t 'telegram_common.settings.bot_init' %></button><% end %>
+      <%= link_to telegram_bot_init_path, method: 'post' do %><button type="button"><%= t 'telegram_common.settings.bot_init' %></button><% end %>
 
-      <%= link_to telegram_common_bot_deinit_path, method: 'delete' do %><button type="button"><%= t 'telegram_common.settings.bot_deinit' %></button><% end %>
+      <%= link_to telegram_bot_deinit_path, method: 'delete' do %><button type="button"><%= t 'telegram_common.settings.bot_deinit' %></button><% end %>
     <% else %>
     <strong><%= t 'telegram_common.settings.web_hooks_warning' %></strong>
     <% end %>
