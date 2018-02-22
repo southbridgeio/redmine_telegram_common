@@ -33,12 +33,17 @@
 </table>
 
 <p>
-  <label for="settings_telegram_bot_token">Api ID</label>
+  <label for="settings_telegram_bot_token">Bot Token</label>
+  <%= text_field_tag 'settings[bot_token]', @settings['bot_token'], size: 50 %>
+</p>
+
+<p>
+  <label for="settings_telegram_api_id">Api ID</label>
   <%= text_field_tag 'settings[api_id]', @settings['api_id'], size: 50 %>
 </p>
 
 <p>
-  <label for="settings_telegram_bot_token">Api Hash</label>
+  <label for="settings_telegram_api_hash">Api Hash</label>
   <%= text_field_tag 'settings[api_hash]', @settings['api_hash'], size: 50 %>
 </p>
 
@@ -46,4 +51,29 @@
   <a target="_blank" href ="https://my.telegram.org/apps">API ID and API Hash can be obtained here</a>
 </p>
 
+<hr>
+
+<div style="display: flex; align-items: center;">
+  <div style="flex: 1; padding: 0.5em;">
+    <h3>WebHooks</h3>
+
+    <% if Setting['protocol'] == 'https' %>
+      <%= link_to telegram_common_bot_init_path, method: 'post' do %><button type="button"><%= t 'telegram_common.settings.bot_init' %></button><% end %>
+
+      <%= link_to telegram_common_bot_deinit_path, method: 'delete' do %><button type="button"><%= t 'telegram_common.settings.bot_deinit' %></button><% end %>
+    <% else %>
+    <strong><%= t 'telegram_common.settings.web_hooks_warning' %></strong>
+    <% end %>
+  </div>
+
+  <div style="flex: 1; padding: 0.5em;">
+    <h3>getUpdates</h3>
+
+    <pre><%= t 'telegram_common.settings.get_updates_hint' %></pre>
+  </div>
+</div>
+
+<%= hidden_field_tag 'settings[bot_name]', @settings['bot_name'] %>
+<%= hidden_field_tag 'settings[bot_id]',   @settings['bot_id']   %>
+<%= hidden_field_tag 'settings[robot_id]', @settings['robot_id'] %>
 <%= hidden_field_tag 'settings[phone_number]', @settings['phone_number'] %>

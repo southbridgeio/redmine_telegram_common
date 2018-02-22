@@ -31,6 +31,10 @@ ru:
       auth_step_2: "Авторизация"
       reset: "Сбросить кеш и авторизацию"
       bot_collision: "Обнаружены дублирующиеся токены ботов у следующих плагинов:"
+      bot_init: Инициализировать бота
+      bot_deinit: Деинициализировать бота
+      get_updates_hint: bundle exec rake telegram_common:bot
+      web_hooks_warning: Нужен https протокол, чтобы настроить WebHooks
     client:
       authorize:
         success: Клиент авторизован
