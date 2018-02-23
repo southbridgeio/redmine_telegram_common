@@ -12,7 +12,7 @@ class TelegramHandlerWorker
 
   def perform(params)
     update = Telegram::Bot::Types::Update.new(params)
-    message = TYPES.reduce { |m, t| m || update.public_send(t) }
+    message = TYPES.reduce(nil) { |m, t| m || update.public_send(t) }
 
     if message.present?
       TelegramCommon.update_manager.handle_message(message)
