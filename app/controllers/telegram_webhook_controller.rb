@@ -1,6 +1,8 @@
-class TelegramWebhookController < ApplicationController
+class TelegramWebhookController < ActionController::Metal
   def update
     TelegramHandlerWorker.perform_async(params)
-    head :ok
+    
+    self.status = 200
+    self.response_body = ''
   end
 end
