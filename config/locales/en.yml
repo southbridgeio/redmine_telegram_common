@@ -31,6 +31,10 @@ en:
       auth_step_2: "Authorization"
       reset: "Reset cache and authorization"
       bot_collision: "Bot token collision detected in the following plugins:"
+      bot_init: Initialize bot
+      bot_deinit: Deinitialize bot
+      get_updates_hint: bundle exec rake telegram_common:bot
+      web_hooks_warning: Need https to setup WebHooks
     client:
       authorize:
         success: "Client is authorized"
