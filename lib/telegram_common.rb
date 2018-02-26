@@ -10,6 +10,10 @@ module TelegramCommon
     I18n.locale = Setting['default_language']
   end
 
+  def self.bot_token
+    Setting.plugin_redmine_telegram_common['bot_token']
+  end
+
   def self.bot_collisions
     tokens = {}
     if defined?(Intouch)
