@@ -10,6 +10,7 @@ en:
       rails_env: "Make sure your RAILS_ENV is production (current: %{rails_env})"
       phantomjs_version: "Upgrade your PhantomJS version to %{required} (current: %{current})"
       redmine_host: "Make sure that you have correct host name in Redmine settings (current: %{host})"
+      tdlib_installation: "You should place libtdjson in redmine_root/vendor or add it to ldconfig. <a href='https://core.telegram.org/tdlib/docs/#building' target='_blank'>Build instructions</a>."
     redmine_telegram_connections:
       create:
         success: Accounts successfully connected

@@ -22,13 +22,13 @@
   <tr>
     <td>TDlib</td>
     <td>
-      <% if TD::Api::Dl.find_lib %>
+      <% if tdlib_path = (TD::Api::Dl.find_lib rescue nil) %>
       <%= t 'telegram_common.requirements.yes' %>
       <% else %>
       <%= t 'telegram_common.requirements.no' %>
       <% end %>
     </td>
-    <td><%= TD::Api::Dl.find_lib %></td>
+    <td><%= tdlib_path || t('telegram_common.requirements.tdlib_installation').html_safe %></td>
   </tr>
 </table>
 
