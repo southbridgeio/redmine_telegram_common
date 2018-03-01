@@ -1,3 +1,9 @@
+# 0.3.0
+
+* Update telegram-bot-ruby
+* Add models and controllers to eager load paths
+* Use single bot for all plugins
+* Add tdlib installation tip
 
 # 0.2.0
 
