@@ -7,4 +7,10 @@ scope 'telegram' do
     post 'authorize' => 'redmine_telegram_setup#authorize', as: :telegram_setup_authorize
     delete 'reset' => 'redmine_telegram_setup#reset', as: :telegram_setup_reset
   end
+
+  scope :api do
+    post 'web_hook', to: TelegramWebhookController.action(:update), as: 'telegram_common_webhook'
+    post 'bot_init' => 'redmine_telegram_setup#bot_init', as: 'telegram_common_bot_init'
+    delete 'bot_deinit' => 'redmine_telegram_setup#bot_deinit', as: 'telegram_common_bot_deinit'
+  end
 end

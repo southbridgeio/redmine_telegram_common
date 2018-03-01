@@ -17,18 +17,24 @@ reloader.to_prepare do
   end
 end
 
-Rails.application.config.eager_load_paths += Dir.glob("#{Rails.application.config.root}/plugins/redmine_telegram_common/{lib,app/workers}")
+Rails.application.config.eager_load_paths += Dir.glob("#{Rails.application.config.root}/plugins/redmine_telegram_common/{lib,app/workers,app/models,app/controllers}")
 
 Redmine::Plugin.register :redmine_telegram_common do
   name 'Redmine Telegram Common plugin'
   description 'This is a plugin for other Redmine Telegram plugins'
-  version '0.2.0'
+  version '0.3.0'
   url 'https://github.com/centosadmin/redmine_telegram_common'
   author 'Southbridge'
   author_url 'https://github.com/centosadmin'
 
   settings(default: {
-      'phone_number' => ''
+      'phone_number' => '',
+      'api_id' => '',
+      'api_hash' => '',
+      'bot_token' => '',
+      'bot_name' => '',
+      'bot_id' => '',
+      'robot_id' => ''
     },
     partial: 'settings/telegram_common')
 end

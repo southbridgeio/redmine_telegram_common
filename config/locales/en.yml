@@ -10,6 +10,7 @@ en:
       rails_env: "Make sure your RAILS_ENV is production (current: %{rails_env})"
       phantomjs_version: "Upgrade your PhantomJS version to %{required} (current: %{current})"
       redmine_host: "Make sure that you have correct host name in Redmine settings (current: %{host})"
+      tdlib_installation: "You should place libtdjson in redmine_root/vendor or add it to ldconfig. <a href='https://core.telegram.org/tdlib/docs/#building' target='_blank'>Build instructions</a>."
     redmine_telegram_connections:
       create:
         success: Accounts successfully connected
@@ -31,6 +32,10 @@ en:
       auth_step_2: "Authorization"
       reset: "Reset cache and authorization"
       bot_collision: "Bot token collision detected in the following plugins:"
+      bot_init: Initialize bot
+      bot_deinit: Deinitialize bot
+      get_updates_hint: bundle exec rake telegram_common:bot
+      web_hooks_warning: Need https to setup WebHooks
     client:
       authorize:
         success: "Client is authorized"
