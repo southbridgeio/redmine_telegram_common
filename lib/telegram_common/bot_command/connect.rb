@@ -5,27 +5,16 @@ module TelegramCommon
 
       def connect
         message_text = command.text.downcase
-        email = message_text.scan(EMAIL_REGEXP)&.flatten&.first
-        redmine_user = ::EmailAddress.find_by(address: email)&.user
-
-        if email.blank?
-          send_message(I18n.t('telegram_common.bot.start.instruction_html'))
-          return
-        end
+        redmine_user = account&.user
 
         logger.debug 'TelegramCommon::Bot#connect'
         logger.debug "message_text: #{message_text}"
-        logger.debug "email: #{email}"
         logger.debug "redmine_user: #{redmine_user.inspect}"
 
-        return user_not_found if redmine_user.nil?
-
-        if account.user_id == redmine_user.id
+        if redmine_user.present?
           message = I18n.t('telegram_common.bot.connect.already_connected')
         else
-          message = I18n.t('telegram_common.bot.connect.wait_for_email', email: email)
-
-          TelegramCommon::Mailer.telegram_connect(redmine_user, account, plugin_name).deliver
+          message = I18n.t('telegram_common.bot.connect.login_link', link: "#{Setting.protocol}://#{Setting.host_name}/telegram/login")
         end
 
         send_message(message)
