@@ -4,7 +4,7 @@ class TelegramLoginController < AccountController
 
   def check_auth
     user = User.find_by_id(session[:otp_user_id]) || (User.current if User.current.logged?)
-    deny_access && return unless user
+    (deny_access && return) unless user
 
     if TelegramCommon::Bot::Authenticate.(user, login_params)
       if session[:otp_user_id]
