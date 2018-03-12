@@ -17,12 +17,23 @@ module TelegramCommon
 
       telegram_account = TelegramCommon::Account.find_or_initialize_by(user_id: @user.id)
 
-      if telegram_account.telegram_id
-        unless @auth_data['id'].to_i == telegram_account.telegram_id
-          return failure(I18n.t('telegram_common.bot.login.errors.wrong_account'))
+      if telegram_account.present?
+        if telegram_account.telegram_id
+          unless @auth_data['id'].to_i == telegram_account.telegram_id
+            return failure(I18n.t('telegram_common.bot.login.errors.wrong_account'))
+          end
+        else
+          telegram_account.telegram_id = @auth_data['id']
         end
       else
-        telegram_account.telegram_id = @auth_data['id']
+        telegram_account = TelegramCommon::Account.find_or_initialize_by(telegram_id: @auth_data['id'])
+        if telegram_account.user_id
+          unless telegram_account.user_id == @user.id
+            return failure(I18n.t('telegram_common.bot.login.errors.wrong_account'))
+          end
+        else
+          telegram_account.user_id = @user.id
+        end
       end
 
       telegram_account.assign_attributes(@auth_data.slice(%w[first_name last_name username]))
