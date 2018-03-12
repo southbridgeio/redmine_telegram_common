@@ -3,18 +3,19 @@ class TelegramLoginController < AccountController
   end
 
   def check_auth
-    user = User.find_by_id(session[:otp_user_id]) || (User.current if User.current.logged?)
-    (deny_access && return) unless user
+    user = User.find_by_id(session[:otp_user_id]) || User.current
 
-    if TelegramCommon::Bot::Authenticate.(user, login_params)
+    auth = TelegramCommon::Bot::Authenticate.(user, login_params)
+
+    if auth.success?
       if session[:otp_user_id]
         user.update_column(:two_fa_id, AuthSource.find_by_name('Telegram').id)
         successful_authentication(user)
       else
-        redirect_to my_page_path, notice: t('telegram_common.bot.login_success')
+        redirect_to my_page_path, notice: t('telegram_common.bot.login.success')
       end
     else
-      render_403
+      render_403, message: result.value
     end
   end
 

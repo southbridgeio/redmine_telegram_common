@@ -11,12 +11,14 @@ module TelegramCommon
     end
 
     def call
-      return false unless @user.logged? && hash_valid? && up_to_date?
+      return failure(I18n.t('telegram_common.bot.login.errors.not_logged')) unless @user.logged?
+      return failure(I18n.t('telegram_common.bot.login.errors.hash_invalid')) unless hash_valid?
+      return failure(I18n.t('telegram_common.bot.login.errors.hash_outdated')) unless up_to_date?
 
       telegram_account = TelegramCommon::Account.find_or_initialize_by(telegram_id: @auth_data['id'])
 
       if telegram_account.user_id
-        return false unless @user.id == telegram_account.user_id
+        return failure(I18n.t('telegram_common.bot.login.errors.wrong_account')) unless @user.id == telegram_account.user_id
       else
         telegram_account.user_id = @user.id
       end
@@ -25,7 +27,12 @@ module TelegramCommon
         telegram_id: @auth_data['id'],
         **@auth_data.slice(%w[first_name last_name username])
       )
-      telegram_account.save
+
+      if telegram_account.save
+        success(telegram_account)
+      else
+        failure(I18n.t('telegram_common.bot.login.errors.not_persisted'))
+      end
     end
 
     private
@@ -39,6 +46,26 @@ module TelegramCommon
 
     def up_to_date?
       Time.at(@auth_data['auth_date'].to_i) > Time.now - AUTH_TIMEOUT
+    end
+
+    def success(value)
+      Result.new(true, value)
+    end
+
+    def failure(value)
+      Result.new(false, value)
+    end
+
+    class Result
+      attr_reader :value
+
+      def initialize(success, value)
+        @success, @value = success, value
+      end
+
+      def success?
+        @success
+      end
     end
   end
 end
