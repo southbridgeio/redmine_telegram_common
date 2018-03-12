@@ -15,7 +15,7 @@ class TelegramLoginController < AccountController
         redirect_to my_page_path, notice: t('telegram_common.bot.login.success')
       end
     else
-      render_403, message: result.value
+      render_403(message: result.value)
     end
   end
 
