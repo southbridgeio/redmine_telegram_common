@@ -64,4 +64,11 @@ en:
           start: "Start work with bot"
           connect: "Connect Redmine and Telegram account"
           help: "Help about commands"
-      login_success: Authentication succeed
+      login:
+        success: Authentication succeed
+        errors:
+          not_logged: You're not logged in
+          hash_invalid: Hash is invalid
+          hash_outdated: Request is outdated
+          wrong_account: Wrong Telegram account
+          not_persisted: Failed to persist Telegram account data

@@ -63,4 +63,11 @@ ru:
           start: "Начало работы с ботом"
           connect: "Связывание аккаунтов Redmine и Telegram"
           help: "Справка по командам"
-      login_success: Аутентификация прошла успешно
+      login:
+        success: Аутентификация прошла успешно
+        errors:
+          not_logged: Вы не залогинены в Redmine
+          hash_invalid: Неверный Hash
+          hash_outdated: Истекло время ожидания
+          wrong_account: Неверный аккаунт Telegram
+          not_persisted: Не удалось сохранить данные о Telegram-аккаунте
