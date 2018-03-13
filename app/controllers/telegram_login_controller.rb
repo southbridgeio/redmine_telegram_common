@@ -22,6 +22,6 @@ class TelegramLoginController < AccountController
   private
 
   def login_params
-    params.permit(:id, :first_name, :last_name, :username, :auth_date, :hash)
+    params.permit(:id, :first_name, :last_name, :username, :photo_url, :auth_date, :hash)
   end
 end
