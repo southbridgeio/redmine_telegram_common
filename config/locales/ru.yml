@@ -46,14 +46,14 @@ ru:
     bot:
       start:
         instruction_html: |
-          Чтобы связать аккаунты Redmine и Telegram, пожалуйста, введите команду "/connect login@redmine.com",
-          где login@redmine.com - ваш E-Mail в Redmine.
+          Чтобы связать аккаунты Redmine и Telegram, пожалуйста, введите команду /connect.
         hello: Здравствуйте!
       connect:
         already_connected: Ваши аккаунты уже связаны
         wait_for_email: Мы отправили подтверждение на адрес "%{email}". Пожалуйста, следуйте инструкциям из письма.
         wrong_email: Неверный email-адрес. Пользователь с таким адресом не найден. Осталось %{attempts} попытки, после чего аккаунт будет заблокирован на час.
         blocked: Ваш аккаунт заблокирован. Попробуйте через %{unblock} мин.
+        login_link: "Для привязки аккаунта к Redmine проследуйте по ссылке: %{link}"
       group:
         no_commands: "Нет команд для группового чата. В приватном чате доступны следующие команды:"
         private_command: 'Данная команда обрабатывается в личных сообщениях.'
@@ -63,3 +63,11 @@ ru:
           start: "Начало работы с ботом"
           connect: "Связывание аккаунтов Redmine и Telegram"
           help: "Справка по командам"
+      login:
+        success: Аутентификация прошла успешно
+        errors:
+          not_logged: Вы не залогинены в Redmine
+          hash_invalid: Неверный Hash
+          hash_outdated: Истекло время ожидания
+          wrong_account: Неверный аккаунт Telegram
+          not_persisted: Не удалось сохранить данные о Telegram-аккаунте

@@ -11,7 +11,7 @@ module TelegramCommon
   end
 
   def self.bot_token
-    Setting.plugin_redmine_telegram_common['bot_token']
+    Setting.find_by_name(:plugin_redmine_telegram_common).value['bot_token']
   end
 
   def self.bot_collisions

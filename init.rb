@@ -22,7 +22,7 @@ Rails.application.config.eager_load_paths += Dir.glob("#{Rails.application.confi
 Redmine::Plugin.register :redmine_telegram_common do
   name 'Redmine Telegram Common plugin'
   description 'This is a plugin for other Redmine Telegram plugins'
-  version '0.3.0'
+  version '0.4.0'
   url 'https://github.com/centosadmin/redmine_telegram_common'
   author 'Southbridge'
   author_url 'https://github.com/centosadmin'

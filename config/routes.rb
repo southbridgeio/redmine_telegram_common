@@ -13,4 +13,7 @@ scope 'telegram' do
     post 'bot_init' => 'redmine_telegram_setup#bot_init', as: 'telegram_common_bot_init'
     delete 'bot_deinit' => 'redmine_telegram_setup#bot_deinit', as: 'telegram_common_bot_deinit'
   end
+
+  get 'login' => 'telegram_login#index', as: 'telegram_login'
+  get 'check_auth' => 'telegram_login#check_auth'
 end
