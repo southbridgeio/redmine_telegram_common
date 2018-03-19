@@ -85,5 +85,13 @@ module TelegramCommon::Tdlib
         TelegramCommon::Tdlib::AddBot.new(client)
       end
     end
+
+    module GetUser
+      include Client
+
+      def get_user
+        TelegramCommon::Tdlib::GetUser.new(client)
+      end
+    end
   end
 end
