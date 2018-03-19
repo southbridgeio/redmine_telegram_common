@@ -113,27 +113,17 @@ Available methods:
 * `activate!`  - sets `active` to `true`
 * `deactivate!`  - sets `active` to `false`
 
-## TelegramCommon::Mailer
-
-This mailer has one method `telegram_connect(user, telegram_account)`, where
-* `user` - Redmine user
-* `telegram_account` - `TelegramCommon::Account` instance
-
 ## TelegramCommon::Bot
 
 This is a service object which handle two bot commands:
 * `/start`
-* `/connect account@redmine.com`
+* `/connect`
 
 For connect telegram account to redmine account user needs to add a bot with `/start` command.
 
-After that the bot prompts to enter the command `/connect account@redmine.com`.
+After that the bot prompts to enter the command `/connect`.
 
-After the command, the user will receive an email with a link.
-
-If plugin work in development environment, then content of the message will be duplicated at log/telegram_common/mailer
-
-Following the link will connect the user's accounts and he will be able to receive one-time passwords from the bot.
+After the command, the user will message with link to connection page (uses Telegram Login widget)
 
 ### Example of bot usage
 
@@ -146,14 +136,6 @@ TelegramCommon::Bot.new(bot_token, message, logger).call
 * logger - optional field, `Logger` instance
 
 Real usage example: [BotWebhookController](https://github.com/centosadmin/redmine_2fa/blob/master/app/controllers/otp_bot_webhook_controller.rb)
-
-## `telegram_connect_url` helper
-
-Required params
-* `user_id` - redmine user id
-* `user_email` - redmine user email
-* `telegram_id` - `telegram_id` field form `TelegramCommon::Account` record
-* `token_id` - `token` field form `TelegramCommon::Account` record
 
 # Author of the Plugin
 

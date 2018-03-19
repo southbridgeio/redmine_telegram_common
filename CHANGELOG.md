@@ -1,3 +1,8 @@
+# 0.4.0
+
+* Implement account connection via Telegram Login
+* Fix bot token caching issue
+
 # 0.3.0
 
 * Update telegram-bot-ruby
