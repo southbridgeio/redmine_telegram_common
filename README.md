@@ -68,6 +68,8 @@ You'll have to come up with a new name if registration fails.
 
 Set the Privacy mode to disabled with `/setprivacy`. This will let the bot listen to all group chats and write its logs to Redmine chat archive.
 
+Set bot domain with `/setdomain` for account connection via Telegram Login. Otherwise, you will receive `Bot domain invalid` error on account connection page.
+
 Enter the bot's token on the Plugin Settings page to add the bot to your chat.
 
 To add hints for commands for the bot, use command `/setcommands`. You need to send list of commands with descriptions. You can get this list from command `/help`.
