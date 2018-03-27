@@ -13,7 +13,7 @@ module TelegramCommon::Tdlib
         return if group_info['@type'] == 'error'
 
         group_info['members'].map { |m| m['user_id'] }.each do |user_id|
-          delete_member(chat_id, user_id) unless user_id.in?([me['id'], bot_id)
+          delete_member(chat_id, user_id) unless user_id.in?([me['id'], bot_id])
         end
 
         delete_member(chat_id, me['id'])
