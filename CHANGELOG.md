@@ -1,4 +1,10 @@
-# 0.4.0
+# 0.6.0
+
+* Add accounts refresh cron task
+* Add note about /setdomain to README
+* Fix bug in CloseChat command
+
+# 0.5.0
 
 * Implement account connection via Telegram Login
 * Fix bot token caching issue
