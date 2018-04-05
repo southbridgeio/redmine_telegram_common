@@ -19,10 +19,16 @@ end
 
 Rails.application.config.eager_load_paths += Dir.glob("#{Rails.application.config.root}/plugins/redmine_telegram_common/{lib,app/workers,app/models,app/controllers}")
 
+Sidekiq::Logging.logger = Logger.new(Rails.root.join('log', 'sidekiq.log'))
+
+Sidekiq::Cron::Job.create(name:  'Update telegram accounts info',
+                          cron:  '0 2 * * *',
+                          class: 'TelegramAccountsRefreshWorker')
+
 Redmine::Plugin.register :redmine_telegram_common do
   name 'Redmine Telegram Common plugin'
   description 'This is a plugin for other Redmine Telegram plugins'
-  version '0.5.0'
+  version '0.6.0'
   url 'https://github.com/centosadmin/redmine_telegram_common'
   author 'Southbridge'
   author_url 'https://github.com/centosadmin'
