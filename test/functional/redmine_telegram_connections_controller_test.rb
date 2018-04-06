@@ -4,7 +4,7 @@ class RedmineTelegramConnectionsControllerTest < ActionController::TestCase
   fixtures :users, :email_addresses, :roles
 
   setup do
-    @user = User.find(2)
+    @user = users(:anonymous)
     @telegram_account = TelegramCommon::Account.create(telegram_id: 123)
   end
 
@@ -12,7 +12,7 @@ class RedmineTelegramConnectionsControllerTest < ActionController::TestCase
     setup do
       @old_telegram_account = TelegramCommon::Account.create(telegram_id: 321, user_id: @user.id)
       post :create,
-           user_id: 2, user_email: @user.mail,
+           user_id: @user.id, user_email: @user.mail,
            telegram_id: 123, token: @telegram_account.token
     end
 
