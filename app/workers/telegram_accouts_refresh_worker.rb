@@ -7,7 +7,7 @@ class TelegramAccountsRefreshWorker
   def perform
     TelegramCommon::Account.all.each do |account|
       user_data = get_user.(account.telegram_id)
-      account.update_attributes(user_data.slice(%w[username first_name last_name]))
+      account.update_attributes(user_data.slice(*%w[username first_name last_name]))
     end
   end
 end
