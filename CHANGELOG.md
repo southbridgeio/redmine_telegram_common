@@ -1,3 +1,10 @@
+# 0.7.0
+
+* Fix telegram login logic error, add tests
+* Fix telegram accounts refresh
+* Use tdlib-ruby from rubygems
+* Set 2.3 as minimum supported Ruby version
+
 # 0.6.0
 
 * Add accounts refresh cron task

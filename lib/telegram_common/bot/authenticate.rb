@@ -15,7 +15,7 @@ module TelegramCommon
       return failure(I18n.t('telegram_common.bot.login.errors.hash_invalid')) unless hash_valid?
       return failure(I18n.t('telegram_common.bot.login.errors.hash_outdated')) unless up_to_date?
 
-      telegram_account = TelegramCommon::Account.find_or_initialize_by(user_id: @user.id)
+      telegram_account = TelegramCommon::Account.find_by(user_id: @user.id)
 
       if telegram_account.present?
         if telegram_account.telegram_id
@@ -36,7 +36,7 @@ module TelegramCommon
         end
       end
 
-      telegram_account.assign_attributes(@auth_data.slice(%w[first_name last_name username]))
+      telegram_account.assign_attributes(@auth_data.slice(*%w[first_name last_name username]))
 
       if telegram_account.save
         success(telegram_account)
@@ -48,10 +48,7 @@ module TelegramCommon
     private
 
     def hash_valid?
-      check_string = @auth_data.except('hash').map { |k, v| "#{k}=#{v}" }.join("\n")
-      secret_key = Digest::SHA256.digest(TelegramCommon.bot_token)
-      hash = OpenSSL::HMAC.hexdigest(OpenSSL::Digest.new('sha256'), secret_key, check_string)
-      hash == @auth_data['hash']
+      Utils.auth_hash(@auth_data) == @auth_data['hash']
     end
 
     def up_to_date?

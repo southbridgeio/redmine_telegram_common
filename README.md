@@ -18,7 +18,7 @@ This plugin includes
 
 # Installation
 
-* Ruby 2.2+
+* Ruby 2.3+
 * Redmine 3.3+
 * *Compiled [TDLib](https://github.com/tdlib/td)*:
 
