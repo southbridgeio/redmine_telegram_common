@@ -5,12 +5,13 @@ FileUtils.mkdir_p(log_dir) unless Dir.exist?(log_dir)
 PHANTOMJS_CONFIG = File.expand_path('../config/phantom-proxy.js', __FILE__)
 TELEGRAM_CLI_LOG = Logger.new(Rails.root.join(log_dir, 'telegram-cli.log'))
 
-require 'telegram_common'
 require 'telegram/bot'
 
 # Rails 5.1/Rails 4
 reloader = defined?(ActiveSupport::Reloader) ? ActiveSupport::Reloader : ActionDispatch::Reloader
 reloader.to_prepare do
+  require_dependency 'telegram_common'
+
   paths = '/lib/telegram_common/{patches/*_patch,hooks/*_hook}.rb'
   Dir.glob(File.dirname(__FILE__) + paths).each do |file|
     require_dependency file
