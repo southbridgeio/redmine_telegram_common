@@ -1,7 +1,7 @@
 module TelegramCommon::Tdlib
   class CreateChat < Command
     def call(title, user_ids)
-      @client.on_ready(timeout: 5) do |client|
+      @client.on_ready(timeout: 10) do |client|
         user_ids.each do |id|
           client.broadcast_and_receive('@type' => 'getUser', 'user_id' => id)
         end
