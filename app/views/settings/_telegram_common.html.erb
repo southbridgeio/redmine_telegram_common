@@ -53,6 +53,37 @@
 
 <hr>
 
+<h3>Tdlib proxy (SOCKS5)</h3>
+
+<p>
+  <label>
+    <%= t 'telegram_common.settings.use_proxy' %>
+  </label>
+  <%= check_box_tag 'settings[use_proxy]', '1', @settings['use_proxy'] %>
+</p>
+
+<p>
+  <label for="settings_telegram_proxy">Proxy</label>
+  <%= text_field_tag 'settings[proxy]', @settings['proxy'], size: 50 %>
+</p>
+
+<p>
+  <label for="settings_telegram_proxy_port">Proxy port</label>
+  <%= text_field_tag 'settings[proxy_port]', @settings['proxy_port'], size: 50 %>
+</p>
+
+<p>
+  <label for="settings_telegram_proxy_user">Proxy user</label>
+  <%= text_field_tag 'settings[proxy_user]', @settings['proxy_user'], size: 50 %>
+</p>
+
+<p>
+  <label for="settings_telegram_proxy_password">Proxy password</label>
+  <%= text_field_tag 'settings[proxy_password]', @settings['proxy_password'], size: 50 %>
+</p>
+
+<hr>
+
 <div style="display: flex; align-items: center;">
   <div style="flex: 1; padding: 0.5em;">
     <h3>WebHooks</h3>

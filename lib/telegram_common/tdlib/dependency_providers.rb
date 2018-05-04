@@ -10,7 +10,14 @@ module TelegramCommon::Tdlib
           database_directory: Rails.root.join('tmp', 'redmine_telegram_common', 'tdlib', 'db').to_s,
           files_directory: Rails.root.join('tmp', 'redmine_telegram_common', 'tdlib', 'files').to_s,
         }
-        TD::Client.new(config)
+        proxy = {
+            '@type' => 'proxySocks5',
+            'server' => settings['proxy_server'],
+            'port' => settings['proxy_port'],
+            'username' => settings['proxy_user'],
+            'password' => settings['proxy_password']
+        }
+        TD::Client.new(**(settings['use_proxy'] ? { proxy: proxy } : {}), **config)
       end
     end
 
