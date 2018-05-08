@@ -84,6 +84,37 @@
 
 <hr>
 
+<h3>Bot proxy</h3>
+
+<p>
+  <label>
+    <%= t 'telegram_common.settings.use_proxy' %>
+  </label>
+  <%= check_box_tag 'settings[bot_use_proxy]', '1', @settings['bot_use_proxy'] %>
+</p>
+
+<p>
+  <label for="settings_telegram_proxy_server">Server</label>
+  <%= text_field_tag 'settings[bot_proxy_server]', @settings['bot_proxy_server'], size: 50 %>
+</p>
+
+<p>
+  <label for="settings_telegram_proxy_port">Proxy port</label>
+  <%= text_field_tag 'settings[bot_proxy_port]', @settings['bot_proxy_port'], size: 50 %>
+</p>
+
+<p>
+  <label for="settings_telegram_proxy_user">Proxy user</label>
+  <%= text_field_tag 'settings[bot_proxy_user]', @settings['bot_proxy_user'], size: 50 %>
+</p>
+
+<p>
+  <label for="settings_telegram_proxy_password">Proxy password</label>
+  <%= text_field_tag 'settings[bot_proxy_password]', @settings['bot_proxy_password'], size: 50 %>
+</p>
+
+<hr>
+
 <div style="display: flex; align-items: center;">
   <div style="flex: 1; padding: 0.5em;">
     <h3>WebHooks</h3>
