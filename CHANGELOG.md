@@ -1,3 +1,9 @@
+# 0.7.2
+
+* Increase timeout in CreateChat command
+* Add proxy support for tdlib
+* Add proxy support for bot
+
 # 0.7.1
 
 * Use tdlib-ruby 0.9.0
