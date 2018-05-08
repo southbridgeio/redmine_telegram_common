@@ -1,3 +1,7 @@
+# 0.7.1
+
+* Use tdlib-ruby 0.9.0
+
 # 0.7.0
 
 * Fix telegram login logic error, add tests
