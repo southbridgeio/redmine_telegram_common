@@ -20,6 +20,7 @@ This plugin includes
 
 * Ruby 2.3+
 * Redmine 3.3+
+* [redmine_sidekiq](https://github.com/centosadmin/redmine_sidekiq)
 * *Compiled [TDLib](https://github.com/tdlib/td)*:
 
   You should place it in `redmine_root/vendor` or add it to [ldconfig](https://www.systutorials.com/docs/linux/man/8-ldconfig/).
