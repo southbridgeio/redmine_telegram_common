@@ -16,7 +16,7 @@ This plugin includes
 * `TelegramCommon::Tdlib`
 * `telegram_connect_url` helper
 
-# Installation
+# Requirements
 
 * Ruby 2.3+
 * Redmine 3.3+
@@ -36,6 +36,8 @@ This plugin includes
   http://rpms.southbridge.ru/rhel7/stable/SRPMS/
 
   http://rpms.southbridge.ru/rhel6/stable/SRPMS/
+
+# Installation
 
 * Obtain your api_id and api_hash from [this page](https://my.telegram.org/apps). Then you should set it on the plugin settings page.
 
