@@ -1,5 +1,4 @@
-[![Build Status](https://travis-ci.org/centosadmin/redmine_telegram_common.svg?branch=master)](https://travis-ci.org/centosadmin/redmine_telegram_common)
-[![Rate at redmine.org](http://img.shields.io/badge/rate%20at-redmine.org-blue.svg?style=flat)](http://www.redmine.org/plugins/redmine_telegram_common)
+# THIS PLUGIN IS DEPRECATED! PLEASE, USE [REDMINE_BOTS](https://github.com/centosadmin/redmine_bots) INSTEAD
 
 # redmine_telegram_common
 
