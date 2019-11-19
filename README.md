@@ -1,11 +1,11 @@
-# THIS PLUGIN IS DEPRECATED! PLEASE, USE [REDMINE_BOTS](https://github.com/centosadmin/redmine_bots) INSTEAD
+# THIS PLUGIN IS DEPRECATED! PLEASE, USE [REDMINE_BOTS](https://github.com/southbridgeio/redmine_bots) INSTEAD
 
 # redmine_telegram_common
 
 This is a common plugin for:
-* [redmine_2fa](https://github.com/centosadmin/redmine_2fa)
-* [redmine_intouch](https://github.com/centosadmin/redmine_intouch)
-* [redmine_chat_telegram](https://github.com/centosadmin/redmine_chat_telegram)
+* [redmine_2fa](https://github.com/southbridgeio/redmine_2fa)
+* [redmine_intouch](https://github.com/southbridgeio/redmine_intouch)
+* [redmine_chat_telegram](https://github.com/southbridgeio/redmine_chat_telegram)
 
 This plugin includes
 
@@ -19,7 +19,7 @@ This plugin includes
 
 * Ruby 2.3+
 * Redmine 3.3+
-* [redmine_sidekiq](https://github.com/centosadmin/redmine_sidekiq)
+* [redmine_sidekiq](https://github.com/southbridgeio/redmine_sidekiq)
 * *Compiled [TDLib](https://github.com/tdlib/td)*:
 
   You should place it in `redmine_root/vendor` or add it to [ldconfig](https://www.systutorials.com/docs/linux/man/8-ldconfig/).
@@ -44,7 +44,7 @@ This plugin includes
 
 ```
 cd {REDMINE_ROOT}
-git clone https://github.com/centosadmin/redmine_telegram_common.git plugins/redmine_telegram_common
+git clone https://github.com/southbridgeio/redmine_telegram_common.git plugins/redmine_telegram_common
 bundle install
 bundle exec rake redmine:plugins:migrate RAILS_ENV=production
 ```
